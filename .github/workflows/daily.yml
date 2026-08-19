@@ -1,0 +1,36 @@
+name: daily-quant
+
+# 평일 21:30 UTC(미국 장 마감 후) 실행. 이 시점이면 당일 한국 데이터도 확정.
+# (미 서머타임에 따라 마감시각이 바뀌므로 여유를 둠. 수동 실행도 가능.)
+on:
+  schedule:
+    - cron: "30 21 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write        # latest.json 커밋용
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Run pipeline
+        run: python run.py --markets KR US --outdir docs
+
+      - name: Commit results
+        run: |
+          git config user.name  "quant-bot"
+          git config user.email "quant-bot@users.noreply.github.com"
+          git add docs/latest.json docs/history/*.json
+          git commit -m "data: ${{ github.run_id }} $(date -u +%Y-%m-%d)" || echo "no changes"
+          git push

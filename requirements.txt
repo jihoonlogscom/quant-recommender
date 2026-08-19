@@ -1,0 +1,12 @@
+# Phase 1 (가격/거래량 기반 모멘텀+추세)
+pandas>=2.1
+numpy>=1.26
+FinanceDataReader>=0.9.90
+yfinance>=0.2.40
+requests>=2.31
+
+# Phase 2에서 추가 예정 (검증·백테스트 고도화)
+# alphalens-reloaded    # 팩터 IC/분위수 수익률
+# vectorbt              # 벡터화 백테스트
+# quantstats            # 성과·리스크 티어시트
+# purged-cross-validation  # PBO / deflated Sharpe / CPCV
