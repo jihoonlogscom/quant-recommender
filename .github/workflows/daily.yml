@@ -11,7 +11,7 @@ permissions:
 
 env:
   # SEC EDGAR는 연락처 포함 User-Agent를 요구한다(자기 이메일로 바꾸세요)
-  SEC_UA: "quant-recommender (${{ github.actor }} via GitHub Actions)"
+  SEC_UA: "quant-recommender ${{ github.actor }}@users.noreply.github.com"   # SEC는 연락 이메일 포함 UA 요구
   # 한국 재무(선택): 레포 Settings→Secrets에 DART_API_KEY 등록 시 사용
   DART_API_KEY: ${{ secrets.DART_API_KEY }}
   US_UNIVERSE: "S&P500"        # 확장 시 NASDAQ / NYSE 등

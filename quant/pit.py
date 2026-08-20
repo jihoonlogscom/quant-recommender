@@ -55,34 +55,54 @@ def _sec_session():
     return s
 
 
+def _sec_get(session, url, tries=3):
+    """(response|None, last_status). SEC 일시적 403/429 대비 재시도."""
+    import time
+    last = None
+    for i in range(tries):
+        try:
+            r = session.get(url, timeout=30)
+            if r.status_code == 200:
+                return r, 200
+            last = r.status_code
+        except Exception:
+            last = None
+        time.sleep(0.6 * (i + 1))
+    return None, last
+
+
 def _sec_ticker_cik(session) -> dict:
-    r = session.get("https://www.sec.gov/files/company_tickers.json", timeout=30)
-    r.raise_for_status()
+    r, status = _sec_get(session, "https://www.sec.gov/files/company_tickers.json")
+    if r is None:
+        raise RuntimeError(f"company_tickers.json 응답코드 {status}")
     out = {}
     for row in r.json().values():
         out[str(row["ticker"]).upper()] = int(row["cik_str"])
     return out
 
 
-def _companyfacts(session, cik: int) -> dict | None:
+def _companyfacts(session, cik: int):
+    """(cf|None, status). 성공분만 주 단위 캐시."""
     path = os.path.join(_CACHE, f"cf_{cik:010d}.json")
-    # 주 단위 캐시(재무는 분기 갱신이라 잦은 재요청 불필요)
     if os.path.exists(path) and (time.time() - os.path.getmtime(path) < 7 * 86400):
         try:
-            return json.load(open(path, encoding="utf-8"))
+            return json.load(open(path, encoding="utf-8")), 200
         except Exception:
             pass
+    r, status = _sec_get(session, f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik:010d}.json")
+    if r is None:
+        return None, status
     try:
-        r = session.get(f"https://data.sec.gov/api/xbrl/companyfacts/CIK{cik:010d}.json", timeout=30)
-        if r.status_code != 200:
-            return None
         cf = r.json()
-        os.makedirs(_CACHE, exist_ok=True)
-        json.dump(cf, open(path, "w", encoding="utf-8"))
-        time.sleep(0.12)                                  # SEC 예의상 rate limit
-        return cf
     except Exception:
-        return None
+        return None, status
+    os.makedirs(_CACHE, exist_ok=True)
+    try:
+        json.dump(cf, open(path, "w", encoding="utf-8"))
+    except Exception:
+        pass
+    time.sleep(0.12)                                          # SEC 예의상 rate limit
+    return cf, 200
 
 
 def _facts(cf, names, units, annual=True) -> pd.Series:
@@ -143,19 +163,33 @@ def build_pit_fundamentals_us(tickers: list[str]) -> dict[str, pd.DataFrame]:
     try:
         s = _sec_session()
         cik = _sec_ticker_cik(s)
-    except Exception:
+    except Exception as e:
+        print(f"[US] SEC 접근 실패: {e} — SEC_UA에 연락 이메일 포함 필요(예: 'app you@mail.com'). "
+              f"GitHub Actions IP가 막히면 로컬 실행 권장", flush=True)
         return {}
-    out = {}
+    if not cik:
+        print("[US] SEC 티커→CIK 맵이 비어있음", flush=True)
+        return {}
+    out, n_ok, tried, first_status = {}, 0, 0, None
     for tk in tickers:
-        c = cik.get(str(tk).upper())
+        c = cik.get(str(tk).upper()) or cik.get(str(tk).upper().replace("-", ""))
         if not c:
             continue
-        cf = _companyfacts(s, c)
+        tried += 1
+        cf, status = _companyfacts(s, c)
         if not cf:
+            if first_status is None:
+                first_status = status
             continue
-        df = _fundamentals_from_cf(cf)
+        try:
+            df = _fundamentals_from_cf(cf)
+        except Exception:
+            continue
         if not df.empty and df.notna().any().any():
-            out[tk] = df
+            out[tk] = df; n_ok += 1
+    if n_ok == 0:
+        print(f"[US] SEC companyfacts 0건 (시도 {tried}, 첫 응답코드 {first_status}) — "
+              f"403이면 UA/IP 차단, 200이면 파싱 문제", flush=True)
     return out
 
 
@@ -226,24 +260,27 @@ def build_pit_supply_kr(tickers: list[str]) -> pd.DataFrame:
     과거 시계열이 없어 백테스트엔 넣지 않고 '현재 틸트'로만 사용한다(파이프라인 참조).
     """
     import io, contextlib
-    today = pd.Timestamp.today()
-    def d(days):
-        return (today - pd.Timedelta(days=days)).strftime("%Y%m%d")
-    to = today.strftime("%Y%m%d")
-    windows = {"net5": d(10), "net20": d(32)}                 # 거래일 5·20 근사(달력일)
     want = set(map(str, tickers))
     acc = {"net5": {}, "net20": {}}
     buf = io.StringIO()
+    api_err = None
     try:
         with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
             from pykrx import stock                            # 임포트 시 로그인 안내 출력까지 억제
+            try:
+                to = stock.get_nearest_business_day_in_a_week()   # 가장 최근 거래일(오늘 미확정 회피)
+            except Exception:
+                to = pd.Timestamp.today().strftime("%Y%m%d")
+            to_ts = pd.Timestamp(to)
+            windows = {"net5": (to_ts - pd.Timedelta(days=10)).strftime("%Y%m%d"),
+                       "net20": (to_ts - pd.Timedelta(days=32)).strftime("%Y%m%d")}
             for col, fr in windows.items():
                 for mk in ("KOSPI", "KOSDAQ"):
                     for inv in ("외국인", "기관합계"):
                         try:
                             df = stock.get_market_net_purchases_of_equities(fr, to, mk, inv)
-                        except Exception:
-                            continue
+                        except Exception as e:
+                            api_err = repr(e); continue
                         if df is None or df.empty:
                             continue
                         vcol = next((c for c in df.columns if "순매수거래대금" in c), None)
@@ -253,10 +290,12 @@ def build_pit_supply_kr(tickers: list[str]) -> pd.DataFrame:
                             tk = str(tk)
                             if tk in want:
                                 acc[col][tk] = acc[col].get(tk, 0.0) + float(v)
-    except Exception:
-        return pd.DataFrame(columns=["net5", "net20"])
+    except Exception as e:
+        api_err = repr(e)
 
     idx = sorted(set(acc["net5"]) | set(acc["net20"]))
     if not idx:
+        print(f"[KR] 수급 0 — pykrx 순매수 API 빈 결과{(' · '+api_err) if api_err else ''}. "
+              f"KRX 엔드포인트 변경 가능성(수급은 틸트라 KR은 모멘텀+추세+재무로 계속 동작)", flush=True)
         return pd.DataFrame(columns=["net5", "net20"])
     return pd.DataFrame({"net5": pd.Series(acc["net5"]), "net20": pd.Series(acc["net20"])}).reindex(idx).fillna(0.0)
