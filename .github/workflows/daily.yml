@@ -25,12 +25,12 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run pipeline
-        run: python run.py --markets KR US --outdir docs
+        run: python run.py --markets KR US --outdir docs --limit 400   # 첫 안정화용 상한(0/삭제 시 전종목)
 
       - name: Commit results
         run: |
           git config user.name  "quant-bot"
           git config user.email "quant-bot@users.noreply.github.com"
-          git add docs/latest.json docs/history/*.json
+          git add docs
           git commit -m "data: ${{ github.run_id }} $(date -u +%Y-%m-%d)" || echo "no changes"
           git push
