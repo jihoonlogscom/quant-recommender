@@ -22,7 +22,7 @@
     "hit_d20": 0.541,
     "hit_d60": 0.562,
     "deflated_sharpe": 0.988,
-    "pbo": 0.236
+    "pbo": 0.143
   },
   "factor_ic": {
     "KR": {
@@ -37,9 +37,9 @@
         "n": 0
       },
       "quality": {
-        "ic": null,
-        "t": null,
-        "n": 0
+        "ic": -0.0183,
+        "t": -2.3,
+        "n": 101
       },
       "supply": {
         "ic": null,
@@ -106,7 +106,7 @@
       "factors": {
         "momentum": 1.0,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.197,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -138,7 +138,7 @@
       "factors": {
         "momentum": 0.987,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.423,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -170,7 +170,7 @@
       "factors": {
         "momentum": 0.967,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.618,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -202,7 +202,7 @@
       "factors": {
         "momentum": 0.964,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.685,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -234,7 +234,7 @@
       "factors": {
         "momentum": 0.974,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.554,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -266,7 +266,7 @@
       "factors": {
         "momentum": 0.982,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.921,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -298,7 +298,7 @@
       "factors": {
         "momentum": 0.956,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.279,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -330,7 +330,7 @@
       "factors": {
         "momentum": 0.949,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.874,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -362,7 +362,7 @@
       "factors": {
         "momentum": 0.962,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.177,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -394,7 +394,7 @@
       "factors": {
         "momentum": 0.995,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.713,
         "supply": 0.5,
         "tech": 0.732
       },
@@ -426,7 +426,7 @@
       "factors": {
         "momentum": 0.944,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.087,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -458,7 +458,7 @@
       "factors": {
         "momentum": 0.938,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.841,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -490,7 +490,7 @@
       "factors": {
         "momentum": 0.946,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.754,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -522,7 +522,7 @@
       "factors": {
         "momentum": 0.926,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.128,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -554,7 +554,7 @@
       "factors": {
         "momentum": 0.936,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.521,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -586,7 +586,7 @@
       "factors": {
         "momentum": 0.99,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.797,
         "supply": 0.5,
         "tech": 0.732
       },
@@ -618,7 +618,7 @@
       "factors": {
         "momentum": 0.9,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.192,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -650,7 +650,7 @@
       "factors": {
         "momentum": 0.985,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.99,
         "supply": 0.5,
         "tech": 0.732
       },
@@ -682,7 +682,7 @@
       "factors": {
         "momentum": 0.879,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.574,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -714,7 +714,7 @@
       "factors": {
         "momentum": 0.869,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.218,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -746,7 +746,7 @@
       "factors": {
         "momentum": 0.856,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.133,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -778,7 +778,7 @@
       "factors": {
         "momentum": 0.849,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.544,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -810,7 +810,7 @@
       "factors": {
         "momentum": 0.969,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.259,
         "supply": 0.5,
         "tech": 0.732
       },
@@ -842,7 +842,7 @@
       "factors": {
         "momentum": 0.815,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.774,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -874,7 +874,7 @@
       "factors": {
         "momentum": 0.997,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.959,
         "supply": 0.5,
         "tech": 0.351
       },
@@ -906,7 +906,7 @@
       "factors": {
         "momentum": 0.959,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.451,
         "supply": 0.5,
         "tech": 0.732
       },
@@ -938,7 +938,7 @@
       "factors": {
         "momentum": 0.8,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.41,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -970,7 +970,7 @@
       "factors": {
         "momentum": 0.954,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.985,
         "supply": 0.5,
         "tech": 0.732
       },
@@ -1002,7 +1002,7 @@
       "factors": {
         "momentum": 0.754,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.054,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -1034,7 +1034,7 @@
       "factors": {
         "momentum": 0.746,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.672,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -1066,7 +1066,7 @@
       "factors": {
         "momentum": 0.726,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.682,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -1098,7 +1098,7 @@
       "factors": {
         "momentum": 0.992,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.931,
         "supply": 0.5,
         "tech": 0.351
       },
@@ -1130,7 +1130,7 @@
       "factors": {
         "momentum": 0.951,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.538,
         "supply": 0.5,
         "tech": 0.732
       },
@@ -1162,7 +1162,7 @@
       "factors": {
         "momentum": 0.664,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.7,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -1194,7 +1194,7 @@
       "factors": {
         "momentum": 0.931,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.813,
         "supply": 0.5,
         "tech": 0.732
       },
@@ -1226,7 +1226,7 @@
       "factors": {
         "momentum": 0.933,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.259,
         "supply": 0.5,
         "tech": 0.732
       },
@@ -1258,7 +1258,7 @@
       "factors": {
         "momentum": 0.921,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.833,
         "supply": 0.5,
         "tech": 0.732
       },
@@ -1290,7 +1290,7 @@
       "factors": {
         "momentum": 0.579,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.597,
         "supply": 0.5,
         "tech": 0.956
       },
@@ -1322,7 +1322,7 @@
       "factors": {
         "momentum": 0.915,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.708,
         "supply": 0.5,
         "tech": 0.732
       },
@@ -1354,7 +1354,7 @@
       "factors": {
         "momentum": 0.979,
         "value": 0.5,
-        "quality": 0.5,
+        "quality": 0.915,
         "supply": 0.5,
         "tech": 0.351
       },
