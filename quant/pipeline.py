@@ -1,35 +1,39 @@
 """
-데일리 퀀트 추천 — Phase 2 파이프라인
-(모멘텀·가치·퀄리티·수급·기술 멀티팩터 + IC 가중치 + PBO/DSR 검증)
+데일리 퀀트 추천 — Phase 2.5 파이프라인
 
-정직성 원칙
-- 확률·검증 지표(prob_up, PBO, DSR, IC)는 **가격 기반 엔진**(모멘텀+추세)으로만 산출한다.
-  과거 재무/수급 시계열이 없어 오늘 스냅샷을 과거에 적용하면 look-ahead이므로,
-  재무·수급 팩터는 **현재 랭킹/점수와 표시**에만 반영한다(Phase 2.5에서 PIT 재무로 확장).
-- 확률은 과거 히트레이트로 미래 수익 보장이 아니다. 본 도구는 투자 자문이 아니다.
+Phase 2.5 핵심: Point-in-Time(PIT) 정합으로 재무·수급을 과거 백테스트에 편입.
+- attach_pit로 재무(공시일 ffill)·수급(일별 롤링)을 일별 컬럼으로 부착 → look-ahead 없음.
+- 이제 5개 팩터(모멘텀·가치·퀄리티·수급·기술) 전부가 과거 횡단면에 들어가
+  IC·가중치·확률·검증(PBO/DSR)에 정식 참여한다.
+- 데이터 없는 팩터(예: 미국 수급, 재무 키 미설정)는 자동으로 중립(0)·예산 0 처리.
+
+확률은 과거 히트레이트로 미래 수익 보장이 아니다. 본 도구는 투자 자문이 아니다.
 """
 from __future__ import annotations
-import json, math
+import json, math, os
 from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
 from quant import validate as V
-from quant import fundamentals as F
-from quant import supply as SUP
+from quant import pit as PIT
+from quant import cache as CACHE
 
 CFG = dict(
     horizons=[5, 20, 60],
     min_history=260, liquidity_keep=0.6,
     bt_step=5, bt_lookback=504, n_deciles=10,
     buy_score=72, buy_prob=0.55, sell_score=42, sell_prob=0.50,
-    verify_prob=0.55, gate_pbo=0.5, gate_dsr=0.5,   # 룰셋 검증 관문
+    verify_prob=0.55, gate_pbo=0.5, gate_dsr=0.5,
     atr_entry_lo=0.5, atr_entry_hi=0.3, atr_stop=2.0,
     atr_bear=1.0, atr_base=2.5, atr_bull=5.0,
 )
-DEFAULT_W = dict(momentum=0.30, value=0.20, quality=0.20, supply=0.15, tech=0.15)
-# "균형" 성향: 팩터 그룹별 예산. 가격 예산은 IC 비율로 모멘텀/추세에 분할.
-GROUP_BUDGET = dict(price=0.40, value=0.20, quality=0.20, supply=0.20)
+GROUP_BUDGET = dict(price=0.40, value=0.20, quality=0.20, supply=0.20)  # "균형" 성향
+FACTORS = ["momentum", "value", "quality", "supply", "tech"]
+ZCOL = {"momentum": "mom_z", "value": "value_z", "quality": "quality_z",
+        "supply": "supply_z", "tech": "trend_z"}
+# 유니버스 프리셋: 넓힐수록 무료 데이터 수집 시간↑ (증분 캐시로 완화)
+US_UNIVERSE = os.getenv("US_UNIVERSE", "S&P500")   # "S&P500" | "NASDAQ" | "NYSE" | "AMEX"
 SECTORS = {}
 
 
@@ -43,43 +47,57 @@ def load_universe(market: str) -> list[str]:
                                                "sector": r.get("Sector", "") or r.get("Industry", "")}
         return df["Code"].astype(str).tolist()
     if market == "US":
-        df = fdr.StockListing("S&P500")
+        df = fdr.StockListing(US_UNIVERSE)                    # S&P500 기본, 환경변수로 확장
+        sym = "Symbol" if "Symbol" in df.columns else df.columns[0]
         for _, r in df.iterrows():
-            SECTORS[("US", str(r["Symbol"]))] = {"name": r.get("Name", r["Symbol"]), "sector": r.get("Sector", "")}
-        return df["Symbol"].astype(str).tolist()
+            SECTORS[("US", str(r[sym]))] = {"name": r.get("Name", r[sym]), "sector": r.get("Sector", "") or r.get("Industry", "")}
+        return df[sym].astype(str).tolist()
     raise ValueError(market)
 
 
-def load_prices(market: str, tickers: list[str], start: str) -> dict[str, pd.DataFrame]:
-    panel = {}
+def _fetch_one(market):
+    """cache.update_panel에 넘길 종목 단위 fetch 함수(소스 분리)."""
     if market == "KR":
         import FinanceDataReader as fdr
-        for tk in tickers:
+        def f(tk, start):
             try:
-                d = fdr.DataReader(tk, start)[["Open", "High", "Low", "Close", "Volume"]].dropna()
-                if len(d) >= CFG["min_history"]:
-                    panel[tk] = d
+                return fdr.DataReader(tk, start)[["Open", "High", "Low", "Close", "Volume"]].dropna()
             except Exception:
-                continue
-    else:
-        import yfinance as yf
-        raw = yf.download(tickers, start=start, group_by="ticker", auto_adjust=True, threads=True, progress=False)
+                return None
+        return f
+    import yfinance as yf
+    def f(tk, start):
+        try:
+            d = yf.download(tk, start=start, auto_adjust=True, progress=False)
+            if d is None or d.empty:
+                return None
+            if isinstance(d.columns, pd.MultiIndex):
+                d.columns = d.columns.get_level_values(0)
+            return d[["Open", "High", "Low", "Close", "Volume"]].dropna()
+        except Exception:
+            return None
+    return f
+
+
+def load_prices(market: str, tickers: list[str], start: str, cachedir=".cache/prices") -> dict[str, pd.DataFrame]:
+    """증분 캐시 기반 수집(최초 벌크→이후 증분). 캐시 비활성은 cachedir=None."""
+    if cachedir is None:
+        panel, fetch = {}, _fetch_one(market)
         for tk in tickers:
-            try:
-                d = raw[tk][["Open", "High", "Low", "Close", "Volume"]].dropna()
-                if len(d) >= CFG["min_history"]:
-                    panel[tk] = d
-            except Exception:
-                continue
-    return panel
+            d = fetch(tk, start)
+            if d is not None and len(d) >= CFG["min_history"]:
+                panel[tk] = d
+        return panel
+    return CACHE.update_panel(market, tickers, start, _fetch_one(market),
+                              cachedir=cachedir, min_history=CFG["min_history"])
 
 
-def load_fundamentals(market, tickers):
-    return F.load_fundamentals_kr(tickers) if market == "KR" else F.load_fundamentals_us(tickers)
+def load_pit_fundamentals(market, tickers):
+    return PIT.build_pit_fundamentals_kr(tickers) if market == "KR" else PIT.build_pit_fundamentals_us(tickers)
 
 
-def load_supply(market, tickers):
-    return SUP.load_supply_kr(tickers) if market == "KR" else pd.DataFrame(columns=SUP.SCOLS)
+def load_pit_supply(market, tickers):
+    return PIT.build_pit_supply_kr(tickers) if market == "KR" else {}
 
 
 def load_regime(market: str) -> dict:
@@ -116,49 +134,69 @@ def _z(s):
     return (s - s.mean()) / sd if sd and sd == sd else s * 0.0
 
 
+def _zc(s):                       # z-score 후 결측은 중립(0)
+    return _z(s).fillna(0.0)
+
+
 def _fwd(d, i, h):
     return d["Close"].iloc[i + h] / d["Close"].iloc[i] - 1 if i + h < len(d) else np.nan
 
 
-def _price_cross_section(panel, date):
-    """특정 날짜의 가격 팩터 z + forward return (백테스트/현재 공용, look-ahead 없음)."""
+def _has(f, col):
+    return col in f and pd.to_numeric(f[col], errors="coerce").notna().any()
+
+
+def cross_section(panel, date):
+    """특정 날짜의 5팩터 z + forward return. attach_pit 컬럼이 있으면 가치·퀄리티·수급도 계산."""
     rows, fwd = {}, {}
+    cols = ["ret_12_1", "rs_63", "hi_252", "ma_align", "turnover", "close", "atr14",
+            "per", "pbr", "ev_ebitda", "roe", "op_margin", "debt_ratio", "earn_stability",
+            "net5", "net20", "consec"]
     for tk, d in panel.items():
         if date not in d.index:
             continue
         r = d.loc[date]
         if pd.isna(r.get("ret_12_1")) or pd.isna(r.get("ma_align")):
             continue
-        rows[tk] = dict(ret_12_1=r["ret_12_1"], rs_63=r["rs_63"], hi_252=r["hi_252"],
-                        ma_align=r["ma_align"], turnover=r.get("turnover"),
-                        close=r["Close"], atr14=r.get("atr14"))
+        rows[tk] = {c: r.get(c) for c in cols if c != "close"}
+        rows[tk]["close"] = r["Close"]
         i = d.index.get_loc(date)
         fwd[tk] = {f"fwd{h}": _fwd(d, i, h) for h in CFG["horizons"]}
         fwd[tk]["ret_step"] = _fwd(d, i, CFG["bt_step"])
     if len(rows) < 5:
         return pd.DataFrame()
     f = pd.DataFrame(rows).T.join(pd.DataFrame(fwd).T)
-    f["mom_z"] = (_z(f["ret_12_1"]) + _z(f["rs_63"]) + _z(f["hi_252"])) / 3.0
-    f["trend_z"] = _z(f["ma_align"])
+
+    f["mom_z"] = (_zc(f["ret_12_1"]) + _zc(f["rs_63"]) + _zc(f["hi_252"])) / 3.0
+    f["trend_z"] = _zc(f["ma_align"])
+    # 가치(싼 게 좋음 → 역수), 퀄리티, 수급 — 데이터 있을 때만 유효, 없으면 0
+    inv = lambda col: _zc(1.0 / pd.to_numeric(f[col], errors="coerce").where(pd.to_numeric(f[col], errors="coerce") > 0)) if _has(f, col) else pd.Series(0.0, index=f.index)
+    zz = lambda col, sign=1: sign * _zc(f[col]) if _has(f, col) else pd.Series(0.0, index=f.index)
+    f["value_z"] = (inv("per") + inv("pbr") + inv("ev_ebitda")) / 3.0
+    f["quality_z"] = (zz("roe") + zz("op_margin") + zz("debt_ratio", -1) + zz("earn_stability")) / 4.0
+    f["supply_z"] = (zz("net5") + zz("net20") + zz("consec")) / 3.0
     return f
 
 
-# ============================ 백테스트 (가격 엔진) ============================
+# ============================ 백테스트 (5팩터, PIT) ============================
 def _sampled(panel):
     all_dates = sorted({dt for d in panel.values() for dt in d.index})
     hz = max(CFG["horizons"])
     if len(all_dates) < CFG["min_history"] + hz:
         return []
     window = all_dates[-(CFG["bt_lookback"] + hz):-hz]
-    return [_price_cross_section(panel, dt) for dt in window[::CFG["bt_step"]]]
+    return [cross_section(panel, dt) for dt in window[::CFG["bt_step"]]]
 
 
-def _evaluate(frames, wm, wt):
+def _composite(f, W):
+    return sum(W[k] * f[ZCOL[k]] for k in FACTORS)
+
+
+def _evaluate(frames, W):
     hit = {h: {dc: [0, 0] for dc in range(CFG["n_deciles"])} for h in CFG["horizons"]}
     series = []
     for f in frames:
-        comp = wm * f["mom_z"] + wt * f["trend_z"]
-        dec = (comp.rank(pct=True) * CFG["n_deciles"]).clip(upper=CFG["n_deciles"] - 1e-9).astype(int)
+        dec = (_composite(f, W).rank(pct=True) * CFG["n_deciles"]).clip(upper=CFG["n_deciles"] - 1e-9).astype(int)
         for tk in f.index:
             dc = int(dec[tk])
             for h in CFG["horizons"]:
@@ -174,33 +212,76 @@ def _evaluate(frames, wm, wt):
     return decile, pd.Series(series, dtype=float)
 
 
+def _derive_weights(ic, present):
+    """IC로 5팩터 가중치. 가격 예산은 모멘텀/추세 IC비율로 분할, 재무·수급은 IC>0일 때만 예산."""
+    def pos(f):
+        v = ic.get(f, {}).get("ic")
+        return max(v, 0.0) if v is not None else 0.0
+    im, it = pos("momentum"), pos("tech")
+    pm, pt = (0.6, 0.4) if im + it <= 0 else (im / (im + it), it / (im + it))
+    budget = {"price": GROUP_BUDGET["price"]}
+    for g in ["value", "quality", "supply"]:
+        budget[g] = GROUP_BUDGET[g] if (present.get(g) and pos(g) > 0) else 0.0
+    tot = sum(budget.values()) or 1.0
+    budget = {k: v / tot for k, v in budget.items()}
+    return {"momentum": round(budget["price"] * pm, 4), "tech": round(budget["price"] * pt, 4),
+            "value": round(budget["value"], 4), "quality": round(budget["quality"], 4),
+            "supply": round(budget["supply"], 4)}
+
+
+def _configs(W, present):
+    """PBO용 후보 가중치 격자(가용 팩터 조합)."""
+    cfgs = [W]
+    cfgs.append({"momentum": 0.6, "tech": 0.4, "value": 0, "quality": 0, "supply": 0})      # 가격만
+    eq_f = [g for g in ["value", "quality", "supply"] if present.get(g)]
+    if eq_f:
+        w = {k: 0.0 for k in FACTORS}; each = 0.5 / len(eq_f)
+        w["momentum"], w["tech"] = 0.3, 0.2
+        for g in eq_f:
+            w[g] = each
+        cfgs.append(w)                                                                       # 가격50 재무50
+    cfgs.append({"momentum": 0.35, "tech": 0.15, "value": 0.2, "quality": 0.2, "supply": 0.1})
+    cfgs.append({"momentum": 0.2, "tech": 0.1, "value": 0.25, "quality": 0.25, "supply": 0.2})
+    cfgs.append({"momentum": 0.5, "tech": 0.5, "value": 0, "quality": 0, "supply": 0})
+    # 결측 팩터 제거 후 재정규화
+    out = []
+    for c in cfgs:
+        c = {k: (c.get(k, 0.0) if (k in ["momentum", "tech"] or present.get(k)) else 0.0) for k in FACTORS}
+        s = sum(c.values()) or 1.0
+        out.append({k: v / s for k, v in c.items()})
+    return out
+
+
 def backtest_engine(panel):
     frames = [f for f in _sampled(panel) if not f.empty]
+    empty = dict(decile={}, weights={k: 0 for k in FACTORS}, pbo=None, dsr=None, ic={},
+                 top_hit={f"d{h}": None for h in CFG["horizons"]})
     if len(frames) < 6:
-        return dict(decile={}, weights=(0.6, 0.4), pbo=None, dsr=None, ic={},
-                    top_hit={f"d{h}": None for h in CFG["horizons"]})
+        empty["weights"] = _derive_weights({}, {})
+        return empty
 
-    ic_mom = V.information_coefficient([(f["mom_z"], f["fwd20"]) for f in frames])
-    ic_trd = V.information_coefficient([(f["trend_z"], f["fwd20"]) for f in frames])
-    im, it = max(ic_mom["ic"] or 0, 0), max(ic_trd["ic"] or 0, 0)
-    wm, wt = (0.6, 0.4) if im + it <= 0 else (im / (im + it), it / (im + it))
+    present = {g: any(_has(f, {"value": "per", "quality": "roe", "supply": "net20"}[g]) for f in frames)
+               for g in ["value", "quality", "supply"]}
+    ic = {}
+    for k in FACTORS:
+        ic[k] = V.information_coefficient([(f[ZCOL[k]], f["fwd20"]) for f in frames]) \
+            if (k in ["momentum", "tech"] or present.get(k)) else {"ic": None, "t": None, "n": 0}
 
-    grid = [(0.5, 0.5), (0.6, 0.4), (0.7, 0.3), (0.4, 0.6), (0.8, 0.2), (round(wm, 2), round(wt, 2))]
-    cols, sr_trials = {}, []
-    for (a, b) in grid:
-        _, s = _evaluate(frames, a, b)
-        cols[f"{a}_{b}"] = s.reset_index(drop=True)
+    W = _derive_weights(ic, present)
+    cfgs = _configs(W, present)
+    cols, sr = {}, []
+    for j, c in enumerate(cfgs):
+        _, s = _evaluate(frames, c)
+        cols[f"c{j}"] = s.reset_index(drop=True)
         sd = s.std(ddof=1)
-        sr_trials.append(float(s.mean() / sd) if sd and sd == sd else 0.0)
+        sr.append(float(s.mean() / sd) if sd and sd == sd else 0.0)
     pbo = V.pbo_cscv(pd.DataFrame(cols), n_splits=8)
 
-    decile, chosen = _evaluate(frames, wm, wt)
-    dsr = V.deflated_sharpe_ratio(chosen.dropna(), sr_trials)
+    decile, chosen = _evaluate(frames, W)
+    dsr = V.deflated_sharpe_ratio(chosen.dropna(), sr)
     top = CFG["n_deciles"] - 1
-    return dict(decile=decile, weights=(wm, wt), pbo=pbo,
-                dsr=(round(dsr, 3) if dsr == dsr else None),
-                ic={"momentum": ic_mom, "tech": ic_trd},
-                top_hit={f"d{h}": decile[top].get(f"d{h}") for h in CFG["horizons"]})
+    return dict(decile=decile, weights=W, pbo=pbo, dsr=(round(dsr, 3) if dsr == dsr else None),
+                ic=ic, top_hit={f"d{h}": decile[top].get(f"d{h}") for h in CFG["horizons"]})
 
 
 # ============================ 레짐 · 신호 · 가격 ============================
@@ -234,52 +315,31 @@ def price_levels(close, atr, market, signal):
 
 
 # ============================ 조립 ============================
-def build_market(market, panel, regime, fundamentals=None, supply=None, top_n=40):
+def build_market(market, panel, regime, pit_fund=None, pit_supply=None, top_n=40):
+    PIT.attach_pit(panel, pit_fund, pit_supply)          # 재무·수급을 일별 PIT 컬럼으로 부착
     for tk in list(panel):
         panel[tk] = add_indicators(panel[tk])
 
     bt = backtest_engine(panel)
-    wm, wt = bt["weights"]
+    W = bt["weights"]
     ruleset_ok = (bt["pbo"] is not None and bt["pbo"] <= CFG["gate_pbo"]
                   and bt["dsr"] is not None and bt["dsr"] >= CFG["gate_dsr"])
 
     date = sorted({dt for d in panel.values() for dt in d.index})[-1]
-    f = _price_cross_section(panel, date)
+    f = cross_section(panel, date)
     if f.empty:
-        return [], dict(hit={}, pbo=bt["pbo"], dsr=bt["dsr"], ic=bt["ic"], weights={}), 0
+        return [], dict(hit={}, pbo=bt["pbo"], dsr=bt["dsr"], ic=bt["ic"], weights=W), 0
 
-    vq = F.value_quality_z(fundamentals) if fundamentals is not None else pd.DataFrame()
-    sz = SUP.supply_z(supply) if supply is not None else pd.Series(dtype=float)
-    f["value_z"] = vq["value_z"].reindex(f.index) if "value_z" in vq else np.nan
-    f["quality_z"] = vq["quality_z"].reindex(f.index) if "quality_z" in vq else np.nan
-    f["supply_z"] = sz.reindex(f.index) if len(sz) else np.nan
-    has_val = f["value_z"].notna().any(); has_sup = f["supply_z"].notna().any()
+    f["score"] = (_composite(f, W).rank(pct=True) * 100).round().astype(int)
+    f["pdecile"] = (_composite(f, W).rank(pct=True) * CFG["n_deciles"]).clip(upper=CFG["n_deciles"] - 1e-9).astype(int)
 
-    # 그룹 예산 방식(척도 혼입 방지): 가격/가치/퀄리티/수급에 예산 배분 후,
-    # 가격 예산은 IC 비율로 모멘텀/추세에 분할한다. 데이터 없는 그룹은 예산 0 후 재정규화.
-    budget = {"price": GROUP_BUDGET["price"],
-              "value": GROUP_BUDGET["value"] if has_val else 0.0,
-              "quality": GROUP_BUDGET["quality"] if has_val else 0.0,
-              "supply": GROUP_BUDGET["supply"] if has_sup else 0.0}
-    tb = sum(budget.values()) or 1.0
-    budget = {k: v / tb for k, v in budget.items()}
-    W = {"momentum": round(budget["price"] * wm, 4), "tech": round(budget["price"] * wt, 4),
-         "value": round(budget["value"], 4), "quality": round(budget["quality"], 4),
-         "supply": round(budget["supply"], 4)}
-
-    zc = lambda col: f[col].fillna(0.0)
-    full = (W["momentum"] * zc("mom_z") + W["tech"] * zc("trend_z")
-            + W["value"] * zc("value_z") + W["quality"] * zc("quality_z") + W["supply"] * zc("supply_z"))
-    f["score"] = (full.rank(pct=True) * 100).round().astype(int)
-    pcomp = wm * f["mom_z"] + wt * f["trend_z"]
-    f["pdecile"] = (pcomp.rank(pct=True) * CFG["n_deciles"]).clip(upper=CFG["n_deciles"] - 1e-9).astype(int)
-
-    disp = lambda col: (f[col].rank(pct=True) if f[col].notna().any() else pd.Series(0.5, index=f.index))
-    f["m_disp"], f["t_disp"] = f["mom_z"].rank(pct=True), f["trend_z"].rank(pct=True)
-    f["v_disp"], f["q_disp"], f["s_disp"] = disp("value_z"), disp("quality_z"), disp("supply_z")
+    def disp(col):
+        s = pd.to_numeric(f[col], errors="coerce")
+        return s.rank(pct=True) if s.abs().sum() > 0 else pd.Series(0.5, index=f.index)
+    dsp = {k: disp(ZCOL[k]) for k in FACTORS}
 
     if f["turnover"].notna().any():
-        f = f[f["turnover"] >= f["turnover"].quantile(1 - CFG["liquidity_keep"])]
+        f = f[pd.to_numeric(f["turnover"], errors="coerce") >= pd.to_numeric(f["turnover"], errors="coerce").quantile(1 - CFG["liquidity_keep"])]
 
     regime_off = regime.get("led") == "off"
     recs = []
@@ -294,9 +354,7 @@ def build_market(market, panel, regime, fundamentals=None, supply=None, top_n=40
             "ticker": tk, "name": SECTORS.get((market, tk), {}).get("name", tk),
             "market": market, "sector": SECTORS.get((market, tk), {}).get("sector", ""),
             "score": int(row["score"]),
-            "factors": {"momentum": round(float(row["m_disp"]), 3), "value": round(float(row["v_disp"]), 3),
-                        "quality": round(float(row["q_disp"]), 3), "supply": round(float(row["s_disp"]), 3),
-                        "tech": round(float(row["t_disp"]), 3)},
+            "factors": {k: round(float(dsp[k][tk]), 3) for k in FACTORS},
             "prob_up": {k: round(v, 3) for k, v in prob_up.items()},
             "signal": signal, **px, "verified": bool(verified), "note": "",
         })
@@ -308,9 +366,9 @@ def build_payload(markets_data: dict) -> dict:
     recs, regimes, usize, meta = [], {}, {}, {}
     for mk, v in markets_data.items():
         panel, regime = v[0], v[1]
-        fund = v[2] if len(v) > 2 else None
-        sup = v[3] if len(v) > 3 else None
-        r, stats, n = build_market(mk, panel, regime, fund, sup)
+        pit_fund = v[2] if len(v) > 2 else None
+        pit_supply = v[3] if len(v) > 3 else None
+        r, stats, n = build_market(mk, panel, regime, pit_fund, pit_supply)
         recs += r; regimes[mk.lower()] = regime; usize[mk.lower()] = n; meta[mk] = stats
 
     def avg(key):
@@ -323,7 +381,7 @@ def build_payload(markets_data: dict) -> dict:
 
     return {
         "as_of": datetime.now(timezone.utc).astimezone().strftime("%Y-%m-%d"),
-        "ruleset": "balanced_v2",
+        "ruleset": "balanced_v3",
         "market_regime": regimes, "universe_size": usize,
         "backtest": {"hit_d5": avg("d5"), "hit_d20": avg("d20"), "hit_d60": avg("d60"),
                      "deflated_sharpe": avgm("dsr"), "pbo": avgm("pbo")},
@@ -338,7 +396,7 @@ def run(markets=("KR", "US"), start="2022-01-01", out="latest.json") -> dict:
     for mk in markets:
         tickers = load_universe(mk)
         panel = load_prices(mk, tickers, start)
-        md[mk] = (panel, load_regime(mk), load_fundamentals(mk, tickers), load_supply(mk, tickers))
+        md[mk] = (panel, load_regime(mk), load_pit_fundamentals(mk, tickers), load_pit_supply(mk, tickers))
     payload = build_payload(md)
     with open(out, "w", encoding="utf-8") as fp:
         json.dump(payload, fp, ensure_ascii=False, indent=2)

@@ -1,6 +1,6 @@
 {
   "as_of": "2026-08-19",
-  "ruleset": "balanced_v2",
+  "ruleset": "balanced_v3",
   "market_regime": {
     "kr": {
       "state": "위험선호",
@@ -18,437 +18,467 @@
     "us": 42
   },
   "backtest": {
-    "hit_d5": 0.548,
-    "hit_d20": 0.591,
-    "hit_d60": 0.609,
+    "hit_d5": 0.621,
+    "hit_d20": 0.736,
+    "hit_d60": 0.688,
     "deflated_sharpe": 0.999,
-    "pbo": 0.465
+    "pbo": 0.071
   },
   "factor_ic": {
     "KR": {
       "momentum": {
-        "ic": 0.0486,
-        "t": 5.14,
+        "ic": 0.0924,
+        "t": 9.75,
+        "n": 101
+      },
+      "value": {
+        "ic": -0.0625,
+        "t": -5.06,
+        "n": 101
+      },
+      "quality": {
+        "ic": -0.0032,
+        "t": -0.31,
+        "n": 101
+      },
+      "supply": {
+        "ic": 0.7604,
+        "t": 199.92,
         "n": 101
       },
       "tech": {
-        "ic": 0.0639,
-        "t": 5.8,
+        "ic": 0.097,
+        "t": 9.74,
         "n": 101
       }
     },
     "US": {
       "momentum": {
-        "ic": 0.0839,
-        "t": 6.43,
+        "ic": 0.0698,
+        "t": 5.29,
         "n": 101
       },
+      "value": {
+        "ic": -0.0731,
+        "t": -6.73,
+        "n": 101
+      },
+      "quality": {
+        "ic": -0.0302,
+        "t": -2.75,
+        "n": 101
+      },
+      "supply": {
+        "ic": null,
+        "t": null,
+        "n": 0
+      },
       "tech": {
-        "ic": 0.0931,
-        "t": 7.36,
+        "ic": 0.0643,
+        "t": 5.28,
         "n": 101
       }
     }
   },
   "weights": {
     "KR": {
-      "momentum": 0.1728,
-      "tech": 0.2272,
-      "value": 0.2,
-      "quality": 0.2,
-      "supply": 0.2
+      "momentum": 0.3252,
+      "tech": 0.3414,
+      "value": 0.0,
+      "quality": 0.0,
+      "supply": 0.3333
     },
     "US": {
-      "momentum": 0.237,
-      "tech": 0.263,
-      "value": 0.25,
-      "quality": 0.25,
+      "momentum": 0.5205,
+      "tech": 0.4795,
+      "value": 0.0,
+      "quality": 0.0,
       "supply": 0.0
     }
   },
   "recommendations": [
     {
-      "ticker": "KR034",
-      "name": "KR034",
+      "ticker": "KR019",
+      "name": "KR019",
       "market": "KR",
       "sector": "",
       "score": 100,
       "factors": {
-        "momentum": 1.0,
-        "value": 0.571,
-        "quality": 0.657,
-        "supply": 0.814,
-        "tech": 0.85
+        "momentum": 0.943,
+        "value": 0.043,
+        "quality": 0.143,
+        "supply": 1.0,
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.543,
-        "d20": 0.577,
-        "d60": 0.608
+        "d5": 0.688,
+        "d20": 0.889,
+        "d60": 0.748
       },
       "signal": "buy",
       "entry": {
-        "low": 561,
-        "high": 574
+        "low": 471,
+        "high": 477
       },
       "targets": {
-        "bear": 552,
-        "base": 612,
-        "bull": 654
+        "bear": 467,
+        "base": 494,
+        "bull": 513
       },
-      "stop": 535,
+      "stop": 459,
       "verified": true,
       "note": ""
     },
     {
-      "ticker": "US064",
-      "name": "US064",
+      "ticker": "US068",
+      "name": "US068",
       "market": "US",
-      "sector": "",
-      "score": 100,
-      "factors": {
-        "momentum": 0.986,
-        "value": 1.0,
-        "quality": 0.714,
-        "supply": 0.5,
-        "tech": 0.893
-      },
-      "prob_up": {
-        "d5": 0.554,
-        "d20": 0.604,
-        "d60": 0.611
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 406.86,
-        "high": 414.79
-      },
-      "targets": {
-        "bear": 401.91,
-        "base": 436.59,
-        "bull": 461.36
-      },
-      "stop": 392.0,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "KR033",
-      "name": "KR033",
-      "market": "KR",
       "sector": "",
       "score": 99,
       "factors": {
         "momentum": 0.986,
-        "value": 0.086,
-        "quality": 0.9,
-        "supply": 0.8,
-        "tech": 0.85
+        "value": 0.329,
+        "quality": 0.757,
+        "supply": 0.5,
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.543,
-        "d20": 0.577,
-        "d60": 0.608
+        "d5": 0.553,
+        "d20": 0.584,
+        "d60": 0.627
       },
       "signal": "buy",
       "entry": {
-        "low": 1013,
-        "high": 1030
+        "low": 346.24,
+        "high": 352.03
       },
       "targets": {
-        "bear": 1003,
-        "base": 1075,
-        "bull": 1126
+        "bear": 342.62,
+        "base": 367.96,
+        "bull": 386.06
       },
-      "stop": 983,
+      "stop": 335.38,
       "verified": true,
       "note": ""
     },
     {
-      "ticker": "US043",
-      "name": "US043",
-      "market": "US",
-      "sector": "",
-      "score": 99,
-      "factors": {
-        "momentum": 1.0,
-        "value": 0.771,
-        "quality": 0.429,
-        "supply": 0.5,
-        "tech": 0.893
-      },
-      "prob_up": {
-        "d5": 0.554,
-        "d20": 0.604,
-        "d60": 0.611
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 1135.41,
-        "high": 1160.1
-      },
-      "targets": {
-        "bear": 1119.99,
-        "base": 1227.98,
-        "bull": 1305.13
-      },
-      "stop": 1089.13,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "KR044",
-      "name": "KR044",
+      "ticker": "KR010",
+      "name": "KR010",
       "market": "KR",
       "sector": "",
       "score": 97,
       "factors": {
-        "momentum": 0.786,
-        "value": 0.186,
-        "quality": 0.871,
-        "supply": 0.9,
-        "tech": 0.85
+        "momentum": 1.0,
+        "value": 0.171,
+        "quality": 0.743,
+        "supply": 0.829,
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.508,
-        "d20": 0.528,
-        "d60": 0.562
+        "d5": 0.688,
+        "d20": 0.889,
+        "d60": 0.748
       },
-      "signal": "watch",
+      "signal": "buy",
       "entry": {
-        "low": 329,
-        "high": 333
+        "low": 523,
+        "high": 531
       },
       "targets": {
-        "bear": 327,
-        "base": 345,
-        "bull": 357
+        "bear": 517,
+        "base": 556,
+        "bull": 583
       },
-      "stop": 322,
-      "verified": false,
+      "stop": 506,
+      "verified": true,
       "note": ""
     },
     {
-      "ticker": "US044",
-      "name": "US044",
+      "ticker": "US023",
+      "name": "US023",
       "market": "US",
       "sector": "",
       "score": 97,
       "factors": {
         "momentum": 0.971,
-        "value": 0.186,
-        "quality": 0.871,
+        "value": 0.086,
+        "quality": 0.057,
         "supply": 0.5,
-        "tech": 0.893
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.554,
-        "d20": 0.604,
-        "d60": 0.611
+        "d5": 0.553,
+        "d20": 0.584,
+        "d60": 0.627
       },
       "signal": "buy",
       "entry": {
-        "low": 728.37,
-        "high": 741.39
+        "low": 622.98,
+        "high": 635.99
       },
       "targets": {
-        "bear": 720.23,
-        "base": 777.2,
-        "bull": 817.89
+        "bear": 614.84,
+        "base": 671.77,
+        "bull": 712.44
       },
-      "stop": 703.95,
-      "verified": false,
+      "stop": 598.58,
+      "verified": true,
       "note": ""
     },
     {
-      "ticker": "KR065",
-      "name": "KR065",
+      "ticker": "KR035",
+      "name": "KR035",
       "market": "KR",
-      "sector": "",
-      "score": 96,
-      "factors": {
-        "momentum": 0.843,
-        "value": 0.829,
-        "quality": 0.543,
-        "supply": 0.671,
-        "tech": 0.85
-      },
-      "prob_up": {
-        "d5": 0.508,
-        "d20": 0.528,
-        "d60": 0.562
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 141,
-        "high": 144
-      },
-      "targets": {
-        "bear": 139,
-        "base": 153,
-        "bull": 163
-      },
-      "stop": 135,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "US060",
-      "name": "US060",
-      "market": "US",
       "sector": "",
       "score": 96,
       "factors": {
         "momentum": 0.914,
-        "value": 0.971,
-        "quality": 0.243,
-        "supply": 0.5,
-        "tech": 0.893
+        "value": 0.643,
+        "quality": 0.9,
+        "supply": 0.9,
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.554,
-        "d20": 0.604,
-        "d60": 0.611
+        "d5": 0.688,
+        "d20": 0.889,
+        "d60": 0.748
       },
       "signal": "buy",
       "entry": {
-        "low": 509.08,
-        "high": 515.48
+        "low": 129,
+        "high": 132
       },
       "targets": {
-        "bear": 505.08,
-        "base": 533.07,
-        "bull": 553.05
+        "bear": 127,
+        "base": 141,
+        "bull": 152
       },
-      "stop": 497.09,
-      "verified": false,
+      "stop": 122,
+      "verified": true,
       "note": ""
     },
     {
-      "ticker": "US041",
-      "name": "US041",
+      "ticker": "KR052",
+      "name": "KR052",
+      "market": "KR",
+      "sector": "",
+      "score": 94,
+      "factors": {
+        "momentum": 0.886,
+        "value": 0.114,
+        "quality": 0.886,
+        "supply": 0.871,
+        "tech": 0.879
+      },
+      "prob_up": {
+        "d5": 0.688,
+        "d20": 0.889,
+        "d60": 0.748
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 304,
+        "high": 310
+      },
+      "targets": {
+        "bear": 301,
+        "base": 325,
+        "bull": 342
+      },
+      "stop": 294,
+      "verified": true,
+      "note": ""
+    },
+    {
+      "ticker": "US012",
+      "name": "US012",
       "market": "US",
       "sector": "",
       "score": 94,
       "factors": {
-        "momentum": 0.929,
-        "value": 0.8,
-        "quality": 0.4,
+        "momentum": 0.914,
+        "value": 0.343,
+        "quality": 0.929,
         "supply": 0.5,
-        "tech": 0.893
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.554,
-        "d20": 0.604,
-        "d60": 0.611
+        "d5": 0.553,
+        "d20": 0.584,
+        "d60": 0.627
       },
       "signal": "buy",
       "entry": {
-        "low": 337.16,
-        "high": 344.64
+        "low": 216.78,
+        "high": 222.04
       },
       "targets": {
-        "bear": 332.49,
-        "base": 365.21,
-        "bull": 388.59
+        "bear": 213.49,
+        "base": 236.51,
+        "bull": 252.95
       },
-      "stop": 323.14,
-      "verified": false,
+      "stop": 206.91,
+      "verified": true,
       "note": ""
     },
     {
-      "ticker": "KR062",
-      "name": "KR062",
+      "ticker": "KR024",
+      "name": "KR024",
       "market": "KR",
       "sector": "",
       "score": 93,
       "factors": {
-        "momentum": 0.857,
-        "value": 0.657,
-        "quality": 0.6,
-        "supply": 0.629,
-        "tech": 0.85
+        "momentum": 0.671,
+        "value": 0.243,
+        "quality": 0.129,
+        "supply": 0.886,
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.508,
-        "d20": 0.528,
-        "d60": 0.562
+        "d5": 0.688,
+        "d20": 0.889,
+        "d60": 0.748
       },
-      "signal": "watch",
+      "signal": "buy",
       "entry": {
-        "low": 149,
-        "high": 151
+        "low": 225,
+        "high": 231
       },
       "targets": {
-        "bear": 148,
-        "base": 156,
-        "bull": 161
+        "bear": 221,
+        "base": 246,
+        "bull": 265
       },
-      "stop": 146,
-      "verified": false,
+      "stop": 214,
+      "verified": true,
       "note": ""
     },
     {
-      "ticker": "US016",
-      "name": "US016",
+      "ticker": "US004",
+      "name": "US004",
       "market": "US",
       "sector": "",
       "score": 93,
       "factors": {
-        "momentum": 0.5,
-        "value": 0.9,
-        "quality": 0.857,
+        "momentum": 0.9,
+        "value": 0.214,
+        "quality": 0.543,
         "supply": 0.5,
-        "tech": 0.893
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.567,
-        "d20": 0.586,
-        "d60": 0.594
+        "d5": 0.553,
+        "d20": 0.584,
+        "d60": 0.627
       },
       "signal": "buy",
       "entry": {
-        "low": 117.1,
-        "high": 118.81
+        "low": 309.54,
+        "high": 316.18
       },
       "targets": {
-        "bear": 116.03,
-        "base": 123.5,
-        "bull": 128.83
+        "bear": 305.39,
+        "base": 334.44,
+        "bull": 355.19
       },
-      "stop": 113.9,
-      "verified": false,
+      "stop": 297.09,
+      "verified": true,
       "note": ""
     },
     {
-      "ticker": "KR029",
-      "name": "KR029",
+      "ticker": "KR005",
+      "name": "KR005",
       "market": "KR",
       "sector": "",
       "score": 91,
       "factors": {
-        "momentum": 0.829,
-        "value": 0.986,
-        "quality": 0.614,
-        "supply": 0.5,
-        "tech": 0.493
+        "momentum": 0.843,
+        "value": 0.286,
+        "quality": 0.843,
+        "supply": 0.686,
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.528,
-        "d20": 0.535,
-        "d60": 0.528
+        "d5": 0.688,
+        "d20": 0.889,
+        "d60": 0.748
       },
-      "signal": "watch",
+      "signal": "buy",
       "entry": {
-        "low": 154,
-        "high": 157
+        "low": 200,
+        "high": 203
       },
       "targets": {
-        "bear": 152,
-        "base": 166,
-        "bull": 175
+        "bear": 198,
+        "base": 211,
+        "bull": 220
       },
-      "stop": 148,
-      "verified": false,
+      "stop": 194,
+      "verified": true,
+      "note": ""
+    },
+    {
+      "ticker": "KR054",
+      "name": "KR054",
+      "market": "KR",
+      "sector": "",
+      "score": 90,
+      "factors": {
+        "momentum": 0.786,
+        "value": 0.6,
+        "quality": 0.057,
+        "supply": 0.729,
+        "tech": 0.879
+      },
+      "prob_up": {
+        "d5": 0.688,
+        "d20": 0.889,
+        "d60": 0.748
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 119,
+        "high": 121
+      },
+      "targets": {
+        "bear": 117,
+        "base": 127,
+        "bull": 134
+      },
+      "stop": 114,
+      "verified": true,
+      "note": ""
+    },
+    {
+      "ticker": "US048",
+      "name": "US048",
+      "market": "US",
+      "sector": "",
+      "score": 90,
+      "factors": {
+        "momentum": 0.843,
+        "value": 0.671,
+        "quality": 0.1,
+        "supply": 0.5,
+        "tech": 0.879
+      },
+      "prob_up": {
+        "d5": 0.553,
+        "d20": 0.584,
+        "d60": 0.627
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 154.74,
+        "high": 156.6
+      },
+      "targets": {
+        "bear": 153.57,
+        "base": 161.72,
+        "bull": 167.55
+      },
+      "stop": 151.24,
+      "verified": true,
       "note": ""
     }
   ]

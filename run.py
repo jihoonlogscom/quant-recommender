@@ -17,6 +17,7 @@ def main():
     ap.add_argument("--markets", nargs="+", default=["KR", "US"])
     ap.add_argument("--start", default="2022-01-01")
     ap.add_argument("--outdir", default="docs")
+    ap.add_argument("--cachedir", default=".cache/prices", help="일봉 증분 캐시 위치")
     ap.add_argument("--limit", type=int, default=0,
                     help="시장별 스캔 종목 상한(0=전체). 첫 실행/Actions 시간 관리용.")
     args = ap.parse_args()
@@ -28,11 +29,11 @@ def main():
         tickers = P.load_universe(mk)
         if args.limit:
             tickers = tickers[:args.limit]
-        print(f"[{mk}] {len(tickers)}종목 가격 수집…", flush=True)
-        panel = P.load_prices(mk, tickers, args.start)
+        print(f"[{mk}] {len(tickers)}종목 가격 수집(증분 캐시)…", flush=True)
+        panel = P.load_prices(mk, tickers, args.start, cachedir=args.cachedir)
         print(f"[{mk}] 유효 {len(panel)}종목 · 재무/수급/레짐…", flush=True)
         md[mk] = (panel, P.load_regime(mk),
-                  P.load_fundamentals(mk, tickers), P.load_supply(mk, tickers))
+                  P.load_pit_fundamentals(mk, tickers), P.load_pit_supply(mk, tickers))
 
     payload = P.build_payload(md)
     latest = os.path.join(args.outdir, "latest.json")

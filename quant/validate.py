@@ -54,7 +54,10 @@ def information_coefficient(pairs: list[tuple[pd.Series, pd.Series]]) -> dict:
     for fac, fwd in pairs:
         df = pd.concat([fac, fwd], axis=1).dropna()
         if len(df) >= 5:
-            ic = df.iloc[:, 0].corr(df.iloc[:, 1], method="spearman")
+            # 스피어만 = 순위의 피어슨 상관. pandas corr(method="spearman")은 scipy를 요구하므로
+            # 순위를 매겨 기본(피어슨)으로 계산해 의존성을 없앤다.
+            a, b = df.iloc[:, 0].rank(), df.iloc[:, 1].rank()
+            ic = a.corr(b)
             if pd.notna(ic):
                 ics.append(ic)
     if len(ics) < 3:
