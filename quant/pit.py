@@ -201,30 +201,46 @@ def build_pit_fundamentals_kr(tickers: list[str]) -> dict[str, pd.DataFrame]:
     return out
 
 
-# ============================ pykrx (KR 수급) ============================
-def build_pit_supply_kr(tickers: list[str], lookback_days: int = 120) -> dict[str, pd.DataFrame]:
-    """pykrx 일별 투자자별 순매수(외국인·기관). 최근 lookback_days만 수집(net5/20/consec에 충분)."""
+# ============================ pykrx (KR 수급, 무로그인) ============================
+def build_pit_supply_kr(tickers: list[str]) -> pd.DataFrame:
+    """외국인·기관 순매수 스냅샷(최근 5일·20일). 로그인 불필요한 순매수상위 API 사용.
+
+    반환: DataFrame(index=ticker, columns=[net5, net20]) — 순매수거래대금 합(외국인+기관).
+    종목별 일별 API는 최근 KRX에서 로그인을 요구하므로 시장 전체 순매수 집계를 쓴다.
+    과거 시계열이 없어 백테스트엔 넣지 않고 '현재 틸트'로만 사용한다(파이프라인 참조).
+    """
+    import io, contextlib
+    today = pd.Timestamp.today()
+    def d(days):
+        return (today - pd.Timedelta(days=days)).strftime("%Y%m%d")
+    to = today.strftime("%Y%m%d")
+    windows = {"net5": d(10), "net20": d(32)}                 # 거래일 5·20 근사(달력일)
+    want = set(map(str, tickers))
+    acc = {"net5": {}, "net20": {}}
+    buf = io.StringIO()
     try:
-        from pykrx import stock
+        with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
+            from pykrx import stock                            # 임포트 시 로그인 안내 출력까지 억제
+            for col, fr in windows.items():
+                for mk in ("KOSPI", "KOSDAQ"):
+                    for inv in ("외국인", "기관합계"):
+                        try:
+                            df = stock.get_market_net_purchases_of_equities(fr, to, mk, inv)
+                        except Exception:
+                            continue
+                        if df is None or df.empty:
+                            continue
+                        vcol = next((c for c in df.columns if "순매수거래대금" in c), None)
+                        if not vcol:
+                            continue
+                        for tk, v in df[vcol].items():
+                            tk = str(tk)
+                            if tk in want:
+                                acc[col][tk] = acc[col].get(tk, 0.0) + float(v)
     except Exception:
-        return {}
-    end = pd.Timestamp.today()
-    start = end - pd.Timedelta(days=lookback_days)
-    fr, to = start.strftime("%Y%m%d"), end.strftime("%Y%m%d")
-    out = {}
-    for tk in tickers:
-        try:
-            df = stock.get_market_trading_value_by_date(fr, to, tk)   # 순매수 기준
-            if df is None or df.empty:
-                continue
-            foreign = next((c for c in df.columns if "외국인" in c), None)
-            inst = next((c for c in df.columns if "기관" in c), None)
-            if not foreign and not inst:
-                continue
-            s = pd.DataFrame(index=pd.to_datetime(df.index))
-            s["foreign_net"] = df[foreign].values if foreign else 0.0
-            s["inst_net"] = df[inst].values if inst else 0.0
-            out[tk] = s
-        except Exception:
-            continue
-    return out
+        return pd.DataFrame(columns=["net5", "net20"])
+
+    idx = sorted(set(acc["net5"]) | set(acc["net20"]))
+    if not idx:
+        return pd.DataFrame(columns=["net5", "net20"])
+    return pd.DataFrame({"net5": pd.Series(acc["net5"]), "net20": pd.Series(acc["net20"])}).reindex(idx).fillna(0.0)

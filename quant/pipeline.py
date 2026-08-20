@@ -10,10 +10,12 @@ Phase 2.5 핵심: Point-in-Time(PIT) 정합으로 재무·수급을 과거 백�
 확률은 과거 히트레이트로 미래 수익 보장이 아니다. 본 도구는 투자 자문이 아니다.
 """
 from __future__ import annotations
-import json, math, os
+import json, math, os, logging
 from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
+
+logging.getLogger("yfinance").setLevel(logging.CRITICAL)   # BRK-B 등 개별 실패 로그 억제
 
 from quant import validate as V
 from quant import pit as PIT
@@ -29,6 +31,8 @@ CFG = dict(
     atr_bear=1.0, atr_base=2.5, atr_bull=5.0,
 )
 GROUP_BUDGET = dict(price=0.40, value=0.20, quality=0.20, supply=0.20)  # "균형" 성향
+SUPPLY_TILT = 0.20        # KR 수급은 과거 시계열이 없어 백테스트 대신 '현재 랭킹 틸트'로만 반영
+US_SYMBOL_FIX = {"BRKB": "BRK-B", "BFB": "BF-B"}            # FDR→yfinance 클래스주 표기 보정
 FACTORS = ["momentum", "value", "quality", "supply", "tech"]
 ZCOL = {"momentum": "mom_z", "value": "value_z", "quality": "quality_z",
         "supply": "supply_z", "tech": "trend_z"}
@@ -68,7 +72,7 @@ def _fetch_one(market):
     import yfinance as yf
     def f(tk, start):
         try:
-            d = yf.download(tk, start=start, auto_adjust=True, progress=False)
+            d = yf.download(US_SYMBOL_FIX.get(tk, tk), start=start, auto_adjust=True, progress=False)
             if d is None or d.empty:
                 return None
             if isinstance(d.columns, pd.MultiIndex):
@@ -315,13 +319,13 @@ def price_levels(close, atr, market, signal):
 
 
 # ============================ 조립 ============================
-def build_market(market, panel, regime, pit_fund=None, pit_supply=None, top_n=40):
-    PIT.attach_pit(panel, pit_fund, pit_supply)          # 재무·수급을 일별 PIT 컬럼으로 부착
+def build_market(market, panel, regime, pit_fund=None, supply=None, top_n=40):
+    PIT.attach_pit(panel, pit_fund, None)                 # 재무만 일별 PIT 부착(수급은 아래 틸트)
     for tk in list(panel):
         panel[tk] = add_indicators(panel[tk])
 
     bt = backtest_engine(panel)
-    W = bt["weights"]
+    W = bt["weights"]                                     # 검증된 가중치(가격+PIT재무). 수급은 미포함
     ruleset_ok = (bt["pbo"] is not None and bt["pbo"] <= CFG["gate_pbo"]
                   and bt["dsr"] is not None and bt["dsr"] >= CFG["gate_dsr"])
 
@@ -330,8 +334,19 @@ def build_market(market, panel, regime, pit_fund=None, pit_supply=None, top_n=40
     if f.empty:
         return [], dict(hit={}, pbo=bt["pbo"], dsr=bt["dsr"], ic=bt["ic"], weights=W), 0
 
-    f["score"] = (_composite(f, W).rank(pct=True) * 100).round().astype(int)
+    # 수급: 과거 시계열이 없어 백테스트엔 못 넣고, 현재 랭킹을 기울이는 틸트로만 반영(미검증)
+    Wc = dict(W)
+    has_supply = isinstance(supply, pd.DataFrame) and not supply.empty
+    if has_supply:
+        s = supply.reindex(f.index)
+        f["supply_z"] = ((_zc(s["net5"]) + _zc(s["net20"])) / 2.0)
+        if f["supply_z"].abs().sum() > 0:
+            Wc = {k: W[k] * (1 - SUPPLY_TILT) for k in W}
+            Wc["supply"] = SUPPLY_TILT                    # 현재 점수용 가중치(수급 틸트 포함)
+
+    f["score"] = (_composite(f, Wc).rank(pct=True) * 100).round().astype(int)
     f["pdecile"] = (_composite(f, W).rank(pct=True) * CFG["n_deciles"]).clip(upper=CFG["n_deciles"] - 1e-9).astype(int)
+    # 확률 매핑은 검증된 가격+재무 composite(W)의 decile 사용(수급 틸트 제외)
 
     def disp(col):
         s = pd.to_numeric(f[col], errors="coerce")
@@ -358,7 +373,7 @@ def build_market(market, panel, regime, pit_fund=None, pit_supply=None, top_n=40
             "prob_up": {k: round(v, 3) for k, v in prob_up.items()},
             "signal": signal, **px, "verified": bool(verified), "note": "",
         })
-    stats = dict(hit=bt["top_hit"], pbo=bt["pbo"], dsr=bt["dsr"], ic=bt["ic"], weights=W)
+    stats = dict(hit=bt["top_hit"], pbo=bt["pbo"], dsr=bt["dsr"], ic=bt["ic"], weights=Wc)
     return recs, stats, len(f)
 
 

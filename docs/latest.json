@@ -1,72 +1,72 @@
 {
-  "as_of": "2026-08-20",
+  "as_of": "2026-08-19",
   "ruleset": "balanced_v3",
   "market_regime": {
     "kr": {
-      "state": "중립",
-      "note": "추세 혼조·변동성 확대",
-      "led": "neutral"
+      "state": "위험선호",
+      "note": "합성",
+      "led": "on"
     },
     "us": {
       "state": "중립",
-      "note": "지수 데이터 없음",
+      "note": "합성",
       "led": "neutral"
     }
   },
   "universe_size": {
-    "kr": 234,
-    "us": 237
+    "kr": 42,
+    "us": 42
   },
   "backtest": {
-    "hit_d5": 0.518,
-    "hit_d20": 0.542,
-    "hit_d60": 0.562,
-    "deflated_sharpe": 0.988,
-    "pbo": 0.264
+    "hit_d5": 0.621,
+    "hit_d20": 0.736,
+    "hit_d60": 0.688,
+    "deflated_sharpe": 0.999,
+    "pbo": 0.071
   },
   "factor_ic": {
     "KR": {
       "momentum": {
-        "ic": 0.0367,
-        "t": 2.59,
+        "ic": 0.0924,
+        "t": 9.75,
         "n": 101
       },
       "value": {
-        "ic": null,
-        "t": null,
-        "n": 0
+        "ic": -0.0625,
+        "t": -5.06,
+        "n": 101
       },
       "quality": {
-        "ic": null,
-        "t": null,
-        "n": 0
+        "ic": -0.0032,
+        "t": -0.31,
+        "n": 101
       },
       "supply": {
-        "ic": null,
-        "t": null,
-        "n": 0
+        "ic": 0.7604,
+        "t": 199.92,
+        "n": 101
       },
       "tech": {
-        "ic": 0.0265,
-        "t": 2.26,
+        "ic": 0.097,
+        "t": 9.74,
         "n": 101
       }
     },
     "US": {
       "momentum": {
-        "ic": 0.0317,
-        "t": 1.61,
+        "ic": 0.0698,
+        "t": 5.29,
         "n": 101
       },
       "value": {
-        "ic": null,
-        "t": null,
-        "n": 0
+        "ic": -0.0731,
+        "t": -6.73,
+        "n": 101
       },
       "quality": {
-        "ic": null,
-        "t": null,
-        "n": 0
+        "ic": -0.0302,
+        "t": -2.75,
+        "n": 101
       },
       "supply": {
         "ic": null,
@@ -74,23 +74,23 @@
         "n": 0
       },
       "tech": {
-        "ic": 0.0279,
-        "t": 1.66,
+        "ic": 0.0643,
+        "t": 5.28,
         "n": 101
       }
     }
   },
   "weights": {
     "KR": {
-      "momentum": 0.5807,
-      "tech": 0.4193,
+      "momentum": 0.3252,
+      "tech": 0.3414,
       "value": 0.0,
       "quality": 0.0,
-      "supply": 0.0
+      "supply": 0.3333
     },
     "US": {
-      "momentum": 0.5319,
-      "tech": 0.4681,
+      "momentum": 0.5205,
+      "tech": 0.4795,
       "value": 0.0,
       "quality": 0.0,
       "supply": 0.0
@@ -98,2562 +98,386 @@
   },
   "recommendations": [
     {
-      "ticker": "002990",
-      "name": "금호건설",
+      "ticker": "KR019",
+      "name": "KR019",
       "market": "KR",
       "sector": "",
       "score": 100,
+      "factors": {
+        "momentum": 0.943,
+        "value": 0.043,
+        "quality": 0.143,
+        "supply": 1.0,
+        "tech": 0.879
+      },
+      "prob_up": {
+        "d5": 0.688,
+        "d20": 0.889,
+        "d60": 0.748
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 471,
+        "high": 477
+      },
+      "targets": {
+        "bear": 467,
+        "base": 494,
+        "bull": 513
+      },
+      "stop": 459,
+      "verified": true,
+      "note": ""
+    },
+    {
+      "ticker": "US068",
+      "name": "US068",
+      "market": "US",
+      "sector": "",
+      "score": 99,
+      "factors": {
+        "momentum": 0.986,
+        "value": 0.329,
+        "quality": 0.757,
+        "supply": 0.5,
+        "tech": 0.879
+      },
+      "prob_up": {
+        "d5": 0.553,
+        "d20": 0.584,
+        "d60": 0.627
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 346.24,
+        "high": 352.03
+      },
+      "targets": {
+        "bear": 342.62,
+        "base": 367.96,
+        "bull": 386.06
+      },
+      "stop": 335.38,
+      "verified": true,
+      "note": ""
+    },
+    {
+      "ticker": "KR010",
+      "name": "KR010",
+      "market": "KR",
+      "sector": "",
+      "score": 97,
       "factors": {
         "momentum": 1.0,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
+        "value": 0.171,
+        "quality": 0.743,
+        "supply": 0.829,
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
+        "d5": 0.688,
+        "d20": 0.889,
+        "d60": 0.748
       },
-      "signal": "watch",
+      "signal": "buy",
       "entry": {
-        "low": 15190,
-        "high": 16774
+        "low": 523,
+        "high": 531
       },
       "targets": {
-        "bear": 14199,
-        "base": 21132,
-        "bull": 26084
+        "bear": 517,
+        "base": 556,
+        "bull": 583
       },
-      "stop": 12219,
-      "verified": false,
+      "stop": 506,
+      "verified": true,
       "note": ""
     },
     {
-      "ticker": "181710",
-      "name": "NHN",
-      "market": "KR",
-      "sector": "",
-      "score": 100,
-      "factors": {
-        "momentum": 0.987,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 69276,
-        "high": 74274
-      },
-      "targets": {
-        "bear": 66152,
-        "base": 88021,
-        "bull": 103641
-      },
-      "stop": 59904,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "161890",
-      "name": "한국콜마",
-      "market": "KR",
-      "sector": "",
-      "score": 99,
-      "factors": {
-        "momentum": 0.967,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 131050,
-        "high": 138490
-      },
-      "targets": {
-        "bear": 126400,
-        "base": 158950,
-        "bull": 182200
-      },
-      "stop": 117100,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "073240",
-      "name": "금호타이어",
-      "market": "KR",
-      "sector": "",
-      "score": 99,
-      "factors": {
-        "momentum": 0.964,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 7084,
-        "high": 7734
-      },
-      "targets": {
-        "bear": 6677,
-        "base": 9522,
-        "bull": 11554
-      },
-      "stop": 5864,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "078930",
-      "name": "GS",
-      "market": "KR",
-      "sector": "",
-      "score": 99,
-      "factors": {
-        "momentum": 0.974,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 110134,
-        "high": 117120
-      },
-      "targets": {
-        "bear": 105768,
-        "base": 136330,
-        "bull": 158161
-      },
-      "stop": 97036,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "119850",
-      "name": "지엔씨에너지",
-      "market": "KR",
-      "sector": "",
-      "score": 99,
-      "factors": {
-        "momentum": 0.982,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 47738,
-        "high": 53118
-      },
-      "targets": {
-        "bear": 44375,
-        "base": 67912,
-        "bull": 84725
-      },
-      "stop": 37650,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "010950",
-      "name": "S-Oil",
-      "market": "KR",
-      "sector": "",
-      "score": 98,
-      "factors": {
-        "momentum": 0.956,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 138386,
-        "high": 145609
-      },
-      "targets": {
-        "bear": 133871,
-        "base": 165471,
-        "bull": 188043
-      },
-      "stop": 124843,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "041830",
-      "name": "인바디",
-      "market": "KR",
-      "sector": "",
-      "score": 98,
-      "factors": {
-        "momentum": 0.949,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 59623,
-        "high": 64066
-      },
-      "targets": {
-        "bear": 56846,
-        "base": 76284,
-        "bull": 90168
-      },
-      "stop": 51293,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "089860",
-      "name": "롯데렌탈",
-      "market": "KR",
-      "sector": "",
-      "score": 98,
-      "factors": {
-        "momentum": 0.962,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 44466,
-        "high": 46360
-      },
-      "targets": {
-        "bear": 43282,
-        "base": 51570,
-        "bull": 57489
-      },
-      "stop": 40914,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "009150",
-      "name": "삼성전기",
-      "market": "KR",
-      "sector": "",
-      "score": 98,
-      "factors": {
-        "momentum": 0.995,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.732
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 1312357,
-        "high": 1422186
-      },
-      "targets": {
-        "bear": 1243714,
-        "base": 1724214,
-        "bull": 2067429
-      },
-      "stop": 1106429,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "001450",
-      "name": "현대해상",
-      "market": "KR",
+      "ticker": "US023",
+      "name": "US023",
+      "market": "US",
       "sector": "",
       "score": 97,
       "factors": {
-        "momentum": 0.944,
-        "value": 0.5,
-        "quality": 0.5,
+        "momentum": 0.971,
+        "value": 0.086,
+        "quality": 0.057,
         "supply": 0.5,
-        "tech": 0.956
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
+        "d5": 0.553,
+        "d20": 0.584,
+        "d60": 0.627
       },
-      "signal": "watch",
+      "signal": "buy",
       "entry": {
-        "low": 47209,
-        "high": 49355
+        "low": 622.98,
+        "high": 635.99
       },
       "targets": {
-        "bear": 45868,
-        "base": 55255,
-        "bull": 61961
+        "bear": 614.84,
+        "base": 671.77,
+        "bull": 712.44
       },
-      "stop": 43186,
-      "verified": false,
+      "stop": 598.58,
+      "verified": true,
       "note": ""
     },
     {
-      "ticker": "131290",
-      "name": "티에스이",
-      "market": "KR",
-      "sector": "",
-      "score": 97,
-      "factors": {
-        "momentum": 0.99,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.732
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 228725,
-        "high": 249165
-      },
-      "targets": {
-        "bear": 215950,
-        "base": 305375,
-        "bull": 369250
-      },
-      "stop": 190400,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "252990",
-      "name": "샘씨엔에스",
-      "market": "KR",
-      "sector": "",
-      "score": 97,
-      "factors": {
-        "momentum": 0.946,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 13215,
-        "high": 14343
-      },
-      "targets": {
-        "bear": 12509,
-        "base": 17447,
-        "bull": 20974
-      },
-      "stop": 11099,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "327260",
-      "name": "RF머트리얼즈",
+      "ticker": "KR035",
+      "name": "KR035",
       "market": "KR",
       "sector": "",
       "score": 96,
       "factors": {
-        "momentum": 0.938,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
+        "momentum": 0.914,
+        "value": 0.643,
+        "quality": 0.9,
+        "supply": 0.9,
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
+        "d5": 0.688,
+        "d20": 0.889,
+        "d60": 0.748
       },
-      "signal": "watch",
+      "signal": "buy",
       "entry": {
-        "low": 32024,
-        "high": 36626
+        "low": 129,
+        "high": 132
       },
       "targets": {
-        "bear": 29148,
-        "base": 49280,
-        "bull": 63661
+        "bear": 127,
+        "base": 141,
+        "bull": 152
       },
-      "stop": 23396,
-      "verified": false,
+      "stop": 122,
+      "verified": true,
       "note": ""
     },
     {
-      "ticker": "006340",
-      "name": "대원전선",
+      "ticker": "KR052",
+      "name": "KR052",
       "market": "KR",
       "sector": "",
-      "score": 96,
+      "score": 94,
       "factors": {
-        "momentum": 0.936,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
+        "momentum": 0.886,
+        "value": 0.114,
+        "quality": 0.886,
+        "supply": 0.871,
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
+        "d5": 0.688,
+        "d20": 0.889,
+        "d60": 0.748
       },
-      "signal": "watch",
+      "signal": "buy",
       "entry": {
-        "low": 13476,
-        "high": 14666
+        "low": 304,
+        "high": 310
       },
       "targets": {
-        "bear": 12733,
-        "base": 17938,
-        "bull": 21656
+        "bear": 301,
+        "base": 325,
+        "bull": 342
       },
-      "stop": 11246,
-      "verified": false,
+      "stop": 294,
+      "verified": true,
       "note": ""
     },
     {
-      "ticker": "005090",
-      "name": "SGC에너지",
-      "market": "KR",
+      "ticker": "US012",
+      "name": "US012",
+      "market": "US",
       "sector": "",
-      "score": 96,
+      "score": 94,
       "factors": {
-        "momentum": 0.926,
-        "value": 0.5,
-        "quality": 0.5,
+        "momentum": 0.914,
+        "value": 0.343,
+        "quality": 0.929,
         "supply": 0.5,
-        "tech": 0.956
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
+        "d5": 0.553,
+        "d20": 0.584,
+        "d60": 0.627
       },
-      "signal": "watch",
+      "signal": "buy",
       "entry": {
-        "low": 57880,
-        "high": 62552
+        "low": 216.78,
+        "high": 222.04
       },
       "targets": {
-        "bear": 54961,
-        "base": 75398,
-        "bull": 89996
+        "bear": 213.49,
+        "base": 236.51,
+        "bull": 252.95
       },
-      "stop": 49121,
-      "verified": false,
+      "stop": 206.91,
+      "verified": true,
       "note": ""
     },
     {
-      "ticker": "475150",
-      "name": "SK이터닉스",
+      "ticker": "KR024",
+      "name": "KR024",
       "market": "KR",
       "sector": "",
-      "score": 95,
+      "score": 93,
+      "factors": {
+        "momentum": 0.671,
+        "value": 0.243,
+        "quality": 0.129,
+        "supply": 0.886,
+        "tech": 0.879
+      },
+      "prob_up": {
+        "d5": 0.688,
+        "d20": 0.889,
+        "d60": 0.748
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 225,
+        "high": 231
+      },
+      "targets": {
+        "bear": 221,
+        "base": 246,
+        "bull": 265
+      },
+      "stop": 214,
+      "verified": true,
+      "note": ""
+    },
+    {
+      "ticker": "US004",
+      "name": "US004",
+      "market": "US",
+      "sector": "",
+      "score": 93,
       "factors": {
         "momentum": 0.9,
-        "value": 0.5,
-        "quality": 0.5,
+        "value": 0.214,
+        "quality": 0.543,
         "supply": 0.5,
-        "tech": 0.956
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
+        "d5": 0.553,
+        "d20": 0.584,
+        "d60": 0.627
       },
-      "signal": "watch",
+      "signal": "buy",
       "entry": {
-        "low": 52971,
-        "high": 57977
+        "low": 309.54,
+        "high": 316.18
       },
       "targets": {
-        "bear": 49843,
-        "base": 71743,
-        "bull": 87386
+        "bear": 305.39,
+        "base": 334.44,
+        "bull": 355.19
       },
-      "stop": 43586,
-      "verified": false,
+      "stop": 297.09,
+      "verified": true,
       "note": ""
     },
     {
-      "ticker": "402340",
-      "name": "SK스퀘어",
-      "market": "KR",
-      "sector": "",
-      "score": 95,
-      "factors": {
-        "momentum": 0.985,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.732
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 1054107,
-        "high": 1143536
-      },
-      "targets": {
-        "bear": 998214,
-        "base": 1389464,
-        "bull": 1668929
-      },
-      "stop": 886429,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "282330",
-      "name": "BGF리테일",
-      "market": "KR",
-      "sector": "",
-      "score": 94,
-      "factors": {
-        "momentum": 0.879,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 138725,
-        "high": 145085
-      },
-      "targets": {
-        "bear": 134750,
-        "base": 162575,
-        "bull": 182450
-      },
-      "stop": 126800,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "006360",
-      "name": "GS건설",
-      "market": "KR",
-      "sector": "",
-      "score": 94,
-      "factors": {
-        "momentum": 0.869,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 33795,
-        "high": 36123
-      },
-      "targets": {
-        "bear": 32339,
-        "base": 42527,
-        "bull": 49804
-      },
-      "stop": 29429,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "005830",
-      "name": "DB손해보험",
-      "market": "KR",
-      "sector": "",
-      "score": 93,
-      "factors": {
-        "momentum": 0.856,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 173311,
-        "high": 180814
-      },
-      "targets": {
-        "bear": 168621,
-        "base": 201446,
-        "bull": 224893
-      },
-      "stop": 159243,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "028670",
-      "name": "팬오션",
-      "market": "KR",
-      "sector": "",
-      "score": 93,
-      "factors": {
-        "momentum": 0.849,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 5616,
-        "high": 5927
-      },
-      "targets": {
-        "bear": 5421,
-        "base": 6781,
-        "bull": 7753
-      },
-      "stop": 5033,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "043260",
-      "name": "성호전자",
-      "market": "KR",
-      "sector": "",
-      "score": 92,
-      "factors": {
-        "momentum": 0.997,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.351
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 17916,
-        "high": 19842
-      },
-      "targets": {
-        "bear": 16713,
-        "base": 25138,
-        "bull": 31156
-      },
-      "stop": 14306,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "009155",
-      "name": "삼성전기우",
-      "market": "KR",
-      "sector": "",
-      "score": 92,
-      "factors": {
-        "momentum": 0.969,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.732
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 462018,
-        "high": 498789
-      },
-      "targets": {
-        "bear": 439036,
-        "base": 599911,
-        "bull": 714821
-      },
-      "stop": 393071,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "018260",
-      "name": "삼성에스디에스",
-      "market": "KR",
-      "sector": "",
-      "score": 92,
-      "factors": {
-        "momentum": 0.815,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 225632,
-        "high": 236621
-      },
-      "targets": {
-        "bear": 218764,
-        "base": 266839,
-        "bull": 301179
-      },
-      "stop": 205029,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "009420",
-      "name": "한올바이오파마",
+      "ticker": "KR005",
+      "name": "KR005",
       "market": "KR",
       "sector": "",
       "score": 91,
-      "factors": {
-        "momentum": 0.959,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.732
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 59741,
-        "high": 63355
-      },
-      "targets": {
-        "bear": 57482,
-        "base": 73295,
-        "bull": 84589
-      },
-      "stop": 52964,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "010060",
-      "name": "OCI홀딩스",
-      "market": "KR",
-      "sector": "",
-      "score": 91,
-      "factors": {
-        "momentum": 0.8,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 276443,
-        "high": 299734
-      },
-      "targets": {
-        "bear": 261886,
-        "base": 363786,
-        "bull": 436571
-      },
-      "stop": 232771,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "000660",
-      "name": "SK하이닉스",
-      "market": "KR",
-      "sector": "",
-      "score": 90,
-      "factors": {
-        "momentum": 0.954,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.732
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 1617679,
-        "high": 1744593
-      },
-      "targets": {
-        "bear": 1538357,
-        "base": 2093607,
-        "bull": 2490214
-      },
-      "stop": 1379714,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "088350",
-      "name": "한화생명",
-      "market": "KR",
-      "sector": "",
-      "score": 90,
-      "factors": {
-        "momentum": 0.754,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.502,
-        "d20": 0.531,
-        "d60": 0.552
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 5293,
-        "high": 5528
-      },
-      "targets": {
-        "bear": 5145,
-        "base": 6177,
-        "bull": 6913
-      },
-      "stop": 4851,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "007340",
-      "name": "DN오토모티브",
-      "market": "KR",
-      "sector": "",
-      "score": 90,
-      "factors": {
-        "momentum": 0.746,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.515,
-        "d20": 0.546,
-        "d60": 0.603
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 44729,
-        "high": 48683
-      },
-      "targets": {
-        "bear": 42257,
-        "base": 59557,
-        "bull": 71914
-      },
-      "stop": 37314,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "028050",
-      "name": "삼성E&A",
-      "market": "KR",
-      "sector": "",
-      "score": 89,
-      "factors": {
-        "momentum": 0.726,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.515,
-        "d20": 0.546,
-        "d60": 0.603
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 46771,
-        "high": 48897
-      },
-      "targets": {
-        "bear": 45443,
-        "base": 54743,
-        "bull": 61386
-      },
-      "stop": 42786,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "319660",
-      "name": "피에스케이",
-      "market": "KR",
-      "sector": "",
-      "score": 89,
-      "factors": {
-        "momentum": 0.992,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.351
-      },
-      "prob_up": {
-        "d5": 0.515,
-        "d20": 0.546,
-        "d60": 0.603
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 123104,
-        "high": 133178
-      },
-      "targets": {
-        "bear": 116807,
-        "base": 160882,
-        "bull": 192364
-      },
-      "stop": 104214,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "192820",
-      "name": "코스맥스",
-      "market": "KR",
-      "sector": "",
-      "score": 89,
-      "factors": {
-        "momentum": 0.951,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.732
-      },
-      "prob_up": {
-        "d5": 0.515,
-        "d20": 0.546,
-        "d60": 0.603
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 252175,
-        "high": 265495
-      },
-      "targets": {
-        "bear": 243850,
-        "base": 302125,
-        "bull": 343750
-      },
-      "stop": 227200,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "003550",
-      "name": "LG",
-      "market": "KR",
-      "sector": "",
-      "score": 89,
-      "factors": {
-        "momentum": 0.664,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.515,
-        "d20": 0.546,
-        "d60": 0.603
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 108007,
-        "high": 112316
-      },
-      "targets": {
-        "bear": 105314,
-        "base": 124164,
-        "bull": 137629
-      },
-      "stop": 99929,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "420770",
-      "name": "기가비스",
-      "market": "KR",
-      "sector": "",
-      "score": 88,
-      "factors": {
-        "momentum": 0.931,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.732
-      },
-      "prob_up": {
-        "d5": 0.515,
-        "d20": 0.546,
-        "d60": 0.603
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 112761,
-        "high": 123064
-      },
-      "targets": {
-        "bear": 106321,
-        "base": 151396,
-        "bull": 183593
-      },
-      "stop": 93443,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "005935",
-      "name": "삼성전자우",
-      "market": "KR",
-      "sector": "",
-      "score": 88,
-      "factors": {
-        "momentum": 0.933,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.732
-      },
-      "prob_up": {
-        "d5": 0.515,
-        "d20": 0.546,
-        "d60": 0.603
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 186661,
-        "high": 197604
-      },
-      "targets": {
-        "bear": 179821,
-        "base": 227696,
-        "bull": 261893
-      },
-      "stop": 166143,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "008930",
-      "name": "한미사이언스",
-      "market": "KR",
-      "sector": "",
-      "score": 88,
-      "factors": {
-        "momentum": 0.921,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.732
-      },
-      "prob_up": {
-        "d5": 0.515,
-        "d20": 0.546,
-        "d60": 0.603
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 43332,
-        "high": 45601
-      },
-      "targets": {
-        "bear": 41914,
-        "base": 51839,
-        "bull": 58929
-      },
-      "stop": 39079,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "375500",
-      "name": "DL이앤씨",
-      "market": "KR",
-      "sector": "",
-      "score": 88,
-      "factors": {
-        "momentum": 0.579,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.956
-      },
-      "prob_up": {
-        "d5": 0.515,
-        "d20": 0.546,
-        "d60": 0.603
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 69300,
-        "high": 72660
-      },
-      "targets": {
-        "bear": 67200,
-        "base": 81900,
-        "bull": 92400
-      },
-      "stop": 63000,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "001820",
-      "name": "삼화콘덴서",
-      "market": "KR",
-      "sector": "",
-      "score": 87,
-      "factors": {
-        "momentum": 0.915,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.732
-      },
-      "prob_up": {
-        "d5": 0.515,
-        "d20": 0.546,
-        "d60": 0.603
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 91479,
-        "high": 98873
-      },
-      "targets": {
-        "bear": 86857,
-        "base": 119207,
-        "bull": 142314
-      },
-      "stop": 77614,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "089970",
-      "name": "브이엠",
-      "market": "KR",
-      "sector": "",
-      "score": 87,
-      "factors": {
-        "momentum": 0.979,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.351
-      },
-      "prob_up": {
-        "d5": 0.515,
-        "d20": 0.546,
-        "d60": 0.603
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 59189,
-        "high": 64806
-      },
-      "targets": {
-        "bear": 55679,
-        "base": 80254,
-        "bull": 97807
-      },
-      "stop": 48657,
-      "verified": false,
-      "note": ""
-    },
-    {
-      "ticker": "MU",
-      "name": "Micron Technology",
-      "market": "US",
-      "sector": "Information Technology",
-      "score": 100,
-      "factors": {
-        "momentum": 0.997,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.523
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 905.45,
-        "high": 956.11
-      },
-      "targets": {
-        "bear": 873.79,
-        "base": 1095.42,
-        "bull": 1253.73
-      },
-      "stop": 810.46,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "MRNA",
-      "name": "Moderna",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 100,
-      "factors": {
-        "momentum": 1.0,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 168.57,
-        "high": 177.87
-      },
-      "targets": {
-        "bear": 162.75,
-        "base": 203.45,
-        "bull": 232.51
-      },
-      "stop": 151.13,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "HPE",
-      "name": "Hewlett Packard Enterprise",
-      "market": "US",
-      "sector": "Information Technology",
-      "score": 99,
-      "factors": {
-        "momentum": 0.987,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 51.46,
-        "high": 54.13
-      },
-      "targets": {
-        "bear": 49.79,
-        "base": 61.48,
-        "bull": 69.83
-      },
-      "stop": 46.45,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "LITE",
-      "name": "Lumentum",
-      "market": "US",
-      "sector": "Information Technology",
-      "score": 99,
-      "factors": {
-        "momentum": 0.995,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.523
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 783.57,
-        "high": 854.02
-      },
-      "targets": {
-        "bear": 739.54,
-        "base": 1047.76,
-        "bull": 1267.92
-      },
-      "stop": 651.47,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "DELL",
-      "name": "Dell Technologies",
-      "market": "US",
-      "sector": "Information Technology",
-      "score": 98,
-      "factors": {
-        "momentum": 0.992,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.523
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 421.0,
-        "high": 447.48
-      },
-      "targets": {
-        "bear": 404.45,
-        "base": 520.29,
-        "bull": 603.03
-      },
-      "stop": 371.36,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "NTAP",
-      "name": "NetApp",
-      "market": "US",
-      "sector": "Information Technology",
-      "score": 98,
-      "factors": {
-        "momentum": 0.982,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 190.39,
-        "high": 196.93
-      },
-      "targets": {
-        "bear": 186.3,
-        "base": 214.93,
-        "bull": 235.38
-      },
-      "stop": 178.12,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "MPC",
-      "name": "Marathon Petroleum",
-      "market": "US",
-      "sector": "Energy",
-      "score": 98,
-      "factors": {
-        "momentum": 0.98,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 354.56,
-        "high": 364.46
-      },
-      "targets": {
-        "bear": 348.37,
-        "base": 391.7,
-        "bull": 422.66
-      },
-      "stop": 335.99,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "PANW",
-      "name": "Palo Alto Networks",
-      "market": "US",
-      "sector": "Information Technology",
-      "score": 98,
-      "factors": {
-        "momentum": 0.977,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 352.05,
-        "high": 364.39
-      },
-      "targets": {
-        "bear": 344.34,
-        "base": 398.31,
-        "bull": 436.87
-      },
-      "stop": 328.92,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "EXPE",
-      "name": "Expedia Group",
-      "market": "US",
-      "sector": "Consumer Discretionary",
-      "score": 97,
-      "factors": {
-        "momentum": 0.97,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 319.38,
-        "high": 330.41
-      },
-      "targets": {
-        "bear": 312.49,
-        "base": 360.73,
-        "bull": 395.19
-      },
-      "stop": 298.7,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "PSX",
-      "name": "Phillips 66",
-      "market": "US",
-      "sector": "Energy",
-      "score": 97,
-      "factors": {
-        "momentum": 0.972,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 238.55,
-        "high": 244.53
-      },
-      "targets": {
-        "bear": 234.81,
-        "base": 261.0,
-        "bull": 279.71
-      },
-      "stop": 227.32,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "MRK",
-      "name": "Merck & Co.",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 97,
-      "factors": {
-        "momentum": 0.967,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 150.03,
-        "high": 153.5
-      },
-      "targets": {
-        "bear": 147.86,
-        "base": 163.04,
-        "bull": 173.88
-      },
-      "stop": 143.53,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "AMGN",
-      "name": "Amgen",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 96,
-      "factors": {
-        "momentum": 0.949,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 436.33,
-        "high": 445.98
-      },
-      "targets": {
-        "bear": 430.3,
-        "base": 472.52,
-        "bull": 502.68
-      },
-      "stop": 418.23,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "ABNB",
-      "name": "Airbnb",
-      "market": "US",
-      "sector": "Consumer Discretionary",
-      "score": 96,
-      "factors": {
-        "momentum": 0.952,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 182.91,
-        "high": 188.48
-      },
-      "targets": {
-        "bear": 179.43,
-        "base": 203.78,
-        "bull": 221.17
-      },
-      "stop": 172.48,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "IQV",
-      "name": "IQVIA",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 96,
-      "factors": {
-        "momentum": 0.965,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 245.33,
-        "high": 251.65
-      },
-      "targets": {
-        "bear": 241.38,
-        "base": 269.04,
-        "bull": 288.79
-      },
-      "stop": 233.48,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "LLY",
-      "name": "Lilly (Eli)",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 96,
-      "factors": {
-        "momentum": 0.959,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 1257.43,
-        "high": 1294.09
-      },
-      "targets": {
-        "bear": 1234.52,
-        "base": 1394.89,
-        "bull": 1509.44
-      },
-      "stop": 1188.7,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "JNJ",
-      "name": "Johnson & Johnson",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 94,
-      "factors": {
-        "momentum": 0.919,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 270.69,
-        "high": 275.04
-      },
-      "targets": {
-        "bear": 267.98,
-        "base": 287.0,
-        "bull": 300.59
-      },
-      "stop": 262.54,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "HPQ",
-      "name": "HP Inc.",
-      "market": "US",
-      "sector": "Information Technology",
-      "score": 94,
-      "factors": {
-        "momentum": 0.924,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 29.25,
-        "high": 30.35
-      },
-      "targets": {
-        "bear": 28.57,
-        "base": 33.37,
-        "bull": 36.8
-      },
-      "stop": 27.2,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "ABBV",
-      "name": "AbbVie",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 94,
-      "factors": {
-        "momentum": 0.916,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 262.84,
-        "high": 267.85
-      },
-      "targets": {
-        "bear": 259.7,
-        "base": 281.64,
-        "bull": 297.32
-      },
-      "stop": 253.43,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "RTX",
-      "name": "RTX Corporation",
-      "market": "US",
-      "sector": "Industrials",
-      "score": 92,
-      "factors": {
-        "momentum": 0.904,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 218.26,
-        "high": 221.61
-      },
-      "targets": {
-        "bear": 216.16,
-        "base": 230.82,
-        "bull": 241.29
-      },
-      "stop": 211.97,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "BNY",
-      "name": "BNY Mellon",
-      "market": "US",
-      "sector": "Financials",
-      "score": 92,
-      "factors": {
-        "momentum": 0.901,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 158.47,
-        "high": 160.54
-      },
-      "targets": {
-        "bear": 157.18,
-        "base": 166.22,
-        "bull": 172.68
-      },
-      "stop": 154.59,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "BDX",
-      "name": "Becton Dickinson",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 91,
-      "factors": {
-        "momentum": 0.889,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 185.31,
-        "high": 188.97
-      },
-      "targets": {
-        "bear": 183.02,
-        "base": 199.05,
-        "bull": 210.5
-      },
-      "stop": 178.44,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "CAH",
-      "name": "Cardinal Health",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 91,
-      "factors": {
-        "momentum": 0.894,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 231.35,
-        "high": 236.95
-      },
-      "targets": {
-        "bear": 227.86,
-        "base": 252.33,
-        "bull": 269.81
-      },
-      "stop": 220.87,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "BAC",
-      "name": "Bank of America",
-      "market": "US",
-      "sector": "Financials",
-      "score": 91,
-      "factors": {
-        "momentum": 0.891,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 62.68,
-        "high": 63.47
-      },
-      "targets": {
-        "bear": 62.18,
-        "base": 65.64,
-        "bull": 68.11
-      },
-      "stop": 61.19,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "FCX",
-      "name": "Freeport-McMoRan",
-      "market": "US",
-      "sector": "Materials",
-      "score": 90,
-      "factors": {
-        "momentum": 0.878,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 67.8,
-        "high": 69.86
-      },
-      "targets": {
-        "bear": 66.51,
-        "base": 75.53,
-        "bull": 81.97
-      },
-      "stop": 63.94,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "DXCM",
-      "name": "Dexcom",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 90,
-      "factors": {
-        "momentum": 0.876,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 88.28,
-        "high": 90.84
-      },
-      "targets": {
-        "bear": 86.67,
-        "base": 97.9,
-        "bull": 105.92
-      },
-      "stop": 83.46,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "BMY",
-      "name": "Bristol Myers Squibb",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 90,
-      "factors": {
-        "momentum": 0.881,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 66.69,
-        "high": 68.16
-      },
-      "targets": {
-        "bear": 65.77,
-        "base": 72.22,
-        "bull": 76.82
-      },
-      "stop": 63.93,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "AXON",
-      "name": "Axon Enterprise",
-      "market": "US",
-      "sector": "Industrials",
-      "score": 89,
-      "factors": {
-        "momentum": 0.851,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 624.9,
-        "high": 658.21
-      },
-      "targets": {
-        "bear": 604.07,
-        "base": 749.83,
-        "bull": 853.94
-      },
-      "stop": 562.43,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "MMM",
-      "name": "3M",
-      "market": "US",
-      "sector": "Industrials",
-      "score": 88,
-      "factors": {
-        "momentum": 0.828,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 179.01,
-        "high": 181.65
-      },
-      "targets": {
-        "bear": 177.36,
-        "base": 188.92,
-        "bull": 197.18
-      },
-      "stop": 174.05,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "JPM",
-      "name": "JPMorgan Chase",
-      "market": "US",
-      "sector": "Financials",
-      "score": 88,
       "factors": {
         "momentum": 0.843,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
+        "value": 0.286,
+        "quality": 0.843,
+        "supply": 0.686,
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.688,
+        "d20": 0.889,
+        "d60": 0.748
       },
       "signal": "buy",
       "entry": {
-        "low": 354.52,
-        "high": 358.91
+        "low": 200,
+        "high": 203
       },
       "targets": {
-        "bear": 351.77,
-        "base": 370.99,
-        "bull": 384.71
+        "bear": 198,
+        "base": 211,
+        "bull": 220
       },
-      "stop": 346.28,
+      "stop": 194,
       "verified": true,
       "note": ""
     },
     {
-      "ticker": "GD",
-      "name": "General Dynamics",
-      "market": "US",
-      "sector": "Industrials",
-      "score": 87,
+      "ticker": "KR054",
+      "name": "KR054",
+      "market": "KR",
+      "sector": "",
+      "score": 90,
       "factors": {
-        "momentum": 0.815,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
+        "momentum": 0.786,
+        "value": 0.6,
+        "quality": 0.057,
+        "supply": 0.729,
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.688,
+        "d20": 0.889,
+        "d60": 0.748
       },
       "signal": "buy",
       "entry": {
-        "low": 389.1,
-        "high": 394.28
+        "low": 119,
+        "high": 121
       },
       "targets": {
-        "bear": 385.86,
-        "base": 408.53,
-        "bull": 424.71
+        "bear": 117,
+        "base": 127,
+        "bull": 134
       },
-      "stop": 379.39,
+      "stop": 114,
       "verified": true,
       "note": ""
     },
     {
-      "ticker": "SCHW",
-      "name": "Charles Schwab Corporation",
+      "ticker": "US048",
+      "name": "US048",
       "market": "US",
-      "sector": "Financials",
-      "score": 87,
+      "sector": "",
+      "score": 90,
       "factors": {
-        "momentum": 0.81,
-        "value": 0.5,
-        "quality": 0.5,
+        "momentum": 0.843,
+        "value": 0.671,
+        "quality": 0.1,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.879
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.553,
+        "d20": 0.584,
+        "d60": 0.627
       },
       "signal": "buy",
       "entry": {
-        "low": 110.0,
-        "high": 111.41
+        "low": 154.74,
+        "high": 156.6
       },
       "targets": {
-        "bear": 109.12,
-        "base": 115.27,
-        "bull": 119.66
+        "bear": 153.57,
+        "base": 161.72,
+        "bull": 167.55
       },
-      "stop": 107.37,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "KO",
-      "name": "Coca-Cola Company (The)",
-      "market": "US",
-      "sector": "Consumer Staples",
-      "score": 86,
-      "factors": {
-        "momentum": 0.79,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 89.65,
-        "high": 90.77
-      },
-      "targets": {
-        "bear": 88.96,
-        "base": 93.83,
-        "bull": 97.32
-      },
-      "stop": 87.56,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "BKNG",
-      "name": "Booking Holdings",
-      "market": "US",
-      "sector": "Consumer Discretionary",
-      "score": 86,
-      "factors": {
-        "momentum": 0.808,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 209.42,
-        "high": 215.15
-      },
-      "targets": {
-        "bear": 205.85,
-        "base": 230.88,
-        "bull": 248.76
-      },
-      "stop": 198.7,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "PH",
-      "name": "Parker Hannifin",
-      "market": "US",
-      "sector": "Industrials",
-      "score": 85,
-      "factors": {
-        "momentum": 0.777,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 1009.18,
-        "high": 1031.69
-      },
-      "targets": {
-        "bear": 995.12,
-        "base": 1093.58,
-        "bull": 1163.92
-      },
-      "stop": 966.98,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "MSI",
-      "name": "Motorola Solutions",
-      "market": "US",
-      "sector": "Information Technology",
-      "score": 85,
-      "factors": {
-        "momentum": 0.77,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 473.47,
-        "high": 485.26
-      },
-      "targets": {
-        "bear": 466.1,
-        "base": 517.7,
-        "bull": 554.55
-      },
-      "stop": 451.35,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "NSC",
-      "name": "Norfolk Southern",
-      "market": "US",
-      "sector": "Industrials",
-      "score": 85,
-      "factors": {
-        "momentum": 0.762,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 342.49,
-        "high": 347.64
-      },
-      "targets": {
-        "bear": 339.27,
-        "base": 361.81,
-        "bull": 377.92
-      },
-      "stop": 332.83,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "EMR",
-      "name": "Emerson Electric",
-      "market": "US",
-      "sector": "Industrials",
-      "score": 84,
-      "factors": {
-        "momentum": 0.754,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 155.31,
-        "high": 158.98
-      },
-      "targets": {
-        "bear": 153.01,
-        "base": 169.07,
-        "bull": 180.54
-      },
-      "stop": 148.42,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "FANG",
-      "name": "Diamondback Energy",
-      "market": "US",
-      "sector": "Energy",
-      "score": 84,
-      "factors": {
-        "momentum": 0.749,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 205.58,
-        "high": 210.33
-      },
-      "targets": {
-        "bear": 202.62,
-        "base": 223.38,
-        "bull": 238.21
-      },
-      "stop": 196.68,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "CVX",
-      "name": "Chevron Corporation",
-      "market": "US",
-      "sector": "Energy",
-      "score": 83,
-      "factors": {
-        "momentum": 0.734,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 203.51,
-        "high": 207.11
-      },
-      "targets": {
-        "bear": 201.26,
-        "base": 217.02,
-        "bull": 228.28
-      },
-      "stop": 196.75,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "OKE",
-      "name": "Oneok",
-      "market": "US",
-      "sector": "Energy",
-      "score": 83,
-      "factors": {
-        "momentum": 0.739,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 94.79,
-        "high": 96.74
-      },
-      "targets": {
-        "bear": 93.56,
-        "base": 102.13,
-        "bull": 108.24
-      },
-      "stop": 91.12,
+      "stop": 151.24,
       "verified": true,
       "note": ""
     }
