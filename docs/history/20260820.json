@@ -15,7 +15,7 @@
   },
   "universe_size": {
     "kr": 234,
-    "us": 237
+    "us": 238
   },
   "backtest": {
     "hit_d5": 0.518,
@@ -54,7 +54,7 @@
     },
     "US": {
       "momentum": {
-        "ic": 0.0317,
+        "ic": 0.0318,
         "t": 1.61,
         "n": 101
       },
@@ -89,8 +89,8 @@
       "supply": 0.0
     },
     "US": {
-      "momentum": 0.5319,
-      "tech": 0.4681,
+      "momentum": 0.5327,
+      "tech": 0.4673,
       "value": 0.0,
       "quality": 0.0,
       "supply": 0.0
@@ -1378,38 +1378,6 @@
       "note": ""
     },
     {
-      "ticker": "MU",
-      "name": "Micron Technology",
-      "market": "US",
-      "sector": "Information Technology",
-      "score": 100,
-      "factors": {
-        "momentum": 0.997,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.523
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 905.45,
-        "high": 956.11
-      },
-      "targets": {
-        "bear": 873.79,
-        "base": 1095.42,
-        "bull": 1253.73
-      },
-      "stop": 810.46,
-      "verified": true,
-      "note": ""
-    },
-    {
       "ticker": "MRNA",
       "name": "Moderna",
       "market": "US",
@@ -1420,12 +1388,12 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -1442,34 +1410,34 @@
       "note": ""
     },
     {
-      "ticker": "HPE",
-      "name": "Hewlett Packard Enterprise",
+      "ticker": "MU",
+      "name": "Micron Technology",
       "market": "US",
       "sector": "Information Technology",
-      "score": 99,
+      "score": 100,
       "factors": {
-        "momentum": 0.987,
+        "momentum": 0.997,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.521
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
-        "low": 51.46,
-        "high": 54.13
+        "low": 905.45,
+        "high": 956.11
       },
       "targets": {
-        "bear": 49.79,
-        "base": 61.48,
-        "bull": 69.83
+        "bear": 873.79,
+        "base": 1095.42,
+        "bull": 1253.73
       },
-      "stop": 46.45,
+      "stop": 810.46,
       "verified": true,
       "note": ""
     },
@@ -1484,12 +1452,12 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.523
+        "tech": 0.521
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -1506,6 +1474,38 @@
       "note": ""
     },
     {
+      "ticker": "HPE",
+      "name": "Hewlett Packard Enterprise",
+      "market": "US",
+      "sector": "Information Technology",
+      "score": 99,
+      "factors": {
+        "momentum": 0.987,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.865
+      },
+      "prob_up": {
+        "d5": 0.534,
+        "d20": 0.552,
+        "d60": 0.572
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 51.46,
+        "high": 54.13
+      },
+      "targets": {
+        "bear": 49.79,
+        "base": 61.48,
+        "bull": 69.83
+      },
+      "stop": 46.45,
+      "verified": true,
+      "note": ""
+    },
+    {
       "ticker": "DELL",
       "name": "Dell Technologies",
       "market": "US",
@@ -1516,12 +1516,12 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.523
+        "tech": 0.521
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -1538,6 +1538,38 @@
       "note": ""
     },
     {
+      "ticker": "PANW",
+      "name": "Palo Alto Networks",
+      "market": "US",
+      "sector": "Information Technology",
+      "score": 98,
+      "factors": {
+        "momentum": 0.977,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.865
+      },
+      "prob_up": {
+        "d5": 0.534,
+        "d20": 0.552,
+        "d60": 0.572
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 352.05,
+        "high": 364.39
+      },
+      "targets": {
+        "bear": 344.34,
+        "base": 398.31,
+        "bull": 436.87
+      },
+      "stop": 328.92,
+      "verified": true,
+      "note": ""
+    },
+    {
       "ticker": "NTAP",
       "name": "NetApp",
       "market": "US",
@@ -1548,12 +1580,12 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -1580,12 +1612,12 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -1602,38 +1634,6 @@
       "note": ""
     },
     {
-      "ticker": "PANW",
-      "name": "Palo Alto Networks",
-      "market": "US",
-      "sector": "Information Technology",
-      "score": 98,
-      "factors": {
-        "momentum": 0.977,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 352.05,
-        "high": 364.39
-      },
-      "targets": {
-        "bear": 344.34,
-        "base": 398.31,
-        "bull": 436.87
-      },
-      "stop": 328.92,
-      "verified": true,
-      "note": ""
-    },
-    {
       "ticker": "EXPE",
       "name": "Expedia Group",
       "market": "US",
@@ -1644,12 +1644,12 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -1666,38 +1666,6 @@
       "note": ""
     },
     {
-      "ticker": "PSX",
-      "name": "Phillips 66",
-      "market": "US",
-      "sector": "Energy",
-      "score": 97,
-      "factors": {
-        "momentum": 0.972,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 238.55,
-        "high": 244.53
-      },
-      "targets": {
-        "bear": 234.81,
-        "base": 261.0,
-        "bull": 279.71
-      },
-      "stop": 227.32,
-      "verified": true,
-      "note": ""
-    },
-    {
       "ticker": "MRK",
       "name": "Merck & Co.",
       "market": "US",
@@ -1708,12 +1676,12 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -1730,22 +1698,86 @@
       "note": ""
     },
     {
+      "ticker": "PSX",
+      "name": "Phillips 66",
+      "market": "US",
+      "sector": "Energy",
+      "score": 97,
+      "factors": {
+        "momentum": 0.972,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.865
+      },
+      "prob_up": {
+        "d5": 0.534,
+        "d20": 0.552,
+        "d60": 0.572
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 238.55,
+        "high": 244.53
+      },
+      "targets": {
+        "bear": 234.81,
+        "base": 261.0,
+        "bull": 279.71
+      },
+      "stop": 227.32,
+      "verified": true,
+      "note": ""
+    },
+    {
+      "ticker": "LLY",
+      "name": "Lilly (Eli)",
+      "market": "US",
+      "sector": "Health Care",
+      "score": 96,
+      "factors": {
+        "momentum": 0.96,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.865
+      },
+      "prob_up": {
+        "d5": 0.534,
+        "d20": 0.552,
+        "d60": 0.572
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 1257.43,
+        "high": 1294.09
+      },
+      "targets": {
+        "bear": 1234.52,
+        "base": 1394.89,
+        "bull": 1509.44
+      },
+      "stop": 1188.7,
+      "verified": true,
+      "note": ""
+    },
+    {
       "ticker": "AMGN",
       "name": "Amgen",
       "market": "US",
       "sector": "Health Care",
       "score": 96,
       "factors": {
-        "momentum": 0.949,
+        "momentum": 0.95,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -1772,12 +1804,12 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -1804,12 +1836,12 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -1826,34 +1858,34 @@
       "note": ""
     },
     {
-      "ticker": "LLY",
-      "name": "Lilly (Eli)",
+      "ticker": "ABBV",
+      "name": "AbbVie",
       "market": "US",
       "sector": "Health Care",
-      "score": 96,
+      "score": 94,
       "factors": {
-        "momentum": 0.959,
+        "momentum": 0.917,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
-        "low": 1257.43,
-        "high": 1294.09
+        "low": 262.84,
+        "high": 267.85
       },
       "targets": {
-        "bear": 1234.52,
-        "base": 1394.89,
-        "bull": 1509.44
+        "bear": 259.7,
+        "base": 281.64,
+        "bull": 297.32
       },
-      "stop": 1188.7,
+      "stop": 253.43,
       "verified": true,
       "note": ""
     },
@@ -1868,12 +1900,12 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -1900,12 +1932,12 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -1922,86 +1954,22 @@
       "note": ""
     },
     {
-      "ticker": "ABBV",
-      "name": "AbbVie",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 94,
-      "factors": {
-        "momentum": 0.916,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 262.84,
-        "high": 267.85
-      },
-      "targets": {
-        "bear": 259.7,
-        "base": 281.64,
-        "bull": 297.32
-      },
-      "stop": 253.43,
-      "verified": true,
-      "note": ""
-    },
-    {
-      "ticker": "RTX",
-      "name": "RTX Corporation",
-      "market": "US",
-      "sector": "Industrials",
-      "score": 92,
-      "factors": {
-        "momentum": 0.904,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.534,
-        "d20": 0.552,
-        "d60": 0.573
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 218.26,
-        "high": 221.61
-      },
-      "targets": {
-        "bear": 216.16,
-        "base": 230.82,
-        "bull": 241.29
-      },
-      "stop": 211.97,
-      "verified": true,
-      "note": ""
-    },
-    {
       "ticker": "BNY",
       "name": "BNY Mellon",
       "market": "US",
       "sector": "Financials",
       "score": 92,
       "factors": {
-        "momentum": 0.901,
+        "momentum": 0.902,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -2018,34 +1986,34 @@
       "note": ""
     },
     {
-      "ticker": "BDX",
-      "name": "Becton Dickinson",
+      "ticker": "RTX",
+      "name": "RTX Corporation",
       "market": "US",
-      "sector": "Health Care",
-      "score": 91,
+      "sector": "Industrials",
+      "score": 92,
       "factors": {
-        "momentum": 0.889,
+        "momentum": 0.904,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
-        "low": 185.31,
-        "high": 188.97
+        "low": 218.26,
+        "high": 221.61
       },
       "targets": {
-        "bear": 183.02,
-        "base": 199.05,
-        "bull": 210.5
+        "bear": 216.16,
+        "base": 230.82,
+        "bull": 241.29
       },
-      "stop": 178.44,
+      "stop": 211.97,
       "verified": true,
       "note": ""
     },
@@ -2060,12 +2028,12 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -2082,22 +2050,54 @@
       "note": ""
     },
     {
+      "ticker": "BDX",
+      "name": "Becton Dickinson",
+      "market": "US",
+      "sector": "Health Care",
+      "score": 91,
+      "factors": {
+        "momentum": 0.889,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.865
+      },
+      "prob_up": {
+        "d5": 0.534,
+        "d20": 0.552,
+        "d60": 0.572
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 185.31,
+        "high": 188.97
+      },
+      "targets": {
+        "bear": 183.02,
+        "base": 199.05,
+        "bull": 210.5
+      },
+      "stop": 178.44,
+      "verified": true,
+      "note": ""
+    },
+    {
       "ticker": "BAC",
       "name": "Bank of America",
       "market": "US",
       "sector": "Financials",
       "score": 91,
       "factors": {
-        "momentum": 0.891,
+        "momentum": 0.892,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -2120,16 +2120,16 @@
       "sector": "Materials",
       "score": 90,
       "factors": {
-        "momentum": 0.878,
+        "momentum": 0.879,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
       },
       "signal": "buy",
       "entry": {
@@ -2146,54 +2146,22 @@
       "note": ""
     },
     {
-      "ticker": "DXCM",
-      "name": "Dexcom",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 90,
-      "factors": {
-        "momentum": 0.876,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 88.28,
-        "high": 90.84
-      },
-      "targets": {
-        "bear": 86.67,
-        "base": 97.9,
-        "bull": 105.92
-      },
-      "stop": 83.46,
-      "verified": true,
-      "note": ""
-    },
-    {
       "ticker": "BMY",
       "name": "Bristol Myers Squibb",
       "market": "US",
       "sector": "Health Care",
       "score": 90,
       "factors": {
-        "momentum": 0.881,
+        "momentum": 0.882,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
         "d5": 0.534,
         "d20": 0.552,
-        "d60": 0.573
+        "d60": 0.572
       },
       "signal": "buy",
       "entry": {
@@ -2210,6 +2178,38 @@
       "note": ""
     },
     {
+      "ticker": "DXCM",
+      "name": "Dexcom",
+      "market": "US",
+      "sector": "Health Care",
+      "score": 90,
+      "factors": {
+        "momentum": 0.877,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.865
+      },
+      "prob_up": {
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 88.28,
+        "high": 90.84
+      },
+      "targets": {
+        "bear": 86.67,
+        "base": 97.9,
+        "bull": 105.92
+      },
+      "stop": 83.46,
+      "verified": true,
+      "note": ""
+    },
+    {
       "ticker": "AXON",
       "name": "Axon Enterprise",
       "market": "US",
@@ -2220,12 +2220,12 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
       },
       "signal": "buy",
       "entry": {
@@ -2248,16 +2248,16 @@
       "sector": "Industrials",
       "score": 88,
       "factors": {
-        "momentum": 0.828,
+        "momentum": 0.829,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
       },
       "signal": "buy",
       "entry": {
@@ -2280,16 +2280,16 @@
       "sector": "Financials",
       "score": 88,
       "factors": {
-        "momentum": 0.843,
+        "momentum": 0.844,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
       },
       "signal": "buy",
       "entry": {
@@ -2312,16 +2312,16 @@
       "sector": "Industrials",
       "score": 87,
       "factors": {
-        "momentum": 0.815,
+        "momentum": 0.816,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
       },
       "signal": "buy",
       "entry": {
@@ -2344,16 +2344,16 @@
       "sector": "Financials",
       "score": 87,
       "factors": {
-        "momentum": 0.81,
+        "momentum": 0.811,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
       },
       "signal": "buy",
       "entry": {
@@ -2370,54 +2370,22 @@
       "note": ""
     },
     {
-      "ticker": "KO",
-      "name": "Coca-Cola Company (The)",
-      "market": "US",
-      "sector": "Consumer Staples",
-      "score": 86,
-      "factors": {
-        "momentum": 0.79,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.866
-      },
-      "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 89.65,
-        "high": 90.77
-      },
-      "targets": {
-        "bear": 88.96,
-        "base": 93.83,
-        "bull": 97.32
-      },
-      "stop": 87.56,
-      "verified": true,
-      "note": ""
-    },
-    {
       "ticker": "BKNG",
       "name": "Booking Holdings",
       "market": "US",
       "sector": "Consumer Discretionary",
       "score": 86,
       "factors": {
-        "momentum": 0.808,
+        "momentum": 0.809,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
       },
       "signal": "buy",
       "entry": {
@@ -2434,34 +2402,34 @@
       "note": ""
     },
     {
-      "ticker": "PH",
-      "name": "Parker Hannifin",
+      "ticker": "KO",
+      "name": "Coca-Cola Company (The)",
       "market": "US",
-      "sector": "Industrials",
-      "score": 85,
+      "sector": "Consumer Staples",
+      "score": 86,
       "factors": {
-        "momentum": 0.777,
+        "momentum": 0.791,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
       },
       "signal": "buy",
       "entry": {
-        "low": 1009.18,
-        "high": 1031.69
+        "low": 89.65,
+        "high": 90.77
       },
       "targets": {
-        "bear": 995.12,
-        "base": 1093.58,
-        "bull": 1163.92
+        "bear": 88.96,
+        "base": 93.83,
+        "bull": 97.32
       },
-      "stop": 966.98,
+      "stop": 87.56,
       "verified": true,
       "note": ""
     },
@@ -2472,16 +2440,16 @@
       "sector": "Information Technology",
       "score": 85,
       "factors": {
-        "momentum": 0.77,
+        "momentum": 0.771,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
       },
       "signal": "buy",
       "entry": {
@@ -2498,22 +2466,54 @@
       "note": ""
     },
     {
+      "ticker": "PH",
+      "name": "Parker Hannifin",
+      "market": "US",
+      "sector": "Industrials",
+      "score": 85,
+      "factors": {
+        "momentum": 0.778,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.865
+      },
+      "prob_up": {
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 1009.18,
+        "high": 1031.69
+      },
+      "targets": {
+        "bear": 995.12,
+        "base": 1093.58,
+        "bull": 1163.92
+      },
+      "stop": 966.98,
+      "verified": true,
+      "note": ""
+    },
+    {
       "ticker": "NSC",
       "name": "Norfolk Southern",
       "market": "US",
       "sector": "Industrials",
       "score": 85,
       "factors": {
-        "momentum": 0.762,
+        "momentum": 0.763,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
       },
       "signal": "buy",
       "entry": {
@@ -2536,16 +2536,16 @@
       "sector": "Industrials",
       "score": 84,
       "factors": {
-        "momentum": 0.754,
+        "momentum": 0.756,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
       },
       "signal": "buy",
       "entry": {
@@ -2568,16 +2568,16 @@
       "sector": "Energy",
       "score": 84,
       "factors": {
-        "momentum": 0.749,
+        "momentum": 0.751,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
       },
       "signal": "buy",
       "entry": {
@@ -2600,16 +2600,16 @@
       "sector": "Energy",
       "score": 83,
       "factors": {
-        "momentum": 0.734,
+        "momentum": 0.736,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
       },
       "signal": "buy",
       "entry": {
@@ -2626,34 +2626,34 @@
       "note": ""
     },
     {
-      "ticker": "OKE",
-      "name": "Oneok",
+      "ticker": "EOG",
+      "name": "EOG Resources",
       "market": "US",
       "sector": "Energy",
       "score": 83,
       "factors": {
-        "momentum": 0.739,
+        "momentum": 0.733,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.866
+        "tech": 0.865
       },
       "prob_up": {
-        "d5": 0.544,
-        "d20": 0.564,
-        "d60": 0.588
+        "d5": 0.543,
+        "d20": 0.562,
+        "d60": 0.587
       },
       "signal": "buy",
       "entry": {
-        "low": 94.79,
-        "high": 96.74
+        "low": 147.47,
+        "high": 150.68
       },
       "targets": {
-        "bear": 93.56,
-        "base": 102.13,
-        "bull": 108.24
+        "bear": 145.47,
+        "base": 159.51,
+        "bull": 169.54
       },
-      "stop": 91.12,
+      "stop": 141.45,
       "verified": true,
       "note": ""
     }
