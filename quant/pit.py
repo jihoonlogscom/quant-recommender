@@ -161,43 +161,59 @@ def build_pit_fundamentals_us(tickers: list[str]) -> dict[str, pd.DataFrame]:
 
 # ============================ DART (KR 재무, 키 필요) ============================
 def build_pit_fundamentals_kr(tickers: list[str]) -> dict[str, pd.DataFrame]:
-    """OpenDartReader로 최근 연간 재무를 받아 PIT 구성. 키/라이브러리 없으면 빈 결과."""
+    """OpenDartReader로 최근 연간 재무를 받아 PIT 구성. 키/라이브러리 없으면 빈 결과.
+    반환: {ticker: DataFrame(index=filed(근사), columns=FUND_COLS)}."""
+    import io, contextlib
     key = os.getenv("DART_API_KEY")
     if not key:
         return {}
+    buf = io.StringIO()
     try:
-        import OpenDartReader
+        with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
+            import OpenDartReader
+            dart = OpenDartReader(key)                     # corp_code 매핑 1회 다운로드
     except Exception:
         return {}
-    dart = OpenDartReader(key)
+
+    def pick(df, needle):
+        rows = df
+        if "fs_div" in df.columns:                        # 연결(CFS) 우선
+            cfs = df[df["fs_div"] == "CFS"]
+            rows = cfs if len(cfs) else df
+        m = rows[rows["account_nm"].astype(str).str.contains(needle, na=False)]
+        if len(m) == 0:
+            return np.nan
+        v = str(m.iloc[0].get("thstrm_amount", "")).replace(",", "").strip()
+        try:
+            return float(v)
+        except Exception:
+            return np.nan
+
     out = {}
     years = [pd.Timestamp.today().year - i for i in range(1, 5)]
     for tk in tickers:
         rows = {}
         for y in years:
             try:
-                fs = dart.finstate(tk, y)                 # 연간 주요계정
-                if fs is None or len(fs) == 0:
-                    continue
-                acc = {r["account_nm"]: r for _, r in fs.iterrows()}
-                def val(name):
-                    r = acc.get(name)
-                    if not r:
-                        return np.nan
-                    v = str(r.get("thstrm_amount", "")).replace(",", "")
-                    return float(v) if v and v.lstrip("-").isdigit() else np.nan
-                ni = val("당기순이익"); eq = val("자본총계"); rev = val("매출액")
-                opi = val("영업이익"); liab = val("부채총계")
-                filed = pd.to_datetime(f"{y+1}-03-31")   # 사업보고서 통상 익년 3월 공시(근사)
-                rows[filed] = dict(eps_ttm=np.nan, bps=np.nan, ebitda_ps=np.nan,
-                                   roe=(ni / eq if eq else np.nan),
-                                   op_margin=(opi / rev if rev else np.nan),
-                                   debt_ratio=(liab / eq if eq else np.nan),
-                                   earn_stability=np.nan)
+                with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
+                    fs = dart.finstate(tk, y)             # 사업보고서(연간) 주요계정
             except Exception:
                 continue
+            if fs is None or len(fs) == 0:
+                continue
+            ni, eq = pick(fs, "당기순이익"), pick(fs, "자본총계")
+            rev, opi, liab = pick(fs, "매출"), pick(fs, "영업이익"), pick(fs, "부채총계")
+            eps = pick(fs, "주당순이익")
+            rows[pd.to_datetime(f"{y+1}-03-31")] = dict(   # 사업보고서 통상 익년 3월 공시(근사)
+                eps_ttm=eps, bps=np.nan, ebitda_ps=np.nan,
+                roe=(ni / eq if eq else np.nan),
+                op_margin=(opi / rev if rev else np.nan),
+                debt_ratio=(liab / eq if eq else np.nan),
+                earn_stability=np.nan)
         if rows:
-            out[tk] = pd.DataFrame(rows).T.reindex(columns=FUND_COLS)
+            df = pd.DataFrame(rows).T.reindex(columns=FUND_COLS)
+            if df.notna().any().any():
+                out[tk] = df
     return out
 
 

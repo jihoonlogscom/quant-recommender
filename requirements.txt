@@ -8,8 +8,8 @@ requests>=2.31
 pykrx>=1.0          # 한국 수급(외국인·기관 순매수)
 pyarrow>=14         # 일봉 증분 parquet 캐시
 
-# 선택: 한국 재무(DART) — 환경변수 DART_API_KEY 필요
-# OpenDartReader>=0.2.2
+# 한국 재무(DART) — 실제 사용은 환경변수 DART_API_KEY 있을 때만(없으면 자동 skip)
+OpenDartReader>=0.2.3
 
 # 선택(Phase 3+ 정밀 검증·엔진): 필요 시 주석 해제
 # alphalens-reloaded
