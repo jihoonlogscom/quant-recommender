@@ -9,7 +9,7 @@ pykrx>=1.0          # 한국 수급(외국인·기관 순매수)
 pyarrow>=14         # 일봉 증분 parquet 캐시
 
 # 한국 재무(DART) — 실제 사용은 환경변수 DART_API_KEY 있을 때만(없으면 자동 skip)
-OpenDartReader>=0.2.3
+OpenDartReader==0.2.2   # 0.2.3은 Python>=3.13 요구, 러너(3.12) 호환 위해 0.2.2 고정
 
 # 선택(Phase 3+ 정밀 검증·엔진): 필요 시 주석 해제
 # alphalens-reloaded
