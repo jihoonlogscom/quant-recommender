@@ -289,6 +289,27 @@ def backtest_engine(panel):
 
 
 # ============================ 레짐 · 신호 · 가격 ============================
+PHRASE = {"momentum": "모멘텀 강세", "tech": "추세 정렬 양호", "value": "저평가 매력",
+          "quality": "수익성 우수", "supply": "외국인·기관 순매수"}
+WEAK = {"momentum": "모멘텀 약화", "tech": "추세 약화", "supply": "수급 이탈"}
+
+
+def _rationale(factors, weights, prob_d20, signal, verified):
+    """이 점수·순위인 이유를 한 줄로. 가중치가 있고 백분위가 높은 팩터를 근거로 뽑는다."""
+    p = round((prob_d20 or 0) * 100)
+    if signal == "sell":
+        weak = [WEAK[k] for k in ["momentum", "tech", "supply"]
+                if weights.get(k, 0) > 0 and factors.get(k, 0.5) < 0.4][:2]
+        base = "·".join(weak) if weak else "모멘텀·추세 약화"
+        return f"{base} · 20일 상승확률 {p}% — 약세, 신규매수 회피"
+    highs = sorted([k for k in FACTORS if weights.get(k, 0) > 0 and factors.get(k, 0) >= 0.6],
+                   key=lambda k: factors[k] * weights.get(k, 0), reverse=True)[:2]
+    drivers = "·".join(PHRASE[k] for k in highs) if highs else "팩터 전반 중립(뚜렷한 우위 없음)"
+    tail = "매수 후보" if signal == "buy" else "관망"
+    vf = " ·백테스트 검증" if verified else ""
+    return f"{drivers} · 20일 상승확률 {p}%{vf} — {tail}"
+
+
 def regime_from_index(idx: pd.Series) -> dict:
     idx = idx.dropna(); ma200 = idx.rolling(200).mean()
     above = bool(idx.iloc[-1] > ma200.iloc[-1]) if len(idx) >= 200 else True
@@ -365,13 +386,15 @@ def build_market(market, panel, regime, pit_fund=None, supply=None, top_n=40):
         signal = make_signal(int(row["score"]), prob_up["d20"], regime_off)
         px = price_levels(close, atr, market, signal)
         verified = ruleset_ok and (probs.get("d20") is not None) and (probs["d20"] >= CFG["verify_prob"])
+        fac = {k: round(float(dsp[k][tk]), 3) for k in FACTORS}
         recs.append({
             "ticker": tk, "name": SECTORS.get((market, tk), {}).get("name", tk),
             "market": market, "sector": SECTORS.get((market, tk), {}).get("sector", ""),
             "score": int(row["score"]),
-            "factors": {k: round(float(dsp[k][tk]), 3) for k in FACTORS},
+            "factors": fac,
             "prob_up": {k: round(v, 3) for k, v in prob_up.items()},
-            "signal": signal, **px, "verified": bool(verified), "note": "",
+            "signal": signal, **px, "verified": bool(verified),
+            "note": _rationale(fac, Wc, prob_up["d20"], signal, verified),
         })
     stats = dict(hit=bt["top_hit"], pbo=bt["pbo"], dsr=bt["dsr"], ic=bt["ic"], weights=Wc)
     return recs, stats, len(f)
