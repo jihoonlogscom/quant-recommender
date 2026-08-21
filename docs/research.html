@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>종목 리서치 · 퀀트 워크스페이스</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+  .toolnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+  .toolnav a{font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none;border:1px solid var(--line);
+    background:var(--panel);padding:6px 11px;border-radius:8px;transition:.15s}
+  .toolnav a:hover{color:var(--ink);border-color:var(--line-2)}
+  .toolnav a[aria-current="page"]{color:var(--cyan);border-color:var(--cyan);background:rgba(67,201,193,.08)}
+  .toolnav a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="homebar"><a href="index.html">← 퀀트 워크스페이스</a></div>
+<nav class="toolnav"><a href="daily.html">오늘의 추천</a><a href="backtest.html">검증</a><a href="factors.html">팩터</a><a href="regime.html">국면</a><a href="research.html" aria-current="page">리서치</a><a href="screener.html">스크리너</a><a href="watchlist.html">관심</a><a href="portfolio.html">포트폴리오</a><a href="report.html">리포트</a></nav>
+<header class="pg">
+  <div>
+    <span class="kicker">Research</span>
+    <h1>종목 리서치</h1>
+    <div class="sub">개별 종목의 점수가 어떤 팩터에서 왔는지, 확률·진입가·목표가와 함께 분해해 봅니다.</div>
+  </div>
+  <div class="asof"><span class="dot"></span>기준일 <b id="asof">—</b></div>
+</header>
+
+<div class="controls">
+  <label class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="q" type="search" placeholder="종목명 또는 티커 검색" aria-label="종목 검색"></label>
+</div>
+<div id="picker" class="card"><div class="bd" id="plist"></div></div>
+<div id="detail" style="margin-top:12px"></div>
+<footer>리서치 보조용이며 투자 자문이 아닙니다. 확률·점수는 과거 데이터 기반으로 미래 수익을 보장하지 않습니다.</footer>
+<script src="assets/app.js"></script>
+<script>
+
+let D,SEL=null;
+function list(){
+  const q=(document.getElementById("q").value||"").trim().toLowerCase();
+  const recs=(D.recommendations||[]).filter(r=>!q||r.name.toLowerCase().includes(q)||String(r.ticker).toLowerCase().includes(q))
+    .sort((a,b)=>b.score-a.score).slice(0,12);
+  document.getElementById("plist").innerHTML= recs.length? recs.map(r=>
+    `<div class="pick" data-tk="${QW.esc(r.ticker)}" data-mk="${r.market}" style="display:flex;gap:10px;align-items:center;padding:8px 6px;border-bottom:1px solid var(--line);cursor:pointer">
+      <div style="flex:1">${QW.rowName(r)}</div>
+      <span class="sig ${r.signal}">${QW.SIGLAB[r.signal]}</span>
+      <b class="num" style="width:34px;text-align:right">${r.score}</b></div>`).join("")
+    : `<div class="empty">검색 결과가 없습니다</div>`;
+  document.querySelectorAll(".pick").forEach(el=>el.addEventListener("click",()=>{
+    SEL=(D.recommendations||[]).find(r=>String(r.ticker)===el.dataset.tk&&r.market===el.dataset.mk); detail();}));
+}
+function detail(){
+  const box=document.getElementById("detail");
+  if(!SEL){box.innerHTML="";return;}
+  const r=SEL, w=(D.weights||{})[r.market]||{};
+  const contrib=QW.FACTORS.map(k=>({k,v:(r.factors[k]||0)*(w[k]||0)})).sort((a,b)=>b.v-a.v);
+  const tot=contrib.reduce((s,x)=>s+x.v,0)||1;
+  const band = r.entry&&r.entry.high>0;
+  box.innerHTML=`<div class="card"><div class="bd">
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:14px">
+      <div style="flex:1;min-width:200px"><div style="font-size:20px;font-weight:800">${QW.esc(r.name)}</div>
+        <div style="margin-top:4px">${QW.rowName(r)} <span class="note">${QW.esc(r.sector||"")}</span></div></div>
+      <div style="text-align:right"><div class="k" style="font-size:10.5px;color:var(--faint);letter-spacing:.1em">종합점수</div>
+        <div class="num" style="font-size:30px;font-weight:800">${r.score}</div></div>
+      <span class="sig ${r.signal}" style="font-size:14px;padding:7px 14px">${QW.SIGLAB[r.signal]}</span></div>
+    <div class="note" style="margin-bottom:14px;font-size:13.5px">${QW.esc(r.note||"")}</div>
+    <div class="cols c2">
+      <div><div class="k" style="font-size:10.5px;color:var(--faint);letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:9px">점수 기여도</div>
+        ${contrib.map(x=>`<div class="hbar" style="margin-bottom:7px">
+          <div style="width:52px;font-size:12px;color:var(--muted)">${QW.FLABEL[x.k]}</div>
+          <div class="bar" style="flex:1"><i style="width:${x.v/tot*100}%;background:${QW.FCOLOR[x.k]}"></i></div>
+          <div class="num" style="width:74px;text-align:right;font-size:12px">${Math.round((r.factors[x.k]||0)*100)}<span style="color:var(--faint)"> ×${Math.round((w[x.k]||0)*100)}%</span></div></div>`).join("")}
+        <div class="note" style="margin-top:6px">백분위 × 가중치 = 이 종목 점수에 실제로 기여한 몫입니다.</div></div>
+      <div><div class="k" style="font-size:10.5px;color:var(--faint);letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:9px">상승확률 · 가격</div>
+        <div class="mrow" style="grid-template-columns:repeat(3,1fr);margin-bottom:12px">
+          ${[["5일","d5"],["20일","d20"],["60일","d60"]].map(([l,k])=>{const v=r.prob_up[k];
+            const c=v>=0.62?"good":v>=0.53?"warn":"bad";
+            return `<div class="m"><div class="k">${l}</div><div class="v num ${c}">${QW.pct(v)}</div></div>`}).join("")}</div>
+        ${band?`<table class="t"><tbody>
+          <tr><td style="color:var(--muted)">진입 밴드</td><td class="r num">${QW.money(r.entry.low,r.market)} ~ ${QW.money(r.entry.high,r.market)}</td></tr>
+          <tr><td style="color:var(--muted)">목표 (Bear)</td><td class="r num bad">${QW.money(r.targets.bear,r.market)}</td></tr>
+          <tr><td style="color:var(--muted)">목표 (Base)</td><td class="r num">${QW.money(r.targets.base,r.market)}</td></tr>
+          <tr><td style="color:var(--muted)">목표 (Bull)</td><td class="r num good">${QW.money(r.targets.bull,r.market)}</td></tr>
+          <tr><td style="color:var(--muted)">손절</td><td class="r num bad">${QW.money(r.stop,r.market)}</td></tr></tbody></table>`
+          :`<div class="note">매도/회피 신호로 진입가·목표가를 제시하지 않습니다.</div>`}
+        <div style="margin-top:12px"><button class="btn" id="addwl">관심종목에 추가</button></div></div>
+    </div></div></div>`;
+  const b=document.getElementById("addwl");
+  if(b) b.addEventListener("click",()=>{
+    const wl=QW.store.get("watchlist",[]); const id=r.market+":"+r.ticker;
+    if(!wl.includes(id)){wl.push(id);QW.store.set("watchlist",wl);}
+    b.textContent="관심종목에 추가됨 ✓"; b.disabled=true;});
+}
+QW.load().then(d=>{D=d;QW.header(d);list();});
+document.getElementById("q").addEventListener("input",list);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>관심종목 워치리스트 · 퀀트 워크스페이스</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+  .toolnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+  .toolnav a{font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none;border:1px solid var(--line);
+    background:var(--panel);padding:6px 11px;border-radius:8px;transition:.15s}
+  .toolnav a:hover{color:var(--ink);border-color:var(--line-2)}
+  .toolnav a[aria-current="page"]{color:var(--cyan);border-color:var(--cyan);background:rgba(67,201,193,.08)}
+  .toolnav a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="homebar"><a href="index.html">← 퀀트 워크스페이스</a></div>
+<nav class="toolnav"><a href="daily.html">오늘의 추천</a><a href="backtest.html">검증</a><a href="factors.html">팩터</a><a href="regime.html">국면</a><a href="research.html">리서치</a><a href="screener.html">스크리너</a><a href="watchlist.html" aria-current="page">관심</a><a href="portfolio.html">포트폴리오</a><a href="report.html">리포트</a></nav>
+<header class="pg">
+  <div><span class="kicker">Watchlist</span><h1>관심종목 워치리스트</h1><div class="sub">직접 고른 종목만 모아 점수·확률·신호를 추적합니다.</div></div>
+  <div class="asof"><span class="dot"></span>기준일 <b id="asof">—</b></div>
+</header>
+
+<div class="controls">
+  <label class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="q" type="search" placeholder="추가할 종목 검색" aria-label="종목 검색"></label>
+  <div class="note" id="cnt"></div>
+</div>
+<div id="sugg" class="card" style="display:none;margin-bottom:12px"><div class="bd" id="slist"></div></div>
+<div class="card"><div class="hd">내 관심종목</div><div class="bd" id="wl"></div></div>
+<div class="card" style="margin-top:12px"><div class="bd note">
+관심종목은 이 브라우저에만 저장됩니다(서버 전송 없음). 다른 기기에서는 보이지 않습니다.</div></div>
+<footer>리서치 보조용이며 투자 자문이 아닙니다. 확률·점수는 과거 데이터 기반으로 미래 수익을 보장하지 않습니다.</footer>
+<script src="assets/app.js"></script>
+<script>
+
+let D;
+const idOf=r=>r.market+":"+r.ticker;
+function getWL(){return QW.store.get("watchlist",[]);}
+function render(){
+  const wl=getWL();
+  const recs=(D.recommendations||[]).filter(r=>wl.includes(idOf(r)));
+  const missing=wl.filter(id=>!recs.some(r=>idOf(r)===id));
+  document.getElementById("cnt").innerHTML=`관심종목 <b style="color:var(--ink)">${wl.length}</b>개`;
+  document.getElementById("wl").innerHTML= recs.length? `<table class="t"><thead><tr>
+      <th>종목</th><th class="r">점수</th><th class="r">5일</th><th class="r">20일</th><th class="r">60일</th><th class="c">신호</th><th></th></tr></thead><tbody>`+
+    recs.sort((a,b)=>b.score-a.score).map(r=>`<tr>
+      <td>${QW.rowName(r)}<div class="note" style="font-size:11.5px;margin-top:3px">${QW.esc(r.note||"")}</div></td>
+      <td class="r num"><b>${r.score}</b></td>
+      ${["d5","d20","d60"].map(k=>`<td class="r num">${QW.pct(r.prob_up[k])}</td>`).join("")}
+      <td class="c"><span class="sig ${r.signal}">${QW.SIGLAB[r.signal]}</span></td>
+      <td class="r"><button class="btn del" data-id="${idOf(r)}" style="padding:4px 9px;font-size:12px">삭제</button></td></tr>`).join("")+
+      `</tbody></table>`+ (missing.length? `<div class="note" style="margin-top:10px">오늘 추천 목록에 없는 종목 ${missing.length}개: ${missing.map(QW.esc).join(", ")} — 점수가 하위권이라 산출되지 않았을 수 있습니다.</div>`:"")
+    : `<div class="empty">아직 관심종목이 없습니다. 위에서 검색해 추가해 보세요.</div>`;
+  document.querySelectorAll(".del").forEach(b=>b.addEventListener("click",()=>{
+    QW.store.set("watchlist",getWL().filter(x=>x!==b.dataset.id)); render();}));
+}
+function sugg(){
+  const q=(document.getElementById("q").value||"").trim().toLowerCase();
+  const box=document.getElementById("sugg");
+  if(!q){box.style.display="none";return;}
+  const wl=getWL();
+  const hits=(D.recommendations||[]).filter(r=>!wl.includes(idOf(r))&&(r.name.toLowerCase().includes(q)||String(r.ticker).toLowerCase().includes(q))).slice(0,8);
+  box.style.display="block";
+  document.getElementById("slist").innerHTML= hits.length? hits.map(r=>
+    `<div style="display:flex;gap:10px;align-items:center;padding:7px 4px;border-bottom:1px solid var(--line)">
+      <div style="flex:1">${QW.rowName(r)}</div><b class="num">${r.score}</b>
+      <button class="btn add" data-id="${idOf(r)}" style="padding:4px 10px;font-size:12px">추가</button></div>`).join("")
+    : `<div class="note">검색 결과가 없습니다</div>`;
+  document.querySelectorAll(".add").forEach(b=>b.addEventListener("click",()=>{
+    const wl=getWL(); if(!wl.includes(b.dataset.id)){wl.push(b.dataset.id);QW.store.set("watchlist",wl);}
+    document.getElementById("q").value=""; box.style.display="none"; render();}));
+}
+document.getElementById("q").addEventListener("input",sugg);
+QW.load().then(d=>{D=d;QW.header(d);render();});
+
+</script>
+</body>
+</html>

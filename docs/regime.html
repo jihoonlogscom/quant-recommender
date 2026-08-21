@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>시장 국면 · 매크로 · 퀀트 워크스페이스</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+  .toolnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+  .toolnav a{font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none;border:1px solid var(--line);
+    background:var(--panel);padding:6px 11px;border-radius:8px;transition:.15s}
+  .toolnav a:hover{color:var(--ink);border-color:var(--line-2)}
+  .toolnav a[aria-current="page"]{color:var(--cyan);border-color:var(--cyan);background:rgba(67,201,193,.08)}
+  .toolnav a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="homebar"><a href="index.html">← 퀀트 워크스페이스</a></div>
+<nav class="toolnav"><a href="daily.html">오늘의 추천</a><a href="backtest.html">검증</a><a href="factors.html">팩터</a><a href="regime.html" aria-current="page">국면</a><a href="research.html">리서치</a><a href="screener.html">스크리너</a><a href="watchlist.html">관심</a><a href="portfolio.html">포트폴리오</a><a href="report.html">리포트</a></nav>
+<header class="pg">
+  <div>
+    <span class="kicker">Market Regime</span>
+    <h1>시장 국면 · 매크로</h1>
+    <div class="sub">지수 추세·변동성으로 판정한 시장 국면과, 그 안에서 신호가 어떻게 분포하는지 봅니다.</div>
+  </div>
+  <div class="asof"><span class="dot"></span>기준일 <b id="asof">—</b></div>
+</header>
+
+<div class="cols c2" id="regimes"></div>
+<div class="cols c2" style="margin-top:12px">
+  <div class="card"><div class="hd">신호 분포</div><div class="bd" id="dist"></div></div>
+  <div class="card"><div class="hd">섹터별 평균 점수</div><div class="bd" id="sectors"></div></div>
+</div>
+<footer>리서치 보조용이며 투자 자문이 아닙니다. 확률·점수는 과거 데이터 기반으로 미래 수익을 보장하지 않습니다.</footer>
+<script src="assets/app.js"></script>
+<script>
+
+let D;
+function render(){
+  const rg=D.market_regime||{}, us=D.universe_size||{};
+  document.getElementById("regimes").innerHTML=[["kr","한국","KR"],["us","미국","US"]].map(([k,lab,MK])=>{
+    const g=rg[k]||{state:"—",note:"",led:"neutral"};
+    const col=g.led==="on"?"var(--buy)":g.led==="off"?"var(--sell)":"var(--watch)";
+    const recs=(D.recommendations||[]).filter(r=>r.market===MK);
+    const buy=recs.filter(r=>r.signal==="buy").length;
+    const avg=recs.length?Math.round(recs.reduce((s,r)=>s+r.score,0)/recs.length):0;
+    return `<div class="card"><div class="hd">${lab} 시장</div><div class="bd">
+      <div style="display:flex;align-items:center;gap:11px;margin-bottom:12px">
+        <span style="width:11px;height:11px;border-radius:50%;background:${col};box-shadow:0 0 12px 1px ${col}"></span>
+        <div><div style="font-size:18px;font-weight:800">${QW.esc(g.state)}</div>
+        <div class="note">${QW.esc(g.note||"")}</div></div></div>
+      <div class="mrow" style="grid-template-columns:repeat(3,1fr)">
+        <div class="m"><div class="k">유니버스</div><div class="v num">${(us[k]??0).toLocaleString()}</div></div>
+        <div class="m"><div class="k">매수 신호</div><div class="v num good">${buy}</div></div>
+        <div class="m"><div class="k">평균 점수</div><div class="v num">${avg}</div></div></div>
+      <div class="note" style="margin-top:10px">${g.led==="off"?"위험회피 국면에서는 매수 신호를 억제합니다.":g.led==="on"?"추세·변동성이 안정적이라 매수 신호가 정상 작동합니다.":"추세 혼조 구간 — 신호 신뢰도가 낮아질 수 있습니다."}</div>
+      </div></div>`;}).join("");
+
+  const box=document.getElementById("dist");
+  box.innerHTML=["KR","US"].map(MK=>{
+    const recs=(D.recommendations||[]).filter(r=>r.market===MK);
+    if(!recs.length) return "";
+    const c={buy:0,watch:0,sell:0}; recs.forEach(r=>c[r.signal]++);
+    const t=recs.length;
+    return `<div style="margin-bottom:14px"><div style="font-size:12px;font-weight:700;margin-bottom:6px">
+      <span class="badge-mk ${MK}">${MK}</span> <span style="color:var(--muted)">${t}종목</span></div>
+      <div class="bar" style="height:14px;display:flex">
+        <span style="width:${c.buy/t*100}%;background:var(--buy)"></span>
+        <span style="width:${c.watch/t*100}%;background:var(--watch)"></span>
+        <span style="width:${c.sell/t*100}%;background:var(--sell)"></span></div>
+      <div style="display:flex;gap:14px;margin-top:6px;font-size:12px;color:var(--muted)">
+        <span><b class="good">매수 ${c.buy}</b></span><span><b class="warn">관망 ${c.watch}</b></span><span><b class="bad">매도 ${c.sell}</b></span></div></div>`;
+  }).join("")||`<div class="empty">데이터 없음</div>`;
+
+  const bySec={};
+  (D.recommendations||[]).forEach(r=>{const s=(r.sector||"기타").trim()||"기타";
+    (bySec[s]=bySec[s]||[]).push(r.score);});
+  const rows=Object.entries(bySec).map(([s,a])=>[s,a.reduce((x,y)=>x+y,0)/a.length,a.length])
+    .sort((a,b)=>b[1]-a[1]).slice(0,10);
+  document.getElementById("sectors").innerHTML= rows.length? rows.map(([s,avg,n])=>
+    `<div class="hbar" style="margin-bottom:8px">
+      <div style="width:110px;font-size:12.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${QW.esc(s)}</div>
+      <div class="bar" style="flex:1"><i style="width:${avg}%;background:var(--cyan)"></i></div>
+      <div class="num" style="width:56px;text-align:right;font-size:12.5px">${Math.round(avg)} <span style="color:var(--faint)">·${n}</span></div></div>`
+    ).join("") : `<div class="empty">섹터 정보 없음</div>`;
+}
+QW.load().then(d=>{D=d;QW.header(d);render();});
+
+</script>
+</body>
+</html>

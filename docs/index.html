@@ -67,8 +67,12 @@
   .tile{position:relative; padding:18px 17px; border-radius:16px; background:linear-gradient(180deg,var(--panel),#10141e);
     border:1px solid var(--line); min-height:150px; display:flex; flex-direction:column; transition:border-color .15s, transform .15s}
   .tile:hover{border-color:var(--line-2); transform:translateY(-1px)}
+  .tile{text-decoration:none;color:inherit}
+  .tile .go{margin-top:auto;padding-top:10px;font-size:12px;font-weight:700;color:var(--cyan);opacity:0;transition:.15s}
+  .tile:hover .go{opacity:1}
+  .tile:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
   .tile .ic{width:38px; height:38px; border-radius:11px; display:grid; place-items:center; margin-bottom:12px;
-    background:var(--grid); border:1px solid var(--line); color:var(--faint)}
+    background:var(--grid); border:1px solid var(--line); color:var(--cyan)}
   .tile .ic svg{width:19px; height:19px; stroke:currentColor; fill:none; stroke-width:1.8}
   .tile h3{margin:0 0 5px; font-size:15.5px; font-weight:700}
   .tile p{margin:0; color:var(--muted); font-size:12.8px; line-height:1.5}
@@ -111,7 +115,7 @@
   <span class="enter">들어가기 <svg width="17" height="17" viewBox="0 0 24 24" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
 </a>
 
-<div class="seclabel">곧 추가될 도구</div>
+<div class="seclabel">도구</div>
 <div class="grid" id="grid"></div>
 
 <footer>
@@ -120,14 +124,14 @@
 
 <script>
 const TOOLS = [
-  {t:"백테스트 · 룰 검증", d:"팩터 IC, PBO, Deflated Sharpe, 누적 수익곡선으로 룰의 신뢰도를 점검.", ic:"chart"},
-  {t:"팩터 랩", d:"모멘텀·가치·퀄리티·수급 팩터별 기여도와 시점별 예측력(IC)을 분해.", ic:"layers"},
-  {t:"시장 국면 · 매크로", d:"지수 레짐, 변동성, 유동성, 섹터 로테이션을 한눈에.", ic:"pulse"},
-  {t:"종목 리서치", d:"EPS×PER 시나리오(bear/base/bull), 피어 비교, 실적 리비전 추적.", ic:"search"},
-  {t:"포트폴리오 · 리밸런싱", d:"보유 종목 비중과 목표 대비 리밸런싱 제안.", ic:"briefcase"},
-  {t:"관심종목 워치리스트", d:"고른 종목만 모아 점수·신호 변화를 추적.", ic:"star"},
-  {t:"스크리너", d:"팩터·업종·유동성 조건으로 유니버스를 직접 필터링.", ic:"filter"},
-  {t:"알림 · 리포트", d:"신호 변화·상위 진입 종목을 요약 리포트로.", ic:"bell"},
+  {t:"백테스트 · 룰 검증", d:"팩터 IC, PBO, Deflated Sharpe로 이 추천을 믿어도 되는지 점검.", ic:"chart", u:"backtest.html"},
+  {t:"팩터 랩", d:"어떤 팩터가 미래 수익을 예측했는지, 점수에 얼마나 반영됐는지 분해.", ic:"layers", u:"factors.html"},
+  {t:"시장 국면 · 매크로", d:"지수 레짐과 신호 분포, 섹터별 평균 점수를 한눈에.", ic:"pulse", u:"regime.html"},
+  {t:"종목 리서치", d:"개별 종목의 점수 기여도·확률·진입가/목표가를 분해해 확인.", ic:"search", u:"research.html"},
+  {t:"포트폴리오 · 리밸런싱", d:"보유 비중과 점수를 확인하고 조정·편입 후보를 제안받기.", ic:"briefcase", u:"portfolio.html"},
+  {t:"관심종목 워치리스트", d:"고른 종목만 모아 점수·확률·신호 변화를 추적.", ic:"star", u:"watchlist.html"},
+  {t:"스크리너", d:"팩터·신호·확률 조건으로 직접 필터링하고 CSV로 내보내기.", ic:"filter", u:"screener.html"},
+  {t:"알림 · 리포트", d:"오늘의 신호 요약과 내 종목 경고를 모아 텍스트로 복사.", ic:"bell", u:"report.html"},
 ];
 const ICONS = {
   chart:'<path d="M4 19V5M4 19h16M8 16v-5M12 16V8M16 16v-3M20 16v-7"/>',
@@ -140,9 +144,10 @@ const ICONS = {
   bell:'<path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/>',
 };
 document.getElementById("grid").innerHTML = TOOLS.map(x=>
-  '<div class="tile"><span class="soon">준비중</span>'+
+  '<a class="tile" href="'+x.u+'">'+
   '<div class="ic"><svg viewBox="0 0 24 24">'+ICONS[x.ic]+'</svg></div>'+
-  '<h3>'+x.t+'</h3><p>'+x.d+'</p></div>').join("");
+  '<h3>'+x.t+'</h3><p>'+x.d+'</p>'+
+  '<span class="go">열기 →</span></a>').join("");
 
 fetch("latest.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{
   if(!j) return;

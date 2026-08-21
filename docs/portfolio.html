@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>포트폴리오 · 리밸런싱 · 퀀트 워크스페이스</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+  .toolnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+  .toolnav a{font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none;border:1px solid var(--line);
+    background:var(--panel);padding:6px 11px;border-radius:8px;transition:.15s}
+  .toolnav a:hover{color:var(--ink);border-color:var(--line-2)}
+  .toolnav a[aria-current="page"]{color:var(--cyan);border-color:var(--cyan);background:rgba(67,201,193,.08)}
+  .toolnav a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="homebar"><a href="index.html">← 퀀트 워크스페이스</a></div>
+<nav class="toolnav"><a href="daily.html">오늘의 추천</a><a href="backtest.html">검증</a><a href="factors.html">팩터</a><a href="regime.html">국면</a><a href="research.html">리서치</a><a href="screener.html">스크리너</a><a href="watchlist.html">관심</a><a href="portfolio.html" aria-current="page">포트폴리오</a><a href="report.html">리포트</a></nav>
+<header class="pg">
+  <div><span class="kicker">Portfolio</span><h1>포트폴리오 · 리밸런싱</h1><div class="sub">보유 종목의 비중·점수를 확인하고 조정 후보를 제안받습니다.</div></div>
+  <div class="asof"><span class="dot"></span>기준일 <b id="asof">—</b></div>
+</header>
+
+<div class="card"><div class="hd">보유 종목 입력</div><div class="bd">
+  <div class="controls">
+    <label class="search" style="max-width:320px"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="q" type="search" placeholder="종목 검색" aria-label="종목 검색"></label>
+    <input id="amt" type="number" min="0" step="1" placeholder="평가금액" style="width:150px;background:var(--panel);border:1px solid var(--line);border-radius:10px;color:var(--ink);padding:9px 12px;font-family:var(--mono)">
+    <button class="btn pri" id="add">추가</button>
+  </div>
+  <div id="sugg" class="note"></div>
+</div></div>
+<div class="cols c2" style="margin-top:12px">
+  <div class="card"><div class="hd">포트폴리오 요약</div><div class="bd" id="summary"></div></div>
+  <div class="card"><div class="hd">리밸런싱 제안</div><div class="bd" id="rebal"></div></div>
+</div>
+<div class="card" style="margin-top:12px"><div class="hd">보유 내역</div><div class="bd" id="holdings"></div></div>
+<div class="card" style="margin-top:12px"><div class="bd note">
+보유 내역은 이 브라우저에만 저장되며 서버로 전송되지 않습니다. 제안은 점수·신호에 따른 참고용 계산이며 매매 지시가 아닙니다.</div></div>
+<footer>리서치 보조용이며 투자 자문이 아닙니다. 확률·점수는 과거 데이터 기반으로 미래 수익을 보장하지 않습니다.</footer>
+<script src="assets/app.js"></script>
+<script>
+
+let D,PICK=null;
+const idOf=r=>r.market+":"+r.ticker;
+function hold(){return QW.store.get("holdings",{});}
+function setHold(h){QW.store.set("holdings",h);}
+function findRec(id){return (D.recommendations||[]).find(r=>idOf(r)===id);}
+document.getElementById("q").addEventListener("input",e=>{
+  const q=(e.target.value||"").trim().toLowerCase(); const box=document.getElementById("sugg");
+  if(!q){box.innerHTML="";PICK=null;return;}
+  const hits=(D.recommendations||[]).filter(r=>r.name.toLowerCase().includes(q)||String(r.ticker).toLowerCase().includes(q)).slice(0,6);
+  box.innerHTML=hits.map(r=>`<span class="btn pk" data-id="${idOf(r)}" style="margin:4px 6px 0 0;display:inline-block;padding:5px 10px;font-size:12px">${QW.esc(r.name)} <span class="tk">${QW.esc(r.ticker)}</span></span>`).join("")||"검색 결과 없음";
+  document.querySelectorAll(".pk").forEach(b=>b.addEventListener("click",()=>{
+    PICK=b.dataset.id; document.getElementById("q").value=findRec(PICK).name; box.innerHTML=`<b style="color:var(--cyan)">선택됨</b> — 평가금액을 입력하고 추가하세요.`;}));
+});
+document.getElementById("add").addEventListener("click",()=>{
+  const amt=+document.getElementById("amt").value;
+  if(!PICK||!amt||amt<=0){document.getElementById("sugg").innerHTML="종목을 선택하고 금액을 입력하세요.";return;}
+  const h=hold(); h[PICK]=(h[PICK]||0)+amt; setHold(h);
+  PICK=null; document.getElementById("q").value=""; document.getElementById("amt").value="";
+  document.getElementById("sugg").innerHTML=""; render();});
+function render(){
+  const h=hold(), ids=Object.keys(h);
+  const total=ids.reduce((s,k)=>s+h[k],0);
+  const items=ids.map(id=>{const r=findRec(id); return {id,amt:h[id],r};});
+  if(!ids.length){
+    document.getElementById("summary").innerHTML=`<div class="empty">보유 종목을 추가하면 요약이 표시됩니다</div>`;
+    document.getElementById("rebal").innerHTML=`<div class="empty">—</div>`;
+    document.getElementById("holdings").innerHTML=`<div class="empty">보유 내역 없음</div>`; return;}
+  const scored=items.filter(x=>x.r);
+  const wavg=scored.length? scored.reduce((s,x)=>s+x.r.score*x.amt,0)/scored.reduce((s,x)=>s+x.amt,0):0;
+  const byMk={}; items.forEach(x=>{const m=x.r?x.r.market:"기타"; byMk[m]=(byMk[m]||0)+x.amt;});
+  const sells=scored.filter(x=>x.r.signal==="sell");
+  document.getElementById("summary").innerHTML=`<div class="mrow" style="grid-template-columns:repeat(3,1fr);margin-bottom:12px">
+      <div class="m"><div class="k">총 평가금액</div><div class="v num">${total.toLocaleString()}</div></div>
+      <div class="m"><div class="k">가중 평균 점수</div><div class="v num ${wavg>=70?'good':wavg>=50?'':'bad'}">${Math.round(wavg)}</div></div>
+      <div class="m"><div class="k">보유 종목</div><div class="v num">${ids.length}</div></div></div>
+    <div class="bar" style="height:14px;display:flex;margin-bottom:8px">
+      ${Object.entries(byMk).map(([m,v])=>`<span style="width:${v/total*100}%;background:${m==="KR"?"var(--kr)":m==="US"?"var(--us)":"var(--faint)"}"></span>`).join("")}</div>
+    <div style="display:flex;gap:14px;font-size:12px;color:var(--muted)">
+      ${Object.entries(byMk).map(([m,v])=>`<span>${m} <b class="num" style="color:var(--ink)">${Math.round(v/total*100)}%</b></span>`).join("")}</div>`;
+  const maxW=Math.max(...items.map(x=>x.amt/total));
+  const conc=maxW>0.3;
+  document.getElementById("rebal").innerHTML=
+    (sells.length? `<div style="margin-bottom:10px"><span class="sig sell">비중 축소 검토</span>
+      <div class="note" style="margin-top:6px">${sells.map(x=>QW.esc(x.r.name)).join(", ")} — 매도 신호(점수·확률 하락)</div></div>`:"")+
+    (conc? `<div style="margin-bottom:10px"><span class="sig watch">집중도 주의</span>
+      <div class="note" style="margin-top:6px">한 종목이 ${Math.round(maxW*100)}%를 차지합니다. 분산을 검토해 보세요.</div></div>`:"")+
+    (()=>{const cand=(D.recommendations||[]).filter(r=>r.signal==="buy"&&!ids.includes(idOf(r))).sort((a,b)=>b.score-a.score).slice(0,3);
+      return cand.length? `<div><span class="sig buy">편입 후보</span><div style="margin-top:7px">`+
+        cand.map(r=>`<div style="display:flex;gap:8px;align-items:center;margin-bottom:5px;font-size:12.5px">
+          <span style="flex:1">${QW.esc(r.name)}</span><span class="tk">${QW.esc(r.ticker)}</span><b class="num">${r.score}</b></div>`).join("")+`</div></div>`:"";})()
+    || `<div class="note">특별한 조정 제안이 없습니다.</div>`;
+  document.getElementById("holdings").innerHTML=`<table class="t"><thead><tr>
+    <th>종목</th><th class="r">평가금액</th><th class="r">비중</th><th class="r">점수</th><th class="c">신호</th><th></th></tr></thead><tbody>`+
+    items.sort((a,b)=>b.amt-a.amt).map(x=>`<tr>
+      <td>${x.r?QW.rowName(x.r):`<span class="tk">${QW.esc(x.id)}</span> <span class="note">오늘 산출 없음</span>`}</td>
+      <td class="r num">${x.amt.toLocaleString()}</td>
+      <td class="r num">${Math.round(x.amt/total*100)}%</td>
+      <td class="r num">${x.r?x.r.score:"—"}</td>
+      <td class="c">${x.r?`<span class="sig ${x.r.signal}">${QW.SIGLAB[x.r.signal]}</span>`:"—"}</td>
+      <td class="r"><button class="btn rm" data-id="${QW.esc(x.id)}" style="padding:4px 9px;font-size:12px">삭제</button></td></tr>`).join("")+`</tbody></table>`;
+  document.querySelectorAll(".rm").forEach(b=>b.addEventListener("click",()=>{
+    const h=hold(); delete h[b.dataset.id]; setHold(h); render();}));
+}
+QW.load().then(d=>{D=d;QW.header(d);render();});
+
+</script>
+</body>
+</html>

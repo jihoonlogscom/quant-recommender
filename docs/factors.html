@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>팩터 랩 · 퀀트 워크스페이스</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+  .toolnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+  .toolnav a{font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none;border:1px solid var(--line);
+    background:var(--panel);padding:6px 11px;border-radius:8px;transition:.15s}
+  .toolnav a:hover{color:var(--ink);border-color:var(--line-2)}
+  .toolnav a[aria-current="page"]{color:var(--cyan);border-color:var(--cyan);background:rgba(67,201,193,.08)}
+  .toolnav a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="homebar"><a href="index.html">← 퀀트 워크스페이스</a></div>
+<nav class="toolnav"><a href="daily.html">오늘의 추천</a><a href="backtest.html">검증</a><a href="factors.html" aria-current="page">팩터</a><a href="regime.html">국면</a><a href="research.html">리서치</a><a href="screener.html">스크리너</a><a href="watchlist.html">관심</a><a href="portfolio.html">포트폴리오</a><a href="report.html">리포트</a></nav>
+<header class="pg">
+  <div>
+    <span class="kicker">Factor Lab</span>
+    <h1>팩터 랩</h1>
+    <div class="sub">어떤 팩터가 실제로 미래 수익을 예측했는지, 그래서 점수에 얼마나 반영됐는지 분해합니다.</div>
+  </div>
+  <div class="asof"><span class="dot"></span>기준일 <b id="asof">—</b></div>
+</header>
+
+<div class="controls">
+  <div class="seg mkt" id="mkt"><button data-mk="KR" aria-pressed="true">한국</button><button data-mk="US" aria-pressed="false">미국</button></div>
+</div>
+<div class="cols c2">
+  <div class="card"><div class="hd">팩터 예측력 (IC)</div><div class="bd" id="ic"></div></div>
+  <div class="card"><div class="hd">점수 가중치 배분</div><div class="bd" id="w"></div></div>
+</div>
+<div class="card" style="margin-top:12px"><div class="hd">팩터별 상위 종목</div><div class="bd" id="tops"></div></div>
+<footer>리서치 보조용이며 투자 자문이 아닙니다. 확률·점수는 과거 데이터 기반으로 미래 수익을 보장하지 않습니다.</footer>
+<script src="assets/app.js"></script>
+<script>
+
+let D,MK="KR";
+function render(){
+  const ic=(D.factor_ic||{})[MK]||{}, w=(D.weights||{})[MK]||{};
+  document.getElementById("ic").innerHTML=QW.FACTORS.map(k=>{
+    const o=ic[k]||{}; const v=o.ic;
+    if(v==null) return `<div class="hbar" style="margin-bottom:10px"><div style="width:54px;color:var(--muted);font-size:12.5px">${QW.FLABEL[k]}</div>
+      <div class="note" style="flex:1">데이터 없음 — 이 시장에서는 미사용</div></div>`;
+    const mag=Math.min(100,Math.abs(v)/0.1*100), c=v>0?"var(--buy)":"var(--sell)";
+    const sig=(o.t!=null&&Math.abs(o.t)>=2)?"":'<span class="note" style="font-size:11px"> (약함)</span>';
+    return `<div class="hbar" style="margin-bottom:10px"><div style="width:54px;color:var(--muted);font-size:12.5px">${QW.FLABEL[k]}</div>
+      <div class="bar" style="flex:1"><i style="width:${mag}%;background:${c}"></i></div>
+      <div class="num" style="width:96px;text-align:right;font-size:12.5px">${v.toFixed(3)} <span style="color:var(--faint)">t=${o.t??"—"}</span>${sig}</div></div>`;
+  }).join("")+`<div class="note" style="margin-top:6px">IC는 팩터 순위와 20일 후 수익 순위의 상관입니다. 양수이고 t가 2 이상이면 예측력이 있다고 봅니다. 음수면 가중치를 받지 못합니다.</div>`;
+
+  const tot=QW.FACTORS.reduce((s,k)=>s+(w[k]||0),0)||1;
+  document.getElementById("w").innerHTML=
+    `<div class="bar" style="height:14px;display:flex;margin-bottom:10px">`+
+    QW.FACTORS.map(k=>`<span style="width:${(w[k]||0)/tot*100}%;background:${QW.FCOLOR[k]};height:100%"></span>`).join("")+`</div>`+
+    QW.FACTORS.map(k=>`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12.5px">
+      <i style="width:9px;height:9px;border-radius:2px;background:${QW.FCOLOR[k]};display:inline-block"></i>
+      <span style="flex:1;color:var(--muted)">${QW.FLABEL[k]}</span>
+      <b class="num">${Math.round((w[k]||0)*100)}%</b></div>`).join("")+
+    `<div class="note" style="margin-top:8px">예측력(IC)이 확인된 팩터에만 예산이 배분됩니다. 0%는 데이터가 없거나 과거 예측력이 없었다는 뜻입니다.</div>`;
+
+  const recs=(D.recommendations||[]).filter(r=>r.market===MK);
+  document.getElementById("tops").innerHTML= recs.length? `<div class="cols c3">`+QW.FACTORS.filter(k=>(w[k]||0)>0).map(k=>{
+    const top=[...recs].sort((a,b)=>(b.factors[k]||0)-(a.factors[k]||0)).slice(0,5);
+    return `<div><div style="font-size:12px;font-weight:800;color:${QW.FCOLOR[k]};margin-bottom:7px">${QW.FLABEL[k]} 상위</div>`+
+      top.map(r=>`<div style="display:flex;gap:8px;align-items:center;margin-bottom:5px;font-size:12.5px">
+        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${QW.esc(r.name)}</span>
+        <b class="num">${Math.round((r.factors[k]||0)*100)}</b></div>`).join("")+`</div>`;
+  }).join("")+`</div>` : `<div class="empty">데이터 없음</div>`;
+}
+QW.load().then(d=>{D=d;QW.header(d);render();});
+QW.segment(document.getElementById("mkt"),ds=>{MK=ds.mk;render();});
+
+</script>
+</body>
+</html>

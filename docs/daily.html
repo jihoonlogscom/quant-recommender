@@ -1,206 +1,222 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>오늘의 확률 추천 · 퀀트 워크스페이스</title>
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-  <style>
-    :root{
-      --bg:#0b0d12; --grid:#11141c; --panel:#141824; --panel-2:#1a1f2d;
-      --line:#252b3a; --line-2:#333b4e;
-      --ink:#e8ebf2; --muted:#8b93a7; --faint:#5a6274;
-      --buy:#37c26f; --watch:#e0a53a; --sell:#e2624a;
-      --cyan:#43c9c1; --cyan-dim:#1d3b3a;
-      --kr:#6f8cff; --us:#c98cff;
-      --mono:ui-monospace,"SF Mono","JetBrains Mono","Cascadia Code",Menlo,monospace;
-      --sans:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
-      --r:14px;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0}
-    body{
-      background:
-        radial-gradient(1100px 480px at 82% -8%, #12202a 0%, transparent 60%),
-        radial-gradient(900px 420px at 5% -12%, #1a1730 0%, transparent 55%),
-        var(--bg);
-      color:var(--ink); font-family:var(--sans);
-      -webkit-font-smoothing:antialiased; line-height:1.45;
-      padding:22px 18px 64px; max-width:1180px; margin:0 auto;
-    }
-    .num{font-family:var(--mono); font-variant-numeric:tabular-nums; letter-spacing:-.01em}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>오늘의 확률 추천 · 퀀트 워크스페이스</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{
+    --bg:#0b0d12; --grid:#11141c; --panel:#141824; --panel-2:#1a1f2d;
+    --line:#252b3a; --line-2:#333b4e;
+    --ink:#e8ebf2; --muted:#8b93a7; --faint:#5a6274;
+    --buy:#37c26f; --watch:#e0a53a; --sell:#e2624a;
+    --cyan:#43c9c1; --cyan-dim:#1d3b3a;
+    --kr:#6f8cff; --us:#c98cff;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono","Cascadia Code",Menlo,monospace;
+    --sans:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+    --r:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:
+      radial-gradient(1100px 480px at 82% -8%, #12202a 0%, transparent 60%),
+      radial-gradient(900px 420px at 5% -12%, #1a1730 0%, transparent 55%),
+      var(--bg);
+    color:var(--ink); font-family:var(--sans);
+    -webkit-font-smoothing:antialiased; line-height:1.45;
+    padding:22px 18px 64px; max-width:1180px; margin:0 auto;
+  }
+  .num{font-family:var(--mono); font-variant-numeric:tabular-nums; letter-spacing:-.01em}
 
-    /* ---------- header ---------- */
-    header{display:flex; flex-wrap:wrap; align-items:flex-end; gap:14px 20px; margin-bottom:8px}
-    .brand{display:flex; flex-direction:column; gap:3px}
-    .kicker{font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:var(--cyan); font-weight:700}
-    h1{margin:0; font-size:25px; font-weight:800; letter-spacing:-.02em}
-    .asof{margin-left:auto; text-align:right; color:var(--muted); font-size:12.5px}
-    .asof b{color:var(--ink); font-weight:700}
-    .dot{display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--cyan); margin-right:6px; box-shadow:0 0 0 3px rgba(67,201,193,.15)}
+  /* ---------- header ---------- */
+  header{display:flex; flex-wrap:wrap; align-items:flex-end; gap:14px 20px; margin-bottom:8px}
+  .brand{display:flex; flex-direction:column; gap:3px}
+  .kicker{font-size:11px; letter-spacing:.28em; text-transform:uppercase; color:var(--cyan); font-weight:700}
+  h1{margin:0; font-size:25px; font-weight:800; letter-spacing:-.02em}
+  .asof{margin-left:auto; text-align:right; color:var(--muted); font-size:12.5px}
+  .asof b{color:var(--ink); font-weight:700}
+  .dot{display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--cyan); margin-right:6px; box-shadow:0 0 0 3px rgba(67,201,193,.15)}
 
-    .sample{margin:14px 0 18px; padding:9px 13px; border:1px solid #4a3a1e; background:linear-gradient(90deg,#241d0f,#1c1a16); border-radius:10px;
-      color:#e6c886; font-size:12.5px; display:flex; gap:8px; align-items:center}
-    .sample b{color:#ffdf9e}
+  .sample{margin:14px 0 18px; padding:9px 13px; border:1px solid #4a3a1e; background:linear-gradient(90deg,#241d0f,#1c1a16); border-radius:10px;
+    color:#e6c886; font-size:12.5px; display:flex; gap:8px; align-items:center}
+  .sample b{color:#ffdf9e}
 
-    /* ---------- regime + backtest strip ---------- */
-    .strip{display:grid; grid-template-columns:1.15fr 1fr; gap:12px; margin-bottom:16px}
-    .card{background:linear-gradient(180deg,var(--panel),#10141e); border:1px solid var(--line); border-radius:var(--r)}
-    .card .hd{padding:11px 15px 0; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); font-weight:700}
-    .regime{padding:13px 15px 15px; display:flex; gap:10px; flex-wrap:wrap}
-    .rg{flex:1; min-width:150px; border:1px solid var(--line); border-radius:11px; padding:11px 13px; background:var(--grid); display:flex; align-items:center; gap:11px}
-    .rg .mk{font-weight:800; font-size:13px; padding:2px 8px; border-radius:6px}
-    .mk.kr{color:var(--kr); background:rgba(111,140,255,.12)}
-    .mk.us{color:var(--us); background:rgba(201,140,255,.12)}
-    .rg .st{font-size:13.5px; font-weight:600}
-    .rg .sub{font-size:11.5px; color:var(--muted); margin-top:1px}
-    .led{margin-left:auto; width:9px; height:9px; border-radius:50%}
-    .led.on{background:var(--buy); box-shadow:0 0 10px 1px rgba(55,194,111,.6)}
-    .led.neutral{background:var(--watch); box-shadow:0 0 10px 1px rgba(224,165,58,.5)}
-    .led.off{background:var(--sell); box-shadow:0 0 10px 1px rgba(226,98,74,.5)}
+  /* ---------- regime + backtest strip ---------- */
+  .strip{display:grid; grid-template-columns:1.15fr 1fr; gap:12px; margin-bottom:16px}
+  .card{background:linear-gradient(180deg,var(--panel),#10141e); border:1px solid var(--line); border-radius:var(--r)}
+  .card .hd{padding:11px 15px 0; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); font-weight:700}
+  .regime{padding:13px 15px 15px; display:flex; gap:10px; flex-wrap:wrap}
+  .rg{flex:1; min-width:150px; border:1px solid var(--line); border-radius:11px; padding:11px 13px; background:var(--grid); display:flex; align-items:center; gap:11px}
+  .rg .mk{font-weight:800; font-size:13px; padding:2px 8px; border-radius:6px}
+  .mk.kr{color:var(--kr); background:rgba(111,140,255,.12)}
+  .mk.us{color:var(--us); background:rgba(201,140,255,.12)}
+  .rg .st{font-size:13.5px; font-weight:600}
+  .rg .sub{font-size:11.5px; color:var(--muted); margin-top:1px}
+  .led{margin-left:auto; width:9px; height:9px; border-radius:50%}
+  .led.on{background:var(--buy); box-shadow:0 0 10px 1px rgba(55,194,111,.6)}
+  .led.neutral{background:var(--watch); box-shadow:0 0 10px 1px rgba(224,165,58,.5)}
+  .led.off{background:var(--sell); box-shadow:0 0 10px 1px rgba(226,98,74,.5)}
 
-    .bt{padding:13px 15px 15px; display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
-    .bt .m{background:var(--grid); border:1px solid var(--line); border-radius:10px; padding:9px 11px}
-    .bt .m .k{font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); font-weight:700}
-    .bt .m .v{font-size:19px; font-weight:800; margin-top:3px}
-    .bt .m .v small{font-size:11px; color:var(--muted); font-weight:600}
-    .good{color:var(--buy)} .warn{color:var(--watch)} .bad{color:var(--sell)}
-    .wrow{padding:0 15px 14px}
-    .wrow .wk{font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); font-weight:700; margin-bottom:6px}
-    .wbar{display:flex; height:12px; border-radius:6px; overflow:hidden; border:1px solid var(--line)}
-    .wbar span{height:100%}
-    .wleg{display:flex; flex-wrap:wrap; gap:9px; margin-top:7px}
-    .wleg b{font-size:10.5px; color:var(--muted); font-weight:600; display:flex; align-items:center; gap:4px}
-    .wleg i{width:8px; height:8px; border-radius:2px; display:inline-block}
+  .bt{padding:13px 15px 15px; display:grid; grid-template-columns:repeat(4,1fr); gap:10px}
+  .bt .m{background:var(--grid); border:1px solid var(--line); border-radius:10px; padding:9px 11px}
+  .bt .m .k{font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); font-weight:700}
+  .bt .m .v{font-size:19px; font-weight:800; margin-top:3px}
+  .bt .m .v small{font-size:11px; color:var(--muted); font-weight:600}
+  .good{color:var(--buy)} .warn{color:var(--watch)} .bad{color:var(--sell)}
+  .gate{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:0 15px 12px;font-size:11.5px}
+  .gate .chip{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:var(--grid);
+    border-radius:8px;padding:4px 9px;color:var(--muted);font-weight:600}
+  .gate .chip b{font-family:var(--mono);color:var(--ink)}
+  .gate .chip.ok{color:var(--buy);border-color:rgba(55,194,111,.35)}
+  .gate .chip.no{color:var(--sell);border-color:rgba(226,98,74,.35)}
+  .gate .lead{color:var(--faint);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:10px;margin-right:2px}
+  .wrow{padding:0 15px 14px}
+  .wrow .wk{font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); font-weight:700; margin-bottom:6px}
+  .wbar{display:flex; height:12px; border-radius:6px; overflow:hidden; border:1px solid var(--line)}
+  .wbar span{height:100%}
+  .wleg{display:flex; flex-wrap:wrap; gap:9px; margin-top:7px}
+  .wleg b{font-size:10.5px; color:var(--muted); font-weight:600; display:flex; align-items:center; gap:4px}
+  .wleg i{width:8px; height:8px; border-radius:2px; display:inline-block}
 
-    /* ---------- controls ---------- */
-    .controls{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:14px}
-    .seg{display:inline-flex; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:3px}
-    .seg button{appearance:none; border:0; background:transparent; color:var(--muted); font-family:var(--sans);
-      font-size:13px; font-weight:700; padding:7px 14px; border-radius:7px; cursor:pointer; transition:.15s}
-    .seg button[aria-pressed="true"]{background:var(--panel-2); color:var(--ink); box-shadow:inset 0 0 0 1px var(--line-2)}
-    .seg.mkt button[data-mk="KR"][aria-pressed="true"]{color:var(--kr)}
-    .seg.mkt button[data-mk="US"][aria-pressed="true"]{color:var(--us)}
-    .seg button:focus-visible{outline:2px solid var(--cyan); outline-offset:2px}
-    .search{flex:1; min-width:160px; display:flex; align-items:center; gap:8px; background:var(--panel); border:1px solid var(--line);
-      border-radius:10px; padding:0 12px}
-    .search input{flex:1; background:transparent; border:0; color:var(--ink); font-family:var(--sans); font-size:13.5px; padding:9px 0; outline:none}
-    .search svg{width:15px; height:15px; color:var(--faint); flex:none}
-    .count{margin-left:auto; color:var(--muted); font-size:12.5px}
-    .count b{color:var(--ink)}
+  /* ---------- controls ---------- */
+  .controls{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:14px}
+  .seg{display:inline-flex; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:3px}
+  .seg button{appearance:none; border:0; background:transparent; color:var(--muted); font-family:var(--sans);
+    font-size:13px; font-weight:700; padding:7px 14px; border-radius:7px; cursor:pointer; transition:.15s}
+  .seg button[aria-pressed="true"]{background:var(--panel-2); color:var(--ink); box-shadow:inset 0 0 0 1px var(--line-2)}
+  .seg.mkt button[data-mk="KR"][aria-pressed="true"]{color:var(--kr)}
+  .seg.mkt button[data-mk="US"][aria-pressed="true"]{color:var(--us)}
+  .seg button:focus-visible{outline:2px solid var(--cyan); outline-offset:2px}
+  .search{flex:1; min-width:160px; display:flex; align-items:center; gap:8px; background:var(--panel); border:1px solid var(--line);
+    border-radius:10px; padding:0 12px}
+  .search input{flex:1; background:transparent; border:0; color:var(--ink); font-family:var(--sans); font-size:13.5px; padding:9px 0; outline:none}
+  .search svg{width:15px; height:15px; color:var(--faint); flex:none}
+  .count{margin-left:auto; color:var(--muted); font-size:12.5px}
+  .count b{color:var(--ink)}
 
-    /* ---------- table head ---------- */
-    .thead{display:grid; grid-template-columns:34px 1fr 92px 116px 172px 88px; gap:12px; align-items:center;
-      padding:0 15px 8px; color:var(--faint); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:700}
-    .thead .r{text-align:right}
-    .thead .c{text-align:center}
+  /* ---------- table head ---------- */
+  .thead{display:grid; grid-template-columns:34px 1fr 92px 116px 172px 88px; gap:12px; align-items:center;
+    padding:0 15px 8px; color:var(--faint); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; font-weight:700}
+  .thead .r{text-align:right}
+  .thead .c{text-align:center}
 
-    /* ---------- rows ---------- */
-    .list{display:flex; flex-direction:column; gap:8px}
-    .row{background:linear-gradient(180deg,var(--panel),#12151f); border:1px solid var(--line); border-radius:var(--r); overflow:hidden;
-      transition:border-color .15s, transform .15s}
-    .row:hover{border-color:var(--line-2)}
-    .rmain{display:grid; grid-template-columns:34px 1fr 92px 116px 172px 88px; gap:12px; align-items:center; padding:13px 15px; cursor:pointer}
-    .rank{font-family:var(--mono); font-size:15px; font-weight:800; color:var(--faint); text-align:center}
-    .rank.top{color:var(--cyan)}
+  /* ---------- rows ---------- */
+  .list{display:flex; flex-direction:column; gap:8px}
+  .row{background:linear-gradient(180deg,var(--panel),#12151f); border:1px solid var(--line); border-radius:var(--r); overflow:hidden;
+    transition:border-color .15s, transform .15s}
+  .row:hover{border-color:var(--line-2)}
+  .rmain{display:grid; grid-template-columns:34px 1fr 92px 116px 172px 88px; gap:12px; align-items:center; padding:13px 15px; cursor:pointer}
+  .rank{font-family:var(--mono); font-size:15px; font-weight:800; color:var(--faint); text-align:center}
+  .rank.top{color:var(--cyan)}
 
-    .name{min-width:0}
-    .name .t{display:flex; align-items:center; gap:8px}
-    .tk{font-family:var(--mono); font-size:12px; color:var(--muted); background:var(--grid); border:1px solid var(--line); padding:1px 6px; border-radius:5px}
-    .badge-mk{font-size:10px; font-weight:800; padding:1px 5px; border-radius:4px}
-    .badge-mk.KR{color:var(--kr); background:rgba(111,140,255,.12)}
-    .badge-mk.US{color:var(--us); background:rgba(201,140,255,.12)}
-    .nm{font-weight:700; font-size:14.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-    .sec{font-size:11.5px; color:var(--muted); margin-top:2px}
-    .vf{font-size:10px; color:var(--cyan); border:1px solid var(--cyan-dim); background:rgba(67,201,193,.07); padding:1px 6px; border-radius:20px; font-weight:700}
+  .name{min-width:0}
+  .name .t{display:flex; align-items:center; gap:8px}
+  .tk{font-family:var(--mono); font-size:12px; color:var(--muted); background:var(--grid); border:1px solid var(--line); padding:1px 6px; border-radius:5px}
+  .badge-mk{font-size:10px; font-weight:800; padding:1px 5px; border-radius:4px}
+  .badge-mk.KR{color:var(--kr); background:rgba(111,140,255,.12)}
+  .badge-mk.US{color:var(--us); background:rgba(201,140,255,.12)}
+  .nm{font-weight:700; font-size:14.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .sec{font-size:11.5px; color:var(--muted); margin-top:2px}
+  .vf{font-size:10px; color:var(--cyan); border:1px solid var(--cyan-dim); background:rgba(67,201,193,.07); padding:1px 6px; border-radius:20px; font-weight:700}
 
-    /* score with ring */
-    .score{display:flex; align-items:center; justify-content:flex-end; gap:10px}
-    .ring{width:40px; height:40px; border-radius:50%; display:grid; place-items:center; flex:none;
-      background:conic-gradient(var(--cyan) calc(var(--p)*1%), var(--line) 0)}
-    .ring i{width:32px; height:32px; border-radius:50%; background:var(--panel); display:grid; place-items:center;
-      font-family:var(--mono); font-weight:800; font-size:13px; font-style:normal}
+  /* score with ring */
+  .score{display:flex; align-items:center; justify-content:flex-end; gap:10px}
+  .ring{width:40px; height:40px; border-radius:50%; display:grid; place-items:center; flex:none;
+    background:conic-gradient(var(--cyan) calc(var(--p)*1%), var(--line) 0)}
+  .ring i{width:32px; height:32px; border-radius:50%; background:var(--panel); display:grid; place-items:center;
+    font-family:var(--mono); font-weight:800; font-size:13px; font-style:normal}
 
-    /* factor equalizer */
-    .fac{display:flex; align-items:flex-end; justify-content:center; gap:4px; height:38px}
-    .fac span{width:9px; border-radius:3px 3px 0 0; background:var(--f); opacity:.9}
-    .fkey{display:flex; gap:4px; justify-content:center; margin-top:3px}
-    .fkey b{width:9px; text-align:center; font-size:8.5px; color:var(--faint); font-weight:700; font-family:var(--mono)}
+  /* factor equalizer */
+  .fac{display:flex; align-items:flex-end; justify-content:center; gap:4px; height:38px}
+  .fac span{width:9px; border-radius:3px 3px 0 0; background:var(--f); opacity:.9}
+  .fkey{display:flex; gap:4px; justify-content:center; margin-top:3px}
+  .fkey b{width:9px; text-align:center; font-size:8.5px; color:var(--faint); font-weight:700; font-family:var(--mono)}
 
-    /* prob ladder */
-    .lad{display:grid; grid-template-columns:repeat(3,1fr); gap:5px}
-    .rung{background:var(--grid); border:1px solid var(--line); border-radius:8px; padding:5px 4px; text-align:center; position:relative; overflow:hidden}
-    .rung .h{font-size:9px; color:var(--faint); letter-spacing:.06em; font-weight:700}
-    .rung .p{font-family:var(--mono); font-weight:800; font-size:13px; margin-top:1px}
-    .rung .fill{position:absolute; left:0; bottom:0; height:3px; background:var(--rc)}
+  /* prob ladder */
+  .lad{display:grid; grid-template-columns:repeat(3,1fr); gap:5px}
+  .rung{background:var(--grid); border:1px solid var(--line); border-radius:8px; padding:5px 4px; text-align:center; position:relative; overflow:hidden}
+  .rung .h{font-size:9px; color:var(--faint); letter-spacing:.06em; font-weight:700}
+  .rung .p{font-family:var(--mono); font-weight:800; font-size:13px; margin-top:1px}
+  .rung .fill{position:absolute; left:0; bottom:0; height:3px; background:var(--rc)}
 
-    .sig{justify-self:center; font-weight:800; font-size:12.5px; padding:5px 0; width:74px; text-align:center; border-radius:8px}
-    .sig.buy{color:var(--buy); background:rgba(55,194,111,.1); border:1px solid rgba(55,194,111,.28)}
-    .sig.watch{color:var(--watch); background:rgba(224,165,58,.1); border:1px solid rgba(224,165,58,.28)}
-    .sig.sell{color:var(--sell); background:rgba(226,98,74,.1); border:1px solid rgba(226,98,74,.28)}
+  .sig{justify-self:center; font-weight:800; font-size:12.5px; padding:5px 0; width:74px; text-align:center; border-radius:8px}
+  .sig.buy{color:var(--buy); background:rgba(55,194,111,.1); border:1px solid rgba(55,194,111,.28)}
+  .sig.watch{color:var(--watch); background:rgba(224,165,58,.1); border:1px solid rgba(224,165,58,.28)}
+  .sig.sell{color:var(--sell); background:rgba(226,98,74,.1); border:1px solid rgba(226,98,74,.28)}
 
-    /* ---------- detail ---------- */
-    .detail{display:none; border-top:1px solid var(--line); padding:15px; gap:14px; grid-template-columns:1.3fr 1fr; background:#0f121b}
-    .row.open .detail{display:grid}
-    .row.open{border-color:var(--line-2)}
-    .price{border:1px solid var(--line); border-radius:11px; padding:13px 14px; background:var(--panel)}
-    .price h4{margin:0 0 11px; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint)}
-    .band{position:relative; height:44px; margin:6px 4px 20px}
-    .band .track{position:absolute; top:19px; left:0; right:0; height:5px; border-radius:4px;
-      background:linear-gradient(90deg,var(--sell),var(--watch) 45%,var(--buy))}
-    .band .mk{position:absolute; top:9px; transform:translateX(-50%); text-align:center}
-    .band .mk i{display:block; width:2px; height:24px; background:var(--ink); margin:0 auto; opacity:.55}
-    .band .mk b{position:absolute; top:26px; left:50%; transform:translateX(-50%); font-family:var(--mono); font-size:10.5px; white-space:nowrap}
-    .band .mk .lb{position:absolute; top:-14px; left:50%; transform:translateX(-50%); font-size:9px; color:var(--muted); letter-spacing:.06em}
-    .band .entry{position:absolute; top:16px; height:11px; border-radius:3px; background:rgba(67,201,193,.28); border:1px solid var(--cyan)}
-    .tg{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
-    .tg .b{border:1px solid var(--line); border-radius:9px; padding:8px 9px; background:var(--grid)}
-    .tg .b .k{font-size:10px; color:var(--faint); text-transform:uppercase; letter-spacing:.08em; font-weight:700}
-    .tg .b .v{font-family:var(--mono); font-weight:800; font-size:14px; margin-top:2px}
-    .tg .b.bear .v{color:var(--sell)} .tg .b.base .v{color:var(--ink)} .tg .b.bull .v{color:var(--buy)}
+  /* ---------- detail ---------- */
+  .detail{display:none; border-top:1px solid var(--line); padding:15px; gap:14px; grid-template-columns:1.3fr 1fr; background:#0f121b}
+  .row.open .detail{display:grid}
+  .row.open{border-color:var(--line-2)}
+  .price{border:1px solid var(--line); border-radius:11px; padding:13px 14px; background:var(--panel)}
+  .price h4{margin:0 0 11px; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint)}
+  .band{position:relative; height:44px; margin:6px 4px 20px}
+  .band .track{position:absolute; top:19px; left:0; right:0; height:5px; border-radius:4px;
+    background:linear-gradient(90deg,var(--sell),var(--watch) 45%,var(--buy))}
+  .band .mk{position:absolute; top:9px; transform:translateX(-50%); text-align:center}
+  .band .mk i{display:block; width:2px; height:24px; background:var(--ink); margin:0 auto; opacity:.55}
+  .band .mk b{position:absolute; top:26px; left:50%; transform:translateX(-50%); font-family:var(--mono); font-size:10.5px; white-space:nowrap}
+  .band .mk .lb{position:absolute; top:-14px; left:50%; transform:translateX(-50%); font-size:9px; color:var(--muted); letter-spacing:.06em}
+  .band .entry{position:absolute; top:16px; height:11px; border-radius:3px; background:rgba(67,201,193,.28); border:1px solid var(--cyan)}
+  .tg{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
+  .tg .b{border:1px solid var(--line); border-radius:9px; padding:8px 9px; background:var(--grid)}
+  .tg .b .k{font-size:10px; color:var(--faint); text-transform:uppercase; letter-spacing:.08em; font-weight:700}
+  .tg .b .v{font-family:var(--mono); font-weight:800; font-size:14px; margin-top:2px}
+  .tg .b.bear .v{color:var(--sell)} .tg .b.base .v{color:var(--ink)} .tg .b.bull .v{color:var(--buy)}
 
-    .facbig{border:1px solid var(--line); border-radius:11px; padding:13px 14px; background:var(--panel)}
-    .facbig h4{margin:0 0 11px; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint)}
-    .frow{display:flex; align-items:center; gap:10px; margin-bottom:9px}
-    .frow .fl{width:52px; font-size:12px; color:var(--muted); font-weight:600}
-    .frow .bar{flex:1; height:7px; border-radius:4px; background:var(--grid); overflow:hidden}
-    .frow .bar i{display:block; height:100%; border-radius:4px}
-    .frow .fv{width:34px; text-align:right; font-family:var(--mono); font-size:12px; font-weight:700}
-    .note{margin-top:11px; font-size:12.5px; color:var(--muted); line-height:1.55}
-    .note b{color:var(--ink); font-weight:700}
+  .facbig{border:1px solid var(--line); border-radius:11px; padding:13px 14px; background:var(--panel)}
+  .facbig h4{margin:0 0 11px; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--faint)}
+  .frow{display:flex; align-items:center; gap:10px; margin-bottom:9px}
+  .frow .fl{width:52px; font-size:12px; color:var(--muted); font-weight:600}
+  .frow .bar{flex:1; height:7px; border-radius:4px; background:var(--grid); overflow:hidden}
+  .frow .bar i{display:block; height:100%; border-radius:4px}
+  .frow .fv{width:34px; text-align:right; font-family:var(--mono); font-size:12px; font-weight:700}
+  .note{margin-top:11px; font-size:12.5px; color:var(--muted); line-height:1.55}
+  .note b{color:var(--ink); font-weight:700}
 
-    .empty{padding:40px 20px; text-align:center; color:var(--muted); border:1px dashed var(--line); border-radius:var(--r)}
-    footer{margin-top:26px; padding-top:16px; border-top:1px solid var(--line); color:var(--faint); font-size:11.5px; line-height:1.7}
-    footer b{color:var(--muted)}
+  .empty{padding:40px 20px; text-align:center; color:var(--muted); border:1px dashed var(--line); border-radius:var(--r)}
+  footer{margin-top:26px; padding-top:16px; border-top:1px solid var(--line); color:var(--faint); font-size:11.5px; line-height:1.7}
+  footer b{color:var(--muted)}
 
-    @media (max-width:820px){
-      .strip{grid-template-columns:1fr}
-      .thead{display:none}
-      .rmain{grid-template-columns:30px 1fr auto; grid-template-areas:"rank name score" "rank meta meta"; row-gap:10px}
-      .rmain .rank{grid-area:rank} .rmain .name{grid-area:name} .rmain .score{grid-area:score; justify-content:flex-start}
-      .fac-cell{grid-area:meta; display:none} .rmain .lad{grid-area:meta} .rmain .sig{grid-area:meta; justify-self:start; margin-top:2px}
-      .rmain{grid-template-areas:"rank name score" "rank lad lad" "rank sig sig"}
-      .detail{grid-template-columns:1fr}
-    }
-    .homebar{display:flex;align-items:center;gap:10px;margin:0 0 16px}
-    .homebar a{display:inline-flex;align-items:center;gap:7px;color:var(--muted);text-decoration:none;font-size:13px;font-weight:600;
-      border:1px solid var(--line);background:var(--panel);padding:7px 12px;border-radius:9px;transition:.15s}
-    .homebar a:hover{color:var(--ink);border-color:var(--line-2)}
-    .homebar a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
-    #tip{position:fixed; z-index:50; max-width:340px; background:#0f1420; color:var(--ink);
-      border:1px solid var(--line-2); border-radius:10px; padding:9px 12px; font-size:12.5px; line-height:1.5;
-      box-shadow:0 12px 30px -10px rgba(0,0,0,.6); opacity:0; transform:translateY(4px); transition:opacity .12s, transform .12s;
-      pointer-events:none}
-    #tip.on{opacity:1; transform:translateY(0)}
-    #tip .th{font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); font-weight:700; margin-bottom:3px}
-    .why{display:inline-grid; place-items:center; width:15px; height:15px; margin-left:7px; border-radius:50%;
-      border:1px solid var(--line-2); color:var(--faint); font-size:9.5px; font-weight:800; cursor:help; flex:none}
-    .rmain:hover .why{color:var(--cyan); border-color:var(--cyan)}
-    @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-  </style>
+  @media (max-width:820px){
+    .strip{grid-template-columns:1fr}
+    .thead{display:none}
+    .rmain{grid-template-columns:30px 1fr auto; grid-template-areas:"rank name score" "rank meta meta"; row-gap:10px}
+    .rmain .rank{grid-area:rank} .rmain .name{grid-area:name} .rmain .score{grid-area:score; justify-content:flex-start}
+    .fac-cell{grid-area:meta; display:none} .rmain .lad{grid-area:meta} .rmain .sig{grid-area:meta; justify-self:start; margin-top:2px}
+    .rmain{grid-template-areas:"rank name score" "rank lad lad" "rank sig sig"}
+    .detail{grid-template-columns:1fr}
+  }
+  .homebar{display:flex;align-items:center;gap:10px;margin:0 0 16px}
+  .homebar a{display:inline-flex;align-items:center;gap:7px;color:var(--muted);text-decoration:none;font-size:13px;font-weight:600;
+    border:1px solid var(--line);background:var(--panel);padding:7px 12px;border-radius:9px;transition:.15s}
+  .homebar a:hover{color:var(--ink);border-color:var(--line-2)}
+  .homebar a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+  #tip{position:fixed; z-index:50; max-width:340px; background:#0f1420; color:var(--ink);
+    border:1px solid var(--line-2); border-radius:10px; padding:9px 12px; font-size:12.5px; line-height:1.5;
+    box-shadow:0 12px 30px -10px rgba(0,0,0,.6); opacity:0; transform:translateY(4px); transition:opacity .12s, transform .12s;
+    pointer-events:none}
+  #tip.on{opacity:1; transform:translateY(0)}
+  #tip .th{font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); font-weight:700; margin-bottom:3px}
+  .why{display:inline-grid; place-items:center; width:15px; height:15px; margin-left:7px; border-radius:50%;
+    border:1px solid var(--line-2); color:var(--faint); font-size:9.5px; font-weight:800; cursor:help; flex:none}
+  .rmain:hover .why{color:var(--cyan); border-color:var(--cyan)}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<style>
+  .toolnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+  .toolnav a{font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none;border:1px solid var(--line);
+    background:var(--panel);padding:6px 11px;border-radius:8px;transition:.15s}
+  .toolnav a:hover{color:var(--ink);border-color:var(--line-2)}
+  .toolnav a[aria-current="page"]{color:var(--cyan);border-color:var(--cyan);background:rgba(67,201,193,.08)}
+  .toolnav a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+</style>
 </head>
 <body>
 <div class="homebar"><a href="index.html">← 퀀트 워크스페이스</a></div>
+<nav class="toolnav"><a href="daily.html" aria-current="page">오늘의 추천</a><a href="backtest.html">검증</a><a href="factors.html">팩터</a><a href="regime.html">국면</a><a href="research.html">리서치</a><a href="screener.html">스크리너</a><a href="watchlist.html">관심</a><a href="portfolio.html">포트폴리오</a><a href="report.html">리포트</a></nav>
 
 <header>
   <div class="brand">
@@ -225,6 +241,7 @@
   <div class="card">
     <div class="hd">활성 룰셋 백테스트</div>
     <div class="bt" id="bt"></div>
+    <div class="gate" id="gate"></div>
     <div class="wrow" id="wrow"></div>
   </div>
 </div>
@@ -258,183 +275,201 @@
 </footer>
 
 <script>
-  /* ---------------- 샘플 데이터 (latest.json 스키마와 동일) ---------------- */
-  const SAMPLE = {
-    as_of:"2026-08-19", ruleset:"balanced_v3",
-    market_regime:{ kr:{state:"중립", note:"코스피 20MA 상단, 변동성 보통", led:"neutral"},
-                    us:{state:"위험선호", note:"S&P·나스닥 추세 양호", led:"on"} },
-    universe_size:{ kr:2831, us:2974 },
-    backtest:{ hit_d5:0.58, hit_d20:0.61, hit_d60:0.66, deflated_sharpe:0.82, pbo:0.18 },
-    factor_ic:{ KR:{momentum:{ic:0.041,t:3.9,n:101}, tech:{ic:0.052,t:4.6,n:101}},
-                US:{momentum:{ic:0.055,t:5.1,n:101}, tech:{ic:0.048,t:4.3,n:101}} },
-    weights:{ KR:{momentum:0.17,tech:0.23,value:0.20,quality:0.20,supply:0.20},
-              US:{momentum:0.24,tech:0.26,value:0.25,quality:0.25,supply:0.0} },
-    recommendations:[
-      {ticker:"005930",name:"삼성전자",market:"KR",sector:"반도체",score:84,factors:{momentum:.72,value:.55,quality:.80,supply:.68,tech:.63},prob_up:{d5:.62,d20:.69,d60:.73},signal:"buy",entry:{low:71000,high:73500},targets:{bear:68000,base:82000,bull:95000},stop:66500,verified:true,note:"외국인·기관 동반 순매수 5일 연속. 퀄리티·수급 상위, 밸류 중립. 진입밴드 하단 눌림목 대응."},
-      {ticker:"000660",name:"SK하이닉스",market:"KR",sector:"반도체",score:81,factors:{momentum:.80,value:.42,quality:.71,supply:.74,tech:.70},prob_up:{d5:.60,d20:.66,d60:.70},signal:"buy",entry:{low:198000,high:206000},targets:{bear:188000,base:232000,bull:270000},stop:182000,verified:true,note:"모멘텀·수급 강세, 밸류는 부담. HBM 사이클 기대가 가격에 상당 반영."},
-      {ticker:"373220",name:"LG에너지솔루션",market:"KR",sector:"2차전지",score:66,factors:{momentum:.48,value:.40,quality:.62,supply:.55,tech:.52},prob_up:{d5:.53,d20:.57,d60:.60},signal:"watch",entry:{low:312000,high:322000},targets:{bear:298000,base:352000,bull:400000},stop:290000,verified:true,note:"팩터 균형이나 뚜렷한 우위 없음. 수급 개선 확인 전 관망."},
-      {ticker:"012450",name:"한화에어로스페이스",market:"KR",sector:"방산",score:78,factors:{momentum:.83,value:.50,quality:.66,supply:.70,tech:.68},prob_up:{d5:.58,d20:.64,d60:.69},signal:"buy",entry:{low:262000,high:272000},targets:{bear:250000,base:305000,bull:355000},stop:242000,verified:true,note:"추세·수급 상위. 이격 확대 구간이라 분할 접근 권장."},
-      {ticker:"035420",name:"NAVER",market:"KR",sector:"인터넷",score:54,factors:{momentum:.35,value:.60,quality:.68,supply:.38,tech:.40},prob_up:{d5:.48,d20:.51,d60:.55},signal:"watch",entry:{low:198000,high:205000},targets:{bear:190000,base:222000,bull:250000},stop:184000,verified:true,note:"밸류·퀄리티는 양호하나 모멘텀·수급 약세. 반등 신호 대기."},
-      {ticker:"068270",name:"셀트리온",market:"KR",sector:"바이오",score:41,factors:{momentum:.28,value:.45,quality:.58,supply:.30,tech:.33},prob_up:{d5:.44,d20:.46,d60:.49},signal:"sell",entry:{low:0,high:0},targets:{bear:0,base:0,bull:0},stop:0,verified:true,note:"모멘텀·수급 동반 약화. 점수·확률 붕괴로 신규 매수 회피."},
-      {ticker:"NVDA",name:"NVIDIA",market:"US",sector:"Semis",score:88,factors:{momentum:.86,value:.44,quality:.90,supply:.72,tech:.78},prob_up:{d5:.64,d20:.71,d60:.75},signal:"buy",entry:{low:172,high:179},targets:{bear:162,base:205,bull:240},stop:156,verified:true,note:"퀄리티·모멘텀 최상위. 밸류 부담은 있으나 이익 리비전 상향 지속."},
-      {ticker:"MSFT",name:"Microsoft",market:"US",sector:"Software",score:79,factors:{momentum:.62,value:.52,quality:.88,supply:.60,tech:.64},prob_up:{d5:.59,d20:.65,d60:.70},signal:"buy",entry:{low:498,high:512},targets:{bear:478,base:560,bull:620},stop:462,verified:true,note:"퀄리티 앵커. 전 팩터 균형, 변동성 낮아 안정형 코어."},
-      {ticker:"AVGO",name:"Broadcom",market:"US",sector:"Semis",score:76,factors:{momentum:.74,value:.40,quality:.79,supply:.58,tech:.66},prob_up:{d5:.57,d20:.63,d60:.68},signal:"buy",entry:{low:172,high:178},targets:{bear:162,base:198,bull:225},stop:156,verified:true,note:"AI 인프라 모멘텀. 밸류 낮음, 눌림목 진입 유효."},
-      {ticker:"AAPL",name:"Apple",market:"US",sector:"Hardware",score:63,factors:{momentum:.45,value:.55,quality:.85,supply:.50,tech:.54},prob_up:{d5:.52,d20:.56,d60:.61},signal:"watch",entry:{low:228,high:235},targets:{bear:218,base:252,bull:280},stop:210,verified:true,note:"퀄리티 최상위나 모멘텀 정체. 추세 재개 전 관망."},
-      {ticker:"TSLA",name:"Tesla",market:"US",sector:"Auto",score:48,factors:{momentum:.40,value:.22,quality:.55,supply:.42,tech:.46},prob_up:{d5:.47,d20:.49,d60:.52},signal:"watch",entry:{low:242,high:252},targets:{bear:225,base:280,bull:330},stop:212,verified:false,note:"변동성 큼, 밸류 부담. 검증 관문 미통과(verified=false)로 신뢰도 낮음."},
-      {ticker:"PFE",name:"Pfizer",market:"US",sector:"Pharma",score:38,factors:{momentum:.25,value:.66,quality:.60,supply:.28,tech:.30},prob_up:{d5:.43,d20:.45,d60:.48},signal:"sell",entry:{low:0,high:0},targets:{bear:0,base:0,bull:0},stop:0,verified:true,note:"밸류만 매력, 모멘텀·수급 약세 지속. 신규 매수 회피."}
-    ]
-  };
+/* ---------------- 샘플 데이터 (latest.json 스키마와 동일) ---------------- */
+const SAMPLE = {
+  as_of:"2026-08-19", ruleset:"balanced_v3",
+  market_regime:{ kr:{state:"중립", note:"코스피 20MA 상단, 변동성 보통", led:"neutral"},
+                  us:{state:"위험선호", note:"S&P·나스닥 추세 양호", led:"on"} },
+  universe_size:{ kr:2831, us:2974 },
+  backtest:{ hit_d5:0.58, hit_d20:0.61, hit_d60:0.66, deflated_sharpe:0.82, pbo:0.18 },
+  backtest_by_market:{
+    KR:{ hit_d5:0.52, hit_d20:0.54, hit_d60:0.55, deflated_sharpe:0.61, pbo:0.44, ruleset_ok:true, verified:0 },
+    US:{ hit_d5:0.60, hit_d20:0.63, hit_d60:0.67, deflated_sharpe:0.90, pbo:0.12, ruleset_ok:true, verified:5 } },
+  factor_ic:{ KR:{momentum:{ic:0.041,t:3.9,n:101}, tech:{ic:0.052,t:4.6,n:101}},
+              US:{momentum:{ic:0.055,t:5.1,n:101}, tech:{ic:0.048,t:4.3,n:101}} },
+  weights:{ KR:{momentum:0.17,tech:0.23,value:0.20,quality:0.20,supply:0.20},
+            US:{momentum:0.24,tech:0.26,value:0.25,quality:0.25,supply:0.0} },
+  recommendations:[
+    {ticker:"005930",name:"삼성전자",market:"KR",sector:"반도체",score:84,factors:{momentum:.72,value:.55,quality:.80,supply:.68,tech:.63},prob_up:{d5:.62,d20:.69,d60:.73},signal:"buy",entry:{low:71000,high:73500},targets:{bear:68000,base:82000,bull:95000},stop:66500,verified:false,note:"외국인·기관 동반 순매수 5일 연속. 퀄리티·수급 상위, 밸류 중립. 진입밴드 하단 눌림목 대응."},
+    {ticker:"000660",name:"SK하이닉스",market:"KR",sector:"반도체",score:81,factors:{momentum:.80,value:.42,quality:.71,supply:.74,tech:.70},prob_up:{d5:.60,d20:.66,d60:.70},signal:"buy",entry:{low:198000,high:206000},targets:{bear:188000,base:232000,bull:270000},stop:182000,verified:false,note:"모멘텀·수급 강세, 밸류는 부담. HBM 사이클 기대가 가격에 상당 반영."},
+    {ticker:"373220",name:"LG에너지솔루션",market:"KR",sector:"2차전지",score:66,factors:{momentum:.48,value:.40,quality:.62,supply:.55,tech:.52},prob_up:{d5:.53,d20:.57,d60:.60},signal:"watch",entry:{low:312000,high:322000},targets:{bear:298000,base:352000,bull:400000},stop:290000,verified:false,note:"팩터 균형이나 뚜렷한 우위 없음. 수급 개선 확인 전 관망."},
+    {ticker:"012450",name:"한화에어로스페이스",market:"KR",sector:"방산",score:78,factors:{momentum:.83,value:.50,quality:.66,supply:.70,tech:.68},prob_up:{d5:.58,d20:.64,d60:.69},signal:"buy",entry:{low:262000,high:272000},targets:{bear:250000,base:305000,bull:355000},stop:242000,verified:false,note:"추세·수급 상위. 이격 확대 구간이라 분할 접근 권장."},
+    {ticker:"035420",name:"NAVER",market:"KR",sector:"인터넷",score:54,factors:{momentum:.35,value:.60,quality:.68,supply:.38,tech:.40},prob_up:{d5:.48,d20:.51,d60:.55},signal:"watch",entry:{low:198000,high:205000},targets:{bear:190000,base:222000,bull:250000},stop:184000,verified:false,note:"밸류·퀄리티는 양호하나 모멘텀·수급 약세. 반등 신호 대기."},
+    {ticker:"068270",name:"셀트리온",market:"KR",sector:"바이오",score:41,factors:{momentum:.28,value:.45,quality:.58,supply:.30,tech:.33},prob_up:{d5:.44,d20:.46,d60:.49},signal:"sell",entry:{low:0,high:0},targets:{bear:0,base:0,bull:0},stop:0,verified:false,note:"모멘텀·수급 동반 약화. 점수·확률 붕괴로 신규 매수 회피."},
+    {ticker:"NVDA",name:"NVIDIA",market:"US",sector:"Semis",score:88,factors:{momentum:.86,value:.44,quality:.90,supply:.72,tech:.78},prob_up:{d5:.64,d20:.71,d60:.75},signal:"buy",entry:{low:172,high:179},targets:{bear:162,base:205,bull:240},stop:156,verified:true,note:"퀄리티·모멘텀 최상위. 밸류 부담은 있으나 이익 리비전 상향 지속."},
+    {ticker:"MSFT",name:"Microsoft",market:"US",sector:"Software",score:79,factors:{momentum:.62,value:.52,quality:.88,supply:.60,tech:.64},prob_up:{d5:.59,d20:.65,d60:.70},signal:"buy",entry:{low:498,high:512},targets:{bear:478,base:560,bull:620},stop:462,verified:true,note:"퀄리티 앵커. 전 팩터 균형, 변동성 낮아 안정형 코어."},
+    {ticker:"AVGO",name:"Broadcom",market:"US",sector:"Semis",score:76,factors:{momentum:.74,value:.40,quality:.79,supply:.58,tech:.66},prob_up:{d5:.57,d20:.63,d60:.68},signal:"buy",entry:{low:172,high:178},targets:{bear:162,base:198,bull:225},stop:156,verified:true,note:"AI 인프라 모멘텀. 밸류 낮음, 눌림목 진입 유효."},
+    {ticker:"AAPL",name:"Apple",market:"US",sector:"Hardware",score:63,factors:{momentum:.45,value:.55,quality:.85,supply:.50,tech:.54},prob_up:{d5:.52,d20:.56,d60:.61},signal:"watch",entry:{low:228,high:235},targets:{bear:218,base:252,bull:280},stop:210,verified:true,note:"퀄리티 최상위나 모멘텀 정체. 추세 재개 전 관망."},
+    {ticker:"TSLA",name:"Tesla",market:"US",sector:"Auto",score:48,factors:{momentum:.40,value:.22,quality:.55,supply:.42,tech:.46},prob_up:{d5:.47,d20:.49,d60:.52},signal:"watch",entry:{low:242,high:252},targets:{bear:225,base:280,bull:330},stop:212,verified:false,note:"변동성 큼, 밸류 부담. 검증 관문 미통과(verified=false)로 신뢰도 낮음."},
+    {ticker:"PFE",name:"Pfizer",market:"US",sector:"Pharma",score:38,factors:{momentum:.25,value:.66,quality:.60,supply:.28,tech:.30},prob_up:{d5:.43,d20:.45,d60:.48},signal:"sell",entry:{low:0,high:0},targets:{bear:0,base:0,bull:0},stop:0,verified:true,note:"밸류만 매력, 모멘텀·수급 약세 지속. 신규 매수 회피."}
+  ]
+};
 
-  const FKEYS=[["momentum","M","var(--buy)"],["value","V","var(--cyan)"],["quality","Q","var(--kr)"],["supply","S","var(--watch)"],["tech","T","var(--us)"]];
-  const FLABEL={momentum:"모멘텀",value:"가치",quality:"퀄리티",supply:"수급",tech:"기술"};
-  let DATA=SAMPLE, state={mk:"KR",sig:"all",q:""};
+const FKEYS=[["momentum","M","var(--buy)"],["value","V","var(--cyan)"],["quality","Q","var(--kr)"],["supply","S","var(--watch)"],["tech","T","var(--us)"]];
+const FLABEL={momentum:"모멘텀",value:"가치",quality:"퀄리티",supply:"수급",tech:"기술"};
+let DATA=SAMPLE, state={mk:"KR",sig:"all",q:""};
 
-  const fmtPrice=(v,mk)=> v>0 ? (mk==="US"? "$"+v.toLocaleString(undefined,{maximumFractionDigits:2}) : "₩"+v.toLocaleString()) : "—";
-  const pct=v=>Math.round(v*100)+"%";
-  const probColor=v=> v>=.62? "var(--buy)" : v>=.53? "var(--watch)" : "var(--sell)";
-  const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const fmtPrice=(v,mk)=> v>0 ? (mk==="US"? "$"+v.toLocaleString(undefined,{maximumFractionDigits:2}) : "₩"+v.toLocaleString()) : "—";
+const pct=v=>Math.round(v*100)+"%";
+const probColor=v=> v>=.62? "var(--buy)" : v>=.53? "var(--watch)" : "var(--sell)";
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 
-  function boot(){
-    DATA.recommendations.forEach(r=>r._score= r.score);
-    renderHead(); render();
-    document.getElementById("asof").textContent=DATA.as_of;
-    document.getElementById("ruleset").innerHTML='룰셋 <span class="num">'+esc(DATA.ruleset)+'</span>';
-    // try live data; fall back silently to sample
-    fetch("latest.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{
-      if(j&&j.recommendations){ DATA=j; document.getElementById("sampleBanner").style.display="none";
-        document.getElementById("asof").textContent=j.as_of||"—";
-        document.getElementById("ruleset").innerHTML='룰셋 <span class="num">'+esc(j.ruleset||"—")+'</span>';
-        renderHead(); render(); }
-    }).catch(()=>{});
-  }
+function boot(){
+  DATA.recommendations.forEach(r=>r._score= r.score);
+  renderHead(); render();
+  document.getElementById("asof").textContent=DATA.as_of;
+  document.getElementById("ruleset").innerHTML='룰셋 <span class="num">'+esc(DATA.ruleset)+'</span>';
+  // try live data; fall back silently to sample
+  fetch("latest.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{
+    if(j&&j.recommendations){ DATA=j; document.getElementById("sampleBanner").style.display="none";
+      document.getElementById("asof").textContent=j.as_of||"—";
+      document.getElementById("ruleset").innerHTML='룰셋 <span class="num">'+esc(j.ruleset||"—")+'</span>';
+      renderHead(); render(); }
+  }).catch(()=>{});
+}
 
-  function renderHead(){
-    const rg=DATA.market_regime||{}, box=document.getElementById("regime"); box.innerHTML="";
-    [["kr","한국","kr"],["us","미국","us"]].forEach(([k,lab,cls])=>{
-      const g=rg[k]||{state:"—",note:"",led:"neutral"};
-      box.insertAdjacentHTML("beforeend",
-        `<div class="rg"><span class="mk ${cls}">${lab}</span><div><div class="st">${esc(g.state)}</div><div class="sub">${esc(g.note||"")}</div></div><span class="led ${g.led||'neutral'}"></span></div>`);
-    });
-    const b=DATA.backtest||{}, bt=document.getElementById("bt");
-    const dsC=(b.deflated_sharpe>=.7?"good":b.deflated_sharpe>=.4?"warn":"bad");
-    const pboC=(b.pbo<=.2?"good":b.pbo<=.4?"warn":"bad");
-    bt.innerHTML=
-      `<div class="m"><div class="k">승률 20D</div><div class="v num">${b.hit_d20!=null?pct(b.hit_d20):"—"}</div></div>`+
-      `<div class="m"><div class="k">승률 60D</div><div class="v num">${b.hit_d60!=null?pct(b.hit_d60):"—"}</div></div>`+
-      `<div class="m"><div class="k">Deflated SR</div><div class="v num ${dsC}">${b.deflated_sharpe??"—"}</div></div>`+
-      `<div class="m"><div class="k">PBO</div><div class="v num ${pboC}">${b.pbo!=null?pct(b.pbo):"—"}</div></div>`;
-    renderWeights();
-  }
+function renderHead(){
+  const rg=DATA.market_regime||{}, box=document.getElementById("regime"); box.innerHTML="";
+  [["kr","한국","kr"],["us","미국","us"]].forEach(([k,lab,cls])=>{
+    const g=rg[k]||{state:"—",note:"",led:"neutral"};
+    box.insertAdjacentHTML("beforeend",
+      `<div class="rg"><span class="mk ${cls}">${lab}</span><div><div class="st">${esc(g.state)}</div><div class="sub">${esc(g.note||"")}</div></div><span class="led ${g.led||'neutral'}"></span></div>`);
+  });
+  const bm=(DATA.backtest_by_market||{})[state.mk]||DATA.backtest||{};
+  const b=bm, bt=document.getElementById("bt");
+  const dsC=(b.deflated_sharpe>=.7?"good":b.deflated_sharpe>=.4?"warn":"bad");
+  const pboC=(b.pbo<=.2?"good":b.pbo<=.4?"warn":"bad");
+  bt.innerHTML=
+    `<div class="m"><div class="k">승률 20D</div><div class="v num">${b.hit_d20!=null?pct(b.hit_d20):"—"}</div></div>`+
+    `<div class="m"><div class="k">승률 60D</div><div class="v num">${b.hit_d60!=null?pct(b.hit_d60):"—"}</div></div>`+
+    `<div class="m"><div class="k">Deflated SR</div><div class="v num ${dsC}">${b.deflated_sharpe??"—"}</div></div>`+
+    `<div class="m"><div class="k">PBO</div><div class="v num ${pboC}">${b.pbo!=null?pct(b.pbo):"—"}</div></div>`;
+  renderGate(bm);
+  renderWeights();
+}
 
-  const WCOLORS={momentum:"var(--buy)",tech:"var(--us)",value:"var(--cyan)",quality:"var(--kr)",supply:"var(--watch)"};
-  const WLABEL={momentum:"모멘텀",tech:"기술",value:"가치",quality:"퀄리티",supply:"수급"};
-  function renderWeights(){
-    const box=document.getElementById("wrow");
-    const w=(DATA.weights||{})[state.mk];
-    if(!w){ box.innerHTML=""; return; }
-    const order=["momentum","tech","value","quality","supply"];
-    const bar=order.map(k=>`<span style="width:${(w[k]||0)*100}%;background:${WCOLORS[k]}"></span>`).join("");
-    const leg=order.filter(k=>w[k]>0).map(k=>`<b><i style="background:${WCOLORS[k]}"></i>${WLABEL[k]} ${Math.round(w[k]*100)}%</b>`).join("");
-    box.innerHTML=`<div class="wk">${state.mk} 팩터 가중치</div><div class="wbar">${bar}</div><div class="wleg">${leg}</div>`;
-  }
+function renderGate(bm){
+  const box=document.getElementById("gate"); if(!box) return;
+  if(!bm || (bm.pbo==null && bm.deflated_sharpe==null && bm.verified==null)){ box.innerHTML=""; return; }
+  const pboOk = bm.pbo!=null && bm.pbo<=0.5, dsrOk = bm.deflated_sharpe!=null && bm.deflated_sharpe>=0.5;
+  const ok = bm.ruleset_ok!=null ? bm.ruleset_ok : (pboOk&&dsrOk);
+  const chip=(lab,val,good)=>`<span class="chip ${good?'ok':'no'}">${lab} <b>${val}</b> ${good?'✓':'✗'}</span>`;
+  const vcount = bm.verified!=null? bm.verified : 0;
+  box.innerHTML = `<span class="lead">검증 관문</span>`+
+    chip("PBO≤50%", bm.pbo!=null?Math.round(bm.pbo*100)+"%":"—", pboOk)+
+    chip("DSR≥0.5", bm.deflated_sharpe??"—", dsrOk)+
+    `<span class="chip ${ok&&vcount>0?'ok':'no'}">검증 종목 <b>${vcount}</b></span>`+
+    (ok? "" : `<span class="chip no">룰셋 관문 미통과 → 검증 배지 없음</span>`);
+}
+const WCOLORS={momentum:"var(--buy)",tech:"var(--us)",value:"var(--cyan)",quality:"var(--kr)",supply:"var(--watch)"};
+const WLABEL={momentum:"모멘텀",tech:"기술",value:"가치",quality:"퀄리티",supply:"수급"};
+function renderWeights(){
+  const box=document.getElementById("wrow");
+  const w=(DATA.weights||{})[state.mk];
+  if(!w){ box.innerHTML=""; return; }
+  const order=["momentum","tech","value","quality","supply"];
+  const bar=order.map(k=>`<span style="width:${(w[k]||0)*100}%;background:${WCOLORS[k]}"></span>`).join("");
+  const leg=order.filter(k=>w[k]>0).map(k=>`<b><i style="background:${WCOLORS[k]}"></i>${WLABEL[k]} ${Math.round(w[k]*100)}%</b>`).join("");
+  box.innerHTML=`<div class="wk">${state.mk} 팩터 가중치</div><div class="wbar">${bar}</div><div class="wleg">${leg}</div>`;
+}
 
-  function render(){
-    const list=document.getElementById("list");
-    DATA.recommendations.forEach(r=>{ if(r.note) r.note=String(r.note).replace(/<[^>]*>/g,""); });
-    let rows=DATA.recommendations.filter(r=>r.market===state.mk)
-      .filter(r=>state.sig==="all"||r.signal===state.sig)
-      .filter(r=>{const q=state.q.trim().toLowerCase(); return !q|| r.name.toLowerCase().includes(q)||String(r.ticker).toLowerCase().includes(q);})
-      .sort((a,b)=>b.score-a.score);
-    document.getElementById("count").textContent=rows.length;
-    if(!rows.length){ list.innerHTML='<div class="empty">조건에 맞는 종목이 없습니다. 필터를 바꿔 보세요.</div>'; return; }
-    list.innerHTML=rows.map((r,i)=>rowHTML(r,i+1)).join("");
-    list.querySelectorAll(".rmain").forEach(el=>{
-      el.addEventListener("click",()=>el.closest(".row").classList.toggle("open"));
-      el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();el.click();}});
-      el.tabIndex=0; el.setAttribute("role","button");
-    });
+function render(){
+  const list=document.getElementById("list");
+  DATA.recommendations.forEach(r=>{ if(r.note) r.note=String(r.note).replace(/<[^>]*>/g,""); });
+  let rows=DATA.recommendations.filter(r=>r.market===state.mk)
+    .filter(r=>state.sig==="all"||r.signal===state.sig)
+    .filter(r=>{const q=state.q.trim().toLowerCase(); return !q|| r.name.toLowerCase().includes(q)||String(r.ticker).toLowerCase().includes(q);})
+    .sort((a,b)=>b.score-a.score);
+  document.getElementById("count").textContent=rows.length;
+  if(!rows.length){ list.innerHTML='<div class="empty">조건에 맞는 종목이 없습니다. 필터를 바꿔 보세요.</div>'; return; }
+  list.innerHTML=rows.map((r,i)=>rowHTML(r,i+1)).join("");
+  list.querySelectorAll(".rmain").forEach(el=>{
+    el.addEventListener("click",()=>el.closest(".row").classList.toggle("open"));
+    el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();el.click();}});
+    el.tabIndex=0; el.setAttribute("role","button");
+  });
 
-    // 근거 툴팁
-    let tipEl=document.getElementById("tip");
-    if(!tipEl){ tipEl=document.createElement("div"); tipEl.id="tip";
-      tipEl.innerHTML='<div class="th">추천 근거</div><div class="tb"></div>'; document.body.appendChild(tipEl); }
-    const tb=tipEl.querySelector(".tb");
-    function moveTip(e){ const pad=14, w=tipEl.offsetWidth, h=tipEl.offsetHeight;
-      let x=e.clientX+pad, y=e.clientY+pad;
-      if(x+w>innerWidth-8) x=e.clientX-w-pad; if(y+h>innerHeight-8) y=e.clientY-h-pad;
-      tipEl.style.left=Math.max(8,x)+"px"; tipEl.style.top=Math.max(8,y)+"px"; }
-    list.querySelectorAll(".rmain").forEach(el=>{
-      const note=el.getAttribute("data-note");
-      if(!note) return;
-      el.addEventListener("mouseenter",e=>{ tb.textContent=note; tipEl.classList.add("on"); moveTip(e); });
-      el.addEventListener("mousemove",moveTip);
-      el.addEventListener("mouseleave",()=>tipEl.classList.remove("on"));
-    });
+  // 근거 툴팁
+  let tipEl=document.getElementById("tip");
+  if(!tipEl){ tipEl=document.createElement("div"); tipEl.id="tip";
+    tipEl.innerHTML='<div class="th">추천 근거</div><div class="tb"></div>'; document.body.appendChild(tipEl); }
+  const tb=tipEl.querySelector(".tb");
+  function moveTip(e){ const pad=14, w=tipEl.offsetWidth, h=tipEl.offsetHeight;
+    let x=e.clientX+pad, y=e.clientY+pad;
+    if(x+w>innerWidth-8) x=e.clientX-w-pad; if(y+h>innerHeight-8) y=e.clientY-h-pad;
+    tipEl.style.left=Math.max(8,x)+"px"; tipEl.style.top=Math.max(8,y)+"px"; }
+  list.querySelectorAll(".rmain").forEach(el=>{
+    const note=el.getAttribute("data-note");
+    if(!note) return;
+    el.addEventListener("mouseenter",e=>{ tb.textContent=note; tipEl.classList.add("on"); moveTip(e); });
+    el.addEventListener("mousemove",moveTip);
+    el.addEventListener("mouseleave",()=>tipEl.classList.remove("on"));
+  });
 
-  }
+}
 
-  function rowHTML(r,rank){
-    const fac=FKEYS.map(([k,,c])=>`<span style="height:${8+r.factors[k]*30}px;--f:${c}"></span>`).join("");
-    const fkey=FKEYS.map(([,l])=>`<b>${l}</b>`).join("");
-    const lad=[["5D","d5"],["20D","d20"],["60D","d60"]].map(([h,k])=>{
-      const v=r.prob_up[k]; return `<div class="rung"><div class="h">${h}</div><div class="p num">${pct(v)}</div><div class="fill" style="width:${v*100}%;--rc:${probColor(v)}"></div></div>`;
-    }).join("");
-    const sigLab={buy:"매수",watch:"관망",sell:"매도"}[r.signal];
-    return `<div class="row">
-      <div class="rmain" data-note="${esc(r.note||'')}">
-        <div class="rank ${rank<=3?'top':''} num">${rank}</div>
-        <div class="name">
-          <div class="t"><span class="badge-mk ${r.market}">${r.market}</span><span class="nm">${esc(r.name)}</span>${r.verified?'<span class="vf">검증</span>':''}${r.note?'<span class="why" aria-label="추천 근거">i</span>':''}</div>
-          <div class="sec"><span class="tk">${esc(r.ticker)}</span> · ${esc(r.sector||"")}</div>
-        </div>
-        <div class="score"><div class="ring" style="--p:${r.score}"><i>${r.score}</i></div></div>
-        <div class="fac-cell"><div class="fac">${fac}</div><div class="fkey">${fkey}</div></div>
-        <div class="lad">${lad}</div>
-        <div class="sig ${r.signal}">${sigLab}</div>
+function rowHTML(r,rank){
+  const fac=FKEYS.map(([k,,c])=>`<span style="height:${8+r.factors[k]*30}px;--f:${c}"></span>`).join("");
+  const fkey=FKEYS.map(([,l])=>`<b>${l}</b>`).join("");
+  const lad=[["5D","d5"],["20D","d20"],["60D","d60"]].map(([h,k])=>{
+    const v=r.prob_up[k]; return `<div class="rung"><div class="h">${h}</div><div class="p num">${pct(v)}</div><div class="fill" style="width:${v*100}%;--rc:${probColor(v)}"></div></div>`;
+  }).join("");
+  const sigLab={buy:"매수",watch:"관망",sell:"매도"}[r.signal];
+  return `<div class="row">
+    <div class="rmain" data-note="${esc(r.note||'')}">
+      <div class="rank ${rank<=3?'top':''} num">${rank}</div>
+      <div class="name">
+        <div class="t"><span class="badge-mk ${r.market}">${r.market}</span><span class="nm">${esc(r.name)}</span>${r.verified?'<span class="vf">검증</span>':''}${r.note?'<span class="why" aria-label="추천 근거">i</span>':''}</div>
+        <div class="sec"><span class="tk">${esc(r.ticker)}</span> · ${esc(r.sector||"")}</div>
       </div>
-      ${detailHTML(r)}
+      <div class="score"><div class="ring" style="--p:${r.score}"><i>${r.score}</i></div></div>
+      <div class="fac-cell"><div class="fac">${fac}</div><div class="fkey">${fkey}</div></div>
+      <div class="lad">${lad}</div>
+      <div class="sig ${r.signal}">${sigLab}</div>
+    </div>
+    ${detailHTML(r)}
+  </div>`;
+}
+
+function detailHTML(r){
+  const hasPx=r.entry && r.entry.high>0;
+  let price;
+  if(hasPx){
+    const lo=r.targets.bear, hi=r.targets.bull, span=Math.max(hi-lo,1);
+    const pos=v=>Math.max(4,Math.min(96,((v-lo)/span)*100));
+    const eL=pos(r.entry.low), eH=pos(r.entry.high);
+    price=`<div class="price"><h4>진입 · 목표 · 손절</h4>
+      <div class="band">
+        <div class="track"></div>
+        <div class="entry" style="left:${eL}%; width:${eH-eL}%"></div>
+        <div class="mk" style="left:${pos(r.stop)}%"><span class="lb">손절</span><i></i><b class="bad">${fmtPrice(r.stop,r.market)}</b></div>
+        <div class="mk" style="left:${pos(r.targets.base)}%"><span class="lb">기준</span><i></i><b>${fmtPrice(r.targets.base,r.market)}</b></div>
+      </div>
+      <div class="tg">
+        <div class="b bear"><div class="k">Bear</div><div class="v">${fmtPrice(r.targets.bear,r.market)}</div></div>
+        <div class="b base"><div class="k">Base</div><div class="v">${fmtPrice(r.targets.base,r.market)}</div></div>
+        <div class="b bull"><div class="k">Bull</div><div class="v">${fmtPrice(r.targets.bull,r.market)}</div></div>
+      </div>
+      <div class="note">진입밴드 <b>${fmtPrice(r.entry.low,r.market)} ~ ${fmtPrice(r.entry.high,r.market)}</b> · 손절 ${fmtPrice(r.stop,r.market)}</div>
     </div>`;
+  } else {
+    price=`<div class="price"><h4>진입 · 목표 · 손절</h4><div class="note">매도/회피 신호로 <b>진입가·목표가를 제시하지 않습니다.</b></div></div>`;
   }
+  const frows=FKEYS.map(([k,,c])=>`<div class="frow"><div class="fl">${FLABEL[k]}</div><div class="bar"><i style="width:${r.factors[k]*100}%;background:${c}"></i></div><div class="fv num">${Math.round(r.factors[k]*100)}</div></div>`).join("");
+  return `<div class="detail">
+    ${price}
+    <div class="facbig"><h4>팩터 분해 (백분위)</h4>${frows}<div class="note">${r.note||""}</div></div>
+  </div>`;
+}
 
-  function detailHTML(r){
-    const hasPx=r.entry && r.entry.high>0;
-    let price;
-    if(hasPx){
-      const lo=r.targets.bear, hi=r.targets.bull, span=Math.max(hi-lo,1);
-      const pos=v=>Math.max(4,Math.min(96,((v-lo)/span)*100));
-      const eL=pos(r.entry.low), eH=pos(r.entry.high);
-      price=`<div class="price"><h4>진입 · 목표 · 손절</h4>
-        <div class="band">
-          <div class="track"></div>
-          <div class="entry" style="left:${eL}%; width:${eH-eL}%"></div>
-          <div class="mk" style="left:${pos(r.stop)}%"><span class="lb">손절</span><i></i><b class="bad">${fmtPrice(r.stop,r.market)}</b></div>
-          <div class="mk" style="left:${pos(r.targets.base)}%"><span class="lb">기준</span><i></i><b>${fmtPrice(r.targets.base,r.market)}</b></div>
-        </div>
-        <div class="tg">
-          <div class="b bear"><div class="k">Bear</div><div class="v">${fmtPrice(r.targets.bear,r.market)}</div></div>
-          <div class="b base"><div class="k">Base</div><div class="v">${fmtPrice(r.targets.base,r.market)}</div></div>
-          <div class="b bull"><div class="k">Bull</div><div class="v">${fmtPrice(r.targets.bull,r.market)}</div></div>
-        </div>
-        <div class="note">진입밴드 <b>${fmtPrice(r.entry.low,r.market)} ~ ${fmtPrice(r.entry.high,r.market)}</b> · 손절 ${fmtPrice(r.stop,r.market)}</div>
-      </div>`;
-    } else {
-      price=`<div class="price"><h4>진입 · 목표 · 손절</h4><div class="note">매도/회피 신호로 <b>진입가·목표가를 제시하지 않습니다.</b></div></div>`;
-    }
-    const frows=FKEYS.map(([k,,c])=>`<div class="frow"><div class="fl">${FLABEL[k]}</div><div class="bar"><i style="width:${r.factors[k]*100}%;background:${c}"></i></div><div class="fv num">${Math.round(r.factors[k]*100)}</div></div>`).join("");
-    return `<div class="detail">
-      ${price}
-      <div class="facbig"><h4>팩터 분해 (백분위)</h4>${frows}<div class="note">${r.note||""}</div></div>
-    </div>`;
-  }
+/* controls */
+document.getElementById("mktSeg").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  state.mk=b.dataset.mk; [...e.currentTarget.children].forEach(x=>x.setAttribute("aria-pressed",x===b));renderHead();render();});
+document.getElementById("sigSeg").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  state.sig=b.dataset.sig; [...e.currentTarget.children].forEach(x=>x.setAttribute("aria-pressed",x===b));render();});
+document.getElementById("q").addEventListener("input",e=>{state.q=e.target.value;render();});
 
-  /* controls */
-  document.getElementById("mktSeg").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
-    state.mk=b.dataset.mk; [...e.currentTarget.children].forEach(x=>x.setAttribute("aria-pressed",x===b));render();renderWeights();});
-  document.getElementById("sigSeg").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
-    state.sig=b.dataset.sig; [...e.currentTarget.children].forEach(x=>x.setAttribute("aria-pressed",x===b));render();});
-  document.getElementById("q").addEventListener("input",e=>{state.q=e.target.value;render();});
-
-  boot();
+boot();
 </script>
 </body>
 </html>

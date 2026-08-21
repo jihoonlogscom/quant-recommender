@@ -14,7 +14,19 @@ quant/pit.py            # Point-in-Time 정합 + 실데이터 커넥터(EDGAR/DA
 quant/cache.py          # 일봉 증분 parquet 캐시
 tests/test_smoke.py         # 파이프라인 엔드투엔드(합성, 무네트워크)
 tests/test_connectors.py    # EDGAR 파서 + 캐시 단위 테스트(합성, 무네트워크)
-docs/                   # GitHub Pages 배포 단위 (index.html + latest.json + history/)
+docs/                   # GitHub Pages 배포 단위
+  index.html            #   허브(도구 메뉴)
+  daily.html            #   오늘의 확률 추천(랭킹·확률·신호·진입가)
+  backtest.html         #   백테스트·룰 검증(PBO/DSR/승률 관문)
+  factors.html          #   팩터 랩(IC·가중치·팩터별 상위)
+  regime.html           #   시장 국면(레짐·신호분포·섹터)
+  research.html         #   종목 리서치(점수 기여도 분해)
+  screener.html         #   스크리너(조건 필터·CSV)
+  watchlist.html        #   관심종목(브라우저 저장)
+  portfolio.html        #   포트폴리오·리밸런싱(브라우저 저장)
+  report.html           #   알림·리포트(요약 복사)
+  assets/app.css|app.js #   공통 테마·유틸
+  latest.json           #   파이프라인 산출물(매일 갱신)
 .github/workflows/daily.yml   # 평일 장마감 후 cron 실행 + 커밋
 ```
 
@@ -70,9 +82,13 @@ python tests/test_smoke.py && python tests/test_connectors.py   # 무네트워�
 - 스모크: 예측력 주입한 수급이 IC로 가중치를 얻고, 무작위 가치·퀄리티는 IC≤0으로 예산0 처리되는 IC 게이팅을 확인.
 - EDGAR 파서: 합성 companyfacts에서 ROE·영업이익률·부채비율·EPS·BPS·EBITDA/주 정확 계산 확인.
 
+## 대시보드 (9개 페이지)
+
+허브(`index.html`)에서 모든 도구로 이동합니다. 모든 페이지는 같은 `latest.json`을 읽으므로 파이프라인이 갱신되면 함께 최신화됩니다. 관심종목·보유 내역은 **브라우저 localStorage에만** 저장되며 서버로 전송되지 않습니다.
+
 ## 로드맵 (선택 고도화)
 
-- 분기 TTM 재무(현재 연간 기준) · EV 정밀화(순부채·주식수) · alphalens/vectorbt/quantstats/purgedcv 편입 · 유니버스 전종목 상시화 · korea-market-data 병행(수급 폴백).
+- 분기 TTM 재무(현재 연간 기준) · EV 정밀화(순부채·주식수) · alphalens/vectorbt/quantstats/purgedcv 편입 · 유니버스 전종목 상시화 · 일별 수급 아카이브 축적 후 수급을 검증 팩터로 승격.
 
 ## 데이터 계약 (latest.json)
 

@@ -396,7 +396,8 @@ def build_market(market, panel, regime, pit_fund=None, supply=None, top_n=40):
             "signal": signal, **px, "verified": bool(verified),
             "note": _rationale(fac, Wc, prob_up["d20"], signal, verified),
         })
-    stats = dict(hit=bt["top_hit"], pbo=bt["pbo"], dsr=bt["dsr"], ic=bt["ic"], weights=Wc)
+    stats = dict(hit=bt["top_hit"], pbo=bt["pbo"], dsr=bt["dsr"], ic=bt["ic"], weights=Wc,
+                 ruleset_ok=bool(ruleset_ok), n_verified=int(sum(1 for r in recs if r["verified"])))
     return recs, stats, len(f)
 
 
@@ -423,6 +424,11 @@ def build_payload(markets_data: dict) -> dict:
         "market_regime": regimes, "universe_size": usize,
         "backtest": {"hit_d5": avg("d5"), "hit_d20": avg("d20"), "hit_d60": avg("d60"),
                      "deflated_sharpe": avgm("dsr"), "pbo": avgm("pbo")},
+        "backtest_by_market": {m: {
+            "hit_d5": meta[m]["hit"].get("d5"), "hit_d20": meta[m]["hit"].get("d20"),
+            "hit_d60": meta[m]["hit"].get("d60"), "deflated_sharpe": meta[m]["dsr"],
+            "pbo": meta[m]["pbo"], "ruleset_ok": meta[m]["ruleset_ok"],
+            "verified": meta[m]["n_verified"]} for m in meta},
         "factor_ic": {m: meta[m]["ic"] for m in meta},
         "weights": {m: meta[m]["weights"] for m in meta},
         "recommendations": recs,

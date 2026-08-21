@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>스크리너 · 퀀트 워크스페이스</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+  .toolnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+  .toolnav a{font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none;border:1px solid var(--line);
+    background:var(--panel);padding:6px 11px;border-radius:8px;transition:.15s}
+  .toolnav a:hover{color:var(--ink);border-color:var(--line-2)}
+  .toolnav a[aria-current="page"]{color:var(--cyan);border-color:var(--cyan);background:rgba(67,201,193,.08)}
+  .toolnav a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="homebar"><a href="index.html">← 퀀트 워크스페이스</a></div>
+<nav class="toolnav"><a href="daily.html">오늘의 추천</a><a href="backtest.html">검증</a><a href="factors.html">팩터</a><a href="regime.html">국면</a><a href="research.html">리서치</a><a href="screener.html" aria-current="page">스크리너</a><a href="watchlist.html">관심</a><a href="portfolio.html">포트폴리오</a><a href="report.html">리포트</a></nav>
+<header class="pg">
+  <div><span class="kicker">Screener</span><h1>스크리너</h1><div class="sub">팩터·신호·확률 조건으로 직접 필터링하고 결과를 CSV로 내보냅니다.</div></div>
+  <div class="asof"><span class="dot"></span>기준일 <b id="asof">—</b></div>
+</header>
+
+<div class="card"><div class="bd">
+  <div class="controls" style="margin-bottom:10px">
+    <div class="seg mkt" id="mkt"><button data-mk="ALL" aria-pressed="true">전체</button><button data-mk="KR" aria-pressed="false">한국</button><button data-mk="US" aria-pressed="false">미국</button></div>
+    <div class="seg" id="sig"><button data-s="all" aria-pressed="true">모든 신호</button><button data-s="buy" aria-pressed="false">매수</button><button data-s="watch" aria-pressed="false">관망</button></div>
+    <label style="display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted)">
+      <input type="checkbox" id="onlyv"> 검증된 종목만</label>
+    <button class="btn" id="reset">초기화</button>
+  </div>
+  <div class="cols c3" id="sliders"></div>
+</div></div>
+<div class="controls" style="margin-top:12px"><div class="note" id="cnt"></div>
+  <button class="btn" id="csv" style="margin-left:auto">CSV 내보내기</button></div>
+<div class="card"><div class="bd" style="overflow-x:auto" id="tbl"></div></div>
+<footer>리서치 보조용이며 투자 자문이 아닙니다. 확률·점수는 과거 데이터 기반으로 미래 수익을 보장하지 않습니다.</footer>
+<script src="assets/app.js"></script>
+<script>
+
+let D, MK="ALL", SIG="all";
+const F=[["score","종합점수",0],["prob20","20일 확률(%)",0]].concat(QW.FACTORS.map(k=>[k,QW.FLABEL[k]+" 백분위",0]));
+const st={};
+F.forEach(([k])=>st[k]=0);
+document.getElementById("sliders").innerHTML=F.map(([k,lab])=>
+  `<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px">
+     <span>${lab} 최소</span><b class="num" id="lb-${k}">0</b></div>
+   <input type="range" min="0" max="100" value="0" id="sl-${k}" style="width:100%;accent-color:var(--cyan)"></div>`).join("");
+F.forEach(([k])=>document.getElementById("sl-"+k).addEventListener("input",e=>{
+  st[k]=+e.target.value; document.getElementById("lb-"+k).textContent=st[k]; render();}));
+function rows(){
+  return (D.recommendations||[]).filter(r=>{
+    if(MK!=="ALL"&&r.market!==MK) return false;
+    if(SIG!=="all"&&r.signal!==SIG) return false;
+    if(document.getElementById("onlyv").checked&&!r.verified) return false;
+    if(r.score<st.score) return false;
+    if((r.prob_up.d20||0)*100<st.prob20) return false;
+    return QW.FACTORS.every(k=>((r.factors[k]||0)*100)>=st[k]);
+  }).sort((a,b)=>b.score-a.score);
+}
+function render(){
+  const rs=rows();
+  document.getElementById("cnt").innerHTML=`조건 충족 <b class="num" style="color:var(--ink)">${rs.length}</b>종목 / 전체 ${(D.recommendations||[]).length}`;
+  document.getElementById("tbl").innerHTML= rs.length? `<table class="t"><thead><tr>
+    <th>종목</th><th class="r">점수</th><th class="r">20일</th>${QW.FACTORS.map(k=>`<th class="r">${QW.FLABEL[k]}</th>`).join("")}<th class="c">신호</th></tr></thead><tbody>`+
+    rs.map(r=>`<tr><td>${QW.rowName(r)}</td><td class="r num"><b>${r.score}</b></td>
+      <td class="r num">${QW.pct(r.prob_up.d20)}</td>
+      ${QW.FACTORS.map(k=>`<td class="r num" style="color:${(r.factors[k]||0)>=0.7?'var(--buy)':(r.factors[k]||0)<=0.3?'var(--sell)':'var(--muted)'}">${Math.round((r.factors[k]||0)*100)}</td>`).join("")}
+      <td class="c"><span class="sig ${r.signal}">${QW.SIGLAB[r.signal]}</span></td></tr>`).join("")+`</tbody></table>`
+    : `<div class="empty">조건에 맞는 종목이 없습니다. 기준을 낮춰 보세요.</div>`;
+}
+document.getElementById("csv").addEventListener("click",()=>{
+  const rs=rows(); if(!rs.length) return;
+  const head=["ticker","name","market","sector","score","prob_d5","prob_d20","prob_d60","signal","verified"].concat(QW.FACTORS);
+  const lines=[head.join(",")].concat(rs.map(r=>[r.ticker,`"${r.name}"`,r.market,`"${r.sector||""}"`,r.score,
+    r.prob_up.d5,r.prob_up.d20,r.prob_up.d60,r.signal,r.verified].concat(QW.FACTORS.map(k=>r.factors[k]||0)).join(",")));
+  const blob=new Blob(["\ufeff"+lines.join("\n")],{type:"text/csv;charset=utf-8"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+  a.download=`screener_${D.as_of||"latest"}.csv`; a.click(); URL.revokeObjectURL(a.href);});
+document.getElementById("reset").addEventListener("click",()=>{
+  F.forEach(([k])=>{st[k]=0;document.getElementById("sl-"+k).value=0;document.getElementById("lb-"+k).textContent="0";});
+  document.getElementById("onlyv").checked=false; render();});
+document.getElementById("onlyv").addEventListener("change",render);
+QW.segment(document.getElementById("mkt"),ds=>{MK=ds.mk;render();});
+QW.segment(document.getElementById("sig"),ds=>{SIG=ds.s;render();});
+QW.load().then(d=>{D=d;QW.header(d);render();});
+
+</script>
+</body>
+</html>

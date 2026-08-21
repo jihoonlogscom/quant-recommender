@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>백테스트 · 룰 검증 · 퀀트 워크스페이스</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+  .toolnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+  .toolnav a{font-size:12.5px;font-weight:600;color:var(--muted);text-decoration:none;border:1px solid var(--line);
+    background:var(--panel);padding:6px 11px;border-radius:8px;transition:.15s}
+  .toolnav a:hover{color:var(--ink);border-color:var(--line-2)}
+  .toolnav a[aria-current="page"]{color:var(--cyan);border-color:var(--cyan);background:rgba(67,201,193,.08)}
+  .toolnav a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="homebar"><a href="index.html">← 퀀트 워크스페이스</a></div>
+<nav class="toolnav"><a href="daily.html">오늘의 추천</a><a href="backtest.html" aria-current="page">검증</a><a href="factors.html">팩터</a><a href="regime.html">국면</a><a href="research.html">리서치</a><a href="screener.html">스크리너</a><a href="watchlist.html">관심</a><a href="portfolio.html">포트폴리오</a><a href="report.html">리포트</a></nav>
+<header class="pg">
+  <div>
+    <span class="kicker">Validation</span>
+    <h1>백테스트 · 룰 검증</h1>
+    <div class="sub">이 추천을 믿어도 되는지 검증 지표로 확인합니다. 관문을 통과한 시장만 검증 배지를 받습니다.</div>
+  </div>
+  <div class="asof"><span class="dot"></span>기준일 <b id="asof">—</b></div>
+</header>
+
+<div class="controls">
+  <div class="seg mkt" id="mkt"><button data-mk="KR" aria-pressed="true">한국</button><button data-mk="US" aria-pressed="false">미국</button></div>
+  <div class="note" id="verdict"></div>
+</div>
+<div class="cols c2">
+  <div class="card"><div class="hd">검증 관문</div><div class="bd" id="gates"></div></div>
+  <div class="card"><div class="hd">보유기간별 승률</div><div class="bd" id="hits"></div></div>
+</div>
+<div class="card" style="margin-top:12px"><div class="hd">지표 해설</div><div class="bd note" id="gloss"></div></div>
+<footer>리서치 보조용이며 투자 자문이 아닙니다. 확률·점수는 과거 데이터 기반으로 미래 수익을 보장하지 않습니다.</footer>
+<script src="assets/app.js"></script>
+<script>
+
+let D, MK="KR";
+const gate=(lab,val,ok,desc)=>`<div class="m" style="margin-bottom:8px">
+  <div class="k">${lab}</div><div class="v num ${ok?'good':'bad'}">${val} ${ok?'✓':'✗'}</div>
+  <div class="note" style="margin-top:4px;font-size:11.5px">${desc}</div></div>`;
+function render(){
+  const b=(D.backtest_by_market||{})[MK]||{};
+  const pboOk=b.pbo!=null&&b.pbo<=0.5, dsrOk=b.deflated_sharpe!=null&&b.deflated_sharpe>=0.5;
+  const ok=b.ruleset_ok!=null?b.ruleset_ok:(pboOk&&dsrOk);
+  document.getElementById("gates").innerHTML=
+    gate("PBO ≤ 50%", b.pbo!=null?QW.pct(b.pbo):"—", pboOk, "과최적화 확률. 낮을수록 룰이 커브피팅이 아님(CSCV)")+
+    gate("Deflated Sharpe ≥ 0.5", b.deflated_sharpe??"—", dsrOk, "시도 횟수를 반영한 유의성. 우연일 확률을 깎아낸 값")+
+    `<div class="m"><div class="k">검증 통과 종목</div><div class="v num ${ok&&b.verified?'good':'bad'}">${b.verified??0}</div>
+     <div class="note" style="margin-top:4px;font-size:11.5px">관문 통과 + 해당 구간 20일 승률 55% 이상</div></div>`;
+  const rows=[["5일","hit_d5"],["20일","hit_d20"],["60일","hit_d60"]].map(([l,k])=>{
+    const v=b[k]; const w=v!=null?Math.min(100,Math.max(0,(v-0.4)/0.3*100)):0;
+    const c=v>=0.55?"var(--buy)":v>=0.5?"var(--watch)":"var(--sell)";
+    return `<div class="hbar" style="margin-bottom:11px"><div style="width:46px;color:var(--muted);font-size:12.5px">${l}</div>
+      <div class="bar" style="flex:1"><i style="width:${w}%;background:${c}"></i></div>
+      <div class="num" style="width:52px;text-align:right;font-weight:800">${QW.pct1(v)}</div></div>`;}).join("");
+  document.getElementById("hits").innerHTML=rows+
+    `<div class="note" style="margin-top:6px">상위 10% 점수 구간 종목의 과거 forward 상승 빈도. 50%는 동전던지기 수준입니다.</div>`;
+  document.getElementById("verdict").innerHTML= ok
+    ? `<span class="sig buy">룰셋 관문 통과</span> — ${MK} 추천에 검증 배지가 부여됩니다.`
+    : `<span class="sig sell">룰셋 관문 미통과</span> — ${MK}는 통계적 엣지가 부족해 검증 배지를 붙이지 않습니다.`;
+}
+document.getElementById("gloss").innerHTML=`
+  <b>왜 이 관문인가.</b> 백테스트는 파라미터를 여러 번 바꿔보면 우연히 좋아 보이기 쉽습니다.
+  PBO는 여러 후보 룰 중 학습구간 1등이 검증구간에서 평균 이하로 떨어지는 빈도를 재고,
+  Deflated Sharpe는 시도 횟수만큼 성과를 할인합니다. 둘 다 통과해야 룰셋을 신뢰합니다.<br><br>
+  <b>승률의 의미.</b> 확률은 미래 보장이 아니라 과거 같은 조건에서의 빈도입니다.
+  20일 55%는 100번 중 55번 올랐다는 뜻이고, 나머지 45번은 하락했다는 뜻이기도 합니다.`;
+QW.load().then(d=>{D=d;QW.header(d);render();});
+QW.segment(document.getElementById("mkt"),ds=>{MK=ds.mk;render();});
+
+</script>
+</body>
+</html>
