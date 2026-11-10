@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-07",
+  "as_of": "2026-11-10",
   "ruleset": "balanced_v3",
   "market_regime": {
     "kr": {
@@ -14,32 +14,32 @@
     }
   },
   "universe_size": {
-    "kr": 235,
+    "kr": 236,
     "us": 238
   },
   "backtest": {
-    "hit_d5": 0.526,
-    "hit_d20": 0.534,
-    "hit_d60": 0.549,
-    "deflated_sharpe": 0.975,
-    "pbo": 0.007
+    "hit_d5": 0.498,
+    "hit_d20": 0.509,
+    "hit_d60": 0.519,
+    "deflated_sharpe": 0.801,
+    "pbo": 0.386
   },
   "backtest_by_market": {
     "KR": {
-      "hit_d5": 0.511,
-      "hit_d20": 0.518,
-      "hit_d60": 0.549,
-      "deflated_sharpe": 0.989,
-      "pbo": 0.014,
-      "ruleset_ok": true,
+      "hit_d5": 0.447,
+      "hit_d20": 0.458,
+      "hit_d60": 0.469,
+      "deflated_sharpe": 0.612,
+      "pbo": 0.614,
+      "ruleset_ok": false,
       "verified": 0
     },
     "US": {
-      "hit_d5": 0.542,
-      "hit_d20": 0.551,
-      "hit_d60": 0.549,
-      "deflated_sharpe": 0.961,
-      "pbo": 0.0,
+      "hit_d5": 0.548,
+      "hit_d20": 0.559,
+      "hit_d60": 0.569,
+      "deflated_sharpe": 0.99,
+      "pbo": 0.157,
       "ruleset_ok": true,
       "verified": 40
     }
@@ -47,8 +47,8 @@
   "factor_ic": {
     "KR": {
       "momentum": {
-        "ic": 0.0176,
-        "t": 1.07,
+        "ic": 0.0181,
+        "t": 1.49,
         "n": 101
       },
       "value": {
@@ -57,8 +57,8 @@
         "n": 0
       },
       "quality": {
-        "ic": -0.0126,
-        "t": -1.51,
+        "ic": 0.024,
+        "t": 3.55,
         "n": 101
       },
       "supply": {
@@ -67,15 +67,15 @@
         "n": 0
       },
       "tech": {
-        "ic": 0.0052,
-        "t": 0.38,
+        "ic": -0.0245,
+        "t": -2.17,
         "n": 101
       }
     },
     "US": {
       "momentum": {
-        "ic": 0.0098,
-        "t": 0.46,
+        "ic": 0.0207,
+        "t": 1.1,
         "n": 101
       },
       "value": {
@@ -94,23 +94,23 @@
         "n": 0
       },
       "tech": {
-        "ic": 0.0164,
-        "t": 0.91,
+        "ic": 0.0284,
+        "t": 1.81,
         "n": 101
       }
     }
   },
   "weights": {
     "KR": {
-      "momentum": 0.7719,
-      "tech": 0.2281,
+      "momentum": 0.6667,
+      "tech": 0.0,
       "value": 0.0,
-      "quality": 0.0,
+      "quality": 0.3333,
       "supply": 0.0
     },
     "US": {
-      "momentum": 0.374,
-      "tech": 0.626,
+      "momentum": 0.4216,
+      "tech": 0.5784,
       "value": 0.0,
       "quality": 0.0,
       "supply": 0.0
@@ -118,164 +118,36 @@
   },
   "recommendations": [
     {
-      "ticker": "092870",
-      "name": "엑시콘",
-      "market": "KR",
-      "sector": "",
-      "score": 100,
-      "factors": {
-        "momentum": 0.997,
-        "value": 0.5,
-        "quality": 0.694,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 40739,
-        "high": 46916
-      },
-      "targets": {
-        "bear": 36879,
-        "base": 63904,
-        "bull": 83207
-      },
-      "stop": 29157,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "043260",
-      "name": "성호전자",
+      "ticker": "225190",
+      "name": "LK삼양",
       "market": "KR",
       "sector": "",
       "score": 100,
       "factors": {
         "momentum": 1.0,
         "value": 0.5,
-        "quality": 0.939,
+        "quality": 0.069,
         "supply": 0.5,
-        "tech": 0.638
+        "tech": 0.931
       },
       "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
       },
       "signal": "watch",
       "entry": {
-        "low": 17896,
-        "high": 20142
+        "low": 3158,
+        "high": 3561
       },
       "targets": {
-        "bear": 16492,
-        "base": 26320,
-        "bull": 33339
+        "bear": 2906,
+        "base": 4669,
+        "bull": 5928
       },
-      "stop": 13684,
+      "stop": 2403,
       "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "180640",
-      "name": "한진칼",
-      "market": "KR",
-      "sector": "",
-      "score": 99,
-      "factors": {
-        "momentum": 0.987,
-        "value": 0.5,
-        "quality": 0.663,
-        "supply": 0.5,
-        "tech": 0.981
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 189600,
-        "high": 200960
-      },
-      "targets": {
-        "bear": 182500,
-        "base": 232200,
-        "bull": 267700
-      },
-      "stop": 168300,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "053800",
-      "name": "안랩",
-      "market": "KR",
-      "sector": "",
-      "score": 99,
-      "factors": {
-        "momentum": 0.982,
-        "value": 0.5,
-        "quality": 0.895,
-        "supply": 0.5,
-        "tech": 0.981
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 93786,
-        "high": 106129
-      },
-      "targets": {
-        "bear": 86071,
-        "base": 140071,
-        "bull": 178643
-      },
-      "stop": 70643,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "089860",
-      "name": "롯데렌탈",
-      "market": "KR",
-      "sector": "",
-      "score": 99,
-      "factors": {
-        "momentum": 0.977,
-        "value": 0.5,
-        "quality": 0.191,
-        "supply": 0.5,
-        "tech": 0.981
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 57416,
-        "high": 59150
-      },
-      "targets": {
-        "bear": 56332,
-        "base": 63920,
-        "bull": 69339
-      },
-      "stop": 54164,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
+      "note": "모멘텀 강세 · 20일 상승확률 46% — 관망"
     },
     {
       "ticker": "000500",
@@ -286,1148 +158,1244 @@
       "factors": {
         "momentum": 0.995,
         "value": 0.5,
-        "quality": 0.406,
+        "quality": 0.358,
         "supply": 0.5,
-        "tech": 0.638
+        "tech": 0.737
       },
       "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
       },
       "signal": "watch",
       "entry": {
-        "low": 176039,
-        "high": 193096
+        "low": 189757,
+        "high": 207746
       },
       "targets": {
-        "bear": 165379,
-        "base": 240004,
-        "bull": 293307
+        "bear": 178514,
+        "base": 257214,
+        "bull": 313429
       },
-      "stop": 144057,
+      "stop": 156029,
       "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
+      "note": "모멘텀 강세 · 20일 상승확률 46% — 관망"
     },
     {
-      "ticker": "425420",
-      "name": "티에프이",
+      "ticker": "327260",
+      "name": "RF머트리얼즈",
       "market": "KR",
       "sector": "",
-      "score": 98,
+      "score": 99,
       "factors": {
         "momentum": 0.99,
         "value": 0.5,
-        "quality": 0.931,
+        "quality": 0.863,
         "supply": 0.5,
-        "tech": 0.899
+        "tech": 0.737
       },
       "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
       },
       "signal": "watch",
       "entry": {
-        "low": 60536,
-        "high": 67359
+        "low": 23527,
+        "high": 26844
       },
       "targets": {
-        "bear": 56271,
-        "base": 86121,
-        "bull": 107443
+        "bear": 21454,
+        "base": 35966,
+        "bull": 46332
       },
-      "stop": 47743,
+      "stop": 17307,
       "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 46% — 관망"
     },
     {
-      "ticker": "010170",
-      "name": "대한광통신",
+      "ticker": "402340",
+      "name": "SK스퀘어",
       "market": "KR",
       "sector": "",
-      "score": 98,
+      "score": 99,
       "factors": {
-        "momentum": 0.992,
+        "momentum": 0.954,
         "value": 0.5,
-        "quality": 0.112,
+        "quality": 1.0,
         "supply": 0.5,
-        "tech": 0.638
+        "tech": 0.737
       },
       "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
       },
       "signal": "watch",
       "entry": {
-        "low": 10214,
-        "high": 11296
+        "low": 707464,
+        "high": 773921
       },
       "targets": {
-        "bear": 9537,
-        "base": 14272,
-        "bull": 17654
+        "bear": 665929,
+        "base": 956679,
+        "bull": 1164357
       },
-      "stop": 8184,
+      "stop": 582857,
       "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "219130",
-      "name": "타이거일렉",
-      "market": "KR",
-      "sector": "",
-      "score": 98,
-      "factors": {
-        "momentum": 0.985,
-        "value": 0.5,
-        "quality": 0.732,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 77239,
-        "high": 85176
-      },
-      "targets": {
-        "bear": 72279,
-        "base": 107004,
-        "bull": 131807
-      },
-      "stop": 62357,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "028050",
-      "name": "삼성E&A",
-      "market": "KR",
-      "sector": "",
-      "score": 97,
-      "factors": {
-        "momentum": 0.967,
-        "value": 0.5,
-        "quality": 0.653,
-        "supply": 0.5,
-        "tech": 0.981
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 59159,
-        "high": 62585
-      },
-      "targets": {
-        "bear": 57018,
-        "base": 72005,
-        "bull": 82711
-      },
-      "stop": 52736,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "012750",
-      "name": "에스원",
-      "market": "KR",
-      "sector": "",
-      "score": 97,
-      "factors": {
-        "momentum": 0.969,
-        "value": 0.5,
-        "quality": 0.793,
-        "supply": 0.5,
-        "tech": 0.981
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 96900,
-        "high": 98980
-      },
-      "targets": {
-        "bear": 95600,
-        "base": 104700,
-        "bull": 111200
-      },
-      "stop": 93000,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "468530",
-      "name": "프로티나",
-      "market": "KR",
-      "sector": "",
-      "score": 97,
-      "factors": {
-        "momentum": 0.98,
-        "value": 0.5,
-        "quality": 0.064,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 50100,
-        "high": 55700
-      },
-      "targets": {
-        "bear": 46600,
-        "base": 71100,
-        "bull": 88600
-      },
-      "stop": 39600,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "089590",
-      "name": "제주항공",
-      "market": "KR",
-      "sector": "",
-      "score": 96,
-      "factors": {
-        "momentum": 0.974,
-        "value": 0.5,
-        "quality": 0.046,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 6135,
-        "high": 6559
-      },
-      "targets": {
-        "bear": 5869,
-        "base": 7727,
-        "bull": 9054
-      },
-      "stop": 5339,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "000400",
-      "name": "롯데손해보험",
-      "market": "KR",
-      "sector": "",
-      "score": 96,
-      "factors": {
-        "momentum": 0.952,
-        "value": 0.5,
-        "quality": 0.01,
-        "supply": 0.5,
-        "tech": 0.981
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 2438,
-        "high": 2537
-      },
-      "targets": {
-        "bear": 2377,
-        "base": 2808,
-        "bull": 3116
-      },
-      "stop": 2254,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "033780",
-      "name": "KT&G",
-      "market": "KR",
-      "sector": "",
-      "score": 95,
-      "factors": {
-        "momentum": 0.929,
-        "value": 0.5,
-        "quality": 0.844,
-        "supply": 0.5,
-        "tech": 0.981
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 188011,
-        "high": 192314
-      },
-      "targets": {
-        "bear": 185321,
-        "base": 204146,
-        "bull": 217593
-      },
-      "stop": 179943,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "021240",
-      "name": "코웨이",
-      "market": "KR",
-      "sector": "",
-      "score": 95,
-      "factors": {
-        "momentum": 0.921,
-        "value": 0.5,
-        "quality": 0.839,
-        "supply": 0.5,
-        "tech": 0.981
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 103889,
-        "high": 107106
-      },
-      "targets": {
-        "bear": 101879,
-        "base": 115954,
-        "bull": 126007
-      },
-      "stop": 97857,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 46% — 관망"
     },
     {
       "ticker": "181710",
       "name": "NHN",
       "market": "KR",
       "sector": "",
-      "score": 94,
+      "score": 98,
       "factors": {
-        "momentum": 0.954,
+        "momentum": 0.985,
         "value": 0.5,
-        "quality": 0.421,
+        "quality": 0.477,
         "supply": 0.5,
-        "tech": 0.899
+        "tech": 0.931
       },
       "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
       },
       "signal": "watch",
       "entry": {
-        "low": 55266,
-        "high": 59320
+        "low": 74252,
+        "high": 79289
       },
       "targets": {
-        "bear": 52732,
-        "base": 70470,
-        "bull": 83139
+        "bear": 71104,
+        "base": 93141,
+        "bull": 108882
       },
-      "stop": 47664,
+      "stop": 64807,
       "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
+      "note": "모멘텀 강세 · 20일 상승확률 46% — 관망"
     },
     {
-      "ticker": "138040",
-      "name": "메리츠금융지주",
+      "ticker": "017900",
+      "name": "광전자",
       "market": "KR",
       "sector": "",
-      "score": 94,
+      "score": 98,
       "factors": {
-        "momentum": 0.906,
+        "momentum": 0.987,
         "value": 0.5,
-        "quality": 0.066,
+        "quality": 0.772,
         "supply": 0.5,
-        "tech": 0.981
+        "tech": 0.737
       },
       "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
       },
       "signal": "watch",
       "entry": {
-        "low": 129377,
-        "high": 133414
+        "low": 6897,
+        "high": 7702
       },
       "targets": {
-        "bear": 126854,
-        "base": 144516,
-        "bull": 157132
+        "bear": 6394,
+        "base": 9914,
+        "bull": 12429
       },
-      "stop": 121807,
+      "stop": 5389,
       "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "008930",
-      "name": "한미사이언스",
-      "market": "KR",
-      "sector": "",
-      "score": 94,
-      "factors": {
-        "momentum": 0.962,
-        "value": 0.5,
-        "quality": 0.809,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 51962,
-        "high": 54742
-      },
-      "targets": {
-        "bear": 50225,
-        "base": 62388,
-        "bull": 71075
-      },
-      "stop": 46750,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "282330",
-      "name": "BGF리테일",
-      "market": "KR",
-      "sector": "",
-      "score": 93,
-      "factors": {
-        "momentum": 0.936,
-        "value": 0.5,
-        "quality": 0.523,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 140139,
-        "high": 145516
-      },
-      "targets": {
-        "bear": 136779,
-        "base": 160304,
-        "bull": 177107
-      },
-      "stop": 130057,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "003490",
-      "name": "대한항공",
-      "market": "KR",
-      "sector": "",
-      "score": 93,
-      "factors": {
-        "momentum": 0.926,
-        "value": 0.5,
-        "quality": 0.194,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 28864,
-        "high": 29881
-      },
-      "targets": {
-        "bear": 28229,
-        "base": 32679,
-        "bull": 35857
-      },
-      "stop": 26957,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "121600",
-      "name": "나노신소재",
-      "market": "KR",
-      "sector": "",
-      "score": 93,
-      "factors": {
-        "momentum": 0.941,
-        "value": 0.5,
-        "quality": 0.444,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 62734,
-        "high": 67320
-      },
-      "targets": {
-        "bear": 59868,
-        "base": 79930,
-        "bull": 94261
-      },
-      "stop": 54136,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "031980",
-      "name": "피에스케이홀딩스",
-      "market": "KR",
-      "sector": "",
-      "score": 93,
-      "factors": {
-        "momentum": 0.946,
-        "value": 0.5,
-        "quality": 0.946,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 114780,
-        "high": 130492
-      },
-      "targets": {
-        "bear": 104961,
-        "base": 173698,
-        "bull": 222796
-      },
-      "stop": 85321,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "032640",
-      "name": "LG유플러스",
-      "market": "KR",
-      "sector": "",
-      "score": 92,
-      "factors": {
-        "momentum": 0.903,
-        "value": 0.5,
-        "quality": 0.464,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 16193,
-        "high": 16716
-      },
-      "targets": {
-        "bear": 15866,
-        "base": 18154,
-        "bull": 19788
-      },
-      "stop": 15213,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "007810",
-      "name": "코리아써키트",
-      "market": "KR",
-      "sector": "",
-      "score": 91,
-      "factors": {
-        "momentum": 0.957,
-        "value": 0.5,
-        "quality": 0.582,
-        "supply": 0.5,
-        "tech": 0.638
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 58089,
-        "high": 64986
-      },
-      "targets": {
-        "bear": 53779,
-        "base": 83954,
-        "bull": 105507
-      },
-      "stop": 45157,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "131290",
-      "name": "티에스이",
-      "market": "KR",
-      "sector": "",
-      "score": 91,
-      "factors": {
-        "momentum": 0.959,
-        "value": 0.5,
-        "quality": 0.796,
-        "supply": 0.5,
-        "tech": 0.638
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 155811,
-        "high": 177554
-      },
-      "targets": {
-        "bear": 142221,
-        "base": 237346,
-        "bull": 305293
-      },
-      "stop": 115043,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
-    },
-    {
-      "ticker": "068270",
-      "name": "셀트리온",
-      "market": "KR",
-      "sector": "",
-      "score": 91,
-      "factors": {
-        "momentum": 0.888,
-        "value": 0.5,
-        "quality": 0.819,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.511,
-        "d20": 0.518,
-        "d60": 0.549
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 204614,
-        "high": 210831
-      },
-      "targets": {
-        "bear": 200729,
-        "base": 227929,
-        "bull": 247357
-      },
-      "stop": 192957,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 52% — 관망"
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 46% — 관망"
     },
     {
       "ticker": "036540",
       "name": "SFA반도체",
       "market": "KR",
       "sector": "",
-      "score": 90,
+      "score": 98,
       "factors": {
-        "momentum": 0.865,
+        "momentum": 0.977,
         "value": 0.5,
-        "quality": 0.474,
+        "quality": 0.579,
         "supply": 0.5,
-        "tech": 0.899
+        "tech": 0.737
       },
       "prob_up": {
-        "d5": 0.504,
-        "d20": 0.533,
-        "d60": 0.581
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
       },
       "signal": "watch",
       "entry": {
-        "low": 5795,
-        "high": 6427
+        "low": 7193,
+        "high": 7876
       },
       "targets": {
-        "bear": 5400,
-        "base": 8166,
-        "bull": 10142
+        "bear": 6765,
+        "base": 9757,
+        "bull": 11893
       },
-      "stop": 4609,
+      "stop": 5911,
       "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 53% — 관망"
+      "note": "모멘텀 강세 · 20일 상승확률 46% — 관망"
     },
     {
-      "ticker": "328130",
-      "name": "루닛",
+      "ticker": "121440",
+      "name": "골프존홀딩스",
+      "market": "KR",
+      "sector": "",
+      "score": 97,
+      "factors": {
+        "momentum": 0.975,
+        "value": 0.5,
+        "quality": 0.769,
+        "supply": 0.5,
+        "tech": 0.99
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 8567,
+        "high": 9084
+      },
+      "targets": {
+        "bear": 8244,
+        "base": 10506,
+        "bull": 12122
+      },
+      "stop": 7597,
+      "verified": false,
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "012030",
+      "name": "DB",
+      "market": "KR",
+      "sector": "",
+      "score": 97,
+      "factors": {
+        "momentum": 0.972,
+        "value": 0.5,
+        "quality": 0.561,
+        "supply": 0.5,
+        "tech": 0.931
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 2162,
+        "high": 2311
+      },
+      "targets": {
+        "bear": 2069,
+        "base": 2719,
+        "bull": 3184
+      },
+      "stop": 1884,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "002990",
+      "name": "금호건설",
+      "market": "KR",
+      "sector": "",
+      "score": 97,
+      "factors": {
+        "momentum": 0.98,
+        "value": 0.5,
+        "quality": 0.099,
+        "supply": 0.5,
+        "tech": 0.737
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 7919,
+        "high": 8528
+      },
+      "targets": {
+        "bear": 7539,
+        "base": 10204,
+        "bull": 12107
+      },
+      "stop": 6777,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "030190",
+      "name": "NICE평가정보",
+      "market": "KR",
+      "sector": "",
+      "score": 96,
+      "factors": {
+        "momentum": 0.964,
+        "value": 0.5,
+        "quality": 0.931,
+        "supply": 0.5,
+        "tech": 0.99
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 17688,
+        "high": 18203
+      },
+      "targets": {
+        "bear": 17366,
+        "base": 19621,
+        "bull": 21231
+      },
+      "stop": 16721,
+      "verified": false,
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "079940",
+      "name": "가비아",
+      "market": "KR",
+      "sector": "",
+      "score": 96,
+      "factors": {
+        "momentum": 0.957,
+        "value": 0.5,
+        "quality": 0.774,
+        "supply": 0.5,
+        "tech": 0.99
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 48412,
+        "high": 49912
+      },
+      "targets": {
+        "bear": 47475,
+        "base": 54038,
+        "bull": 58725
+      },
+      "stop": 45600,
+      "verified": false,
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "010955",
+      "name": "S-Oil우",
+      "market": "KR",
+      "sector": "",
+      "score": 95,
+      "factors": {
+        "momentum": 0.952,
+        "value": 0.5,
+        "quality": 0.274,
+        "supply": 0.5,
+        "tech": 0.737
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 65589,
+        "high": 69526
+      },
+      "targets": {
+        "bear": 63129,
+        "base": 80354,
+        "bull": 92657
+      },
+      "stop": 58207,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "396300",
+      "name": "HT로보틱스",
+      "market": "KR",
+      "sector": "",
+      "score": 95,
+      "factors": {
+        "momentum": 0.949,
+        "value": 0.5,
+        "quality": 0.444,
+        "supply": 0.5,
+        "tech": 0.931
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 6154,
+        "high": 6820
+      },
+      "targets": {
+        "bear": 5737,
+        "base": 8652,
+        "bull": 10734
+      },
+      "stop": 4904,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "067290",
+      "name": "JW신약",
+      "market": "KR",
+      "sector": "",
+      "score": 94,
+      "factors": {
+        "momentum": 0.893,
+        "value": 0.5,
+        "quality": 0.975,
+        "supply": 0.5,
+        "tech": 0.931
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 2378,
+        "high": 2533
+      },
+      "targets": {
+        "bear": 2282,
+        "base": 2958,
+        "bull": 3441
+      },
+      "stop": 2089,
+      "verified": false,
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "383800",
+      "name": "LX홀딩스",
+      "market": "KR",
+      "sector": "",
+      "score": 94,
+      "factors": {
+        "momentum": 0.675,
+        "value": 0.5,
+        "quality": 0.995,
+        "supply": 0.5,
+        "tech": 0.296
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 7075,
+        "high": 7243
+      },
+      "targets": {
+        "bear": 6971,
+        "base": 7703,
+        "bull": 8226
+      },
+      "stop": 6761,
+      "verified": false,
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "025000",
+      "name": "KPX케미칼",
+      "market": "KR",
+      "sector": "",
+      "score": 94,
+      "factors": {
+        "momentum": 0.929,
+        "value": 0.5,
+        "quality": 0.797,
+        "supply": 0.5,
+        "tech": 0.931
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 54668,
+        "high": 56799
+      },
+      "targets": {
+        "bear": 53336,
+        "base": 62661,
+        "bull": 69321
+      },
+      "stop": 50671,
+      "verified": false,
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "294870",
+      "name": "IPARK현대산업개발",
+      "market": "KR",
+      "sector": "",
+      "score": 93,
+      "factors": {
+        "momentum": 0.939,
+        "value": 0.5,
+        "quality": 0.454,
+        "supply": 0.5,
+        "tech": 0.931
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 23768,
+        "high": 24859
+      },
+      "targets": {
+        "bear": 23086,
+        "base": 27861,
+        "bull": 31271
+      },
+      "stop": 21721,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "03473K",
+      "name": "SK우",
+      "market": "KR",
+      "sector": "",
+      "score": 93,
+      "factors": {
+        "momentum": 0.944,
+        "value": 0.5,
+        "quality": 0.274,
+        "supply": 0.5,
+        "tech": 0.931
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 344946,
+        "high": 364232
+      },
+      "targets": {
+        "bear": 332893,
+        "base": 417268,
+        "bull": 477536
+      },
+      "stop": 308786,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "033780",
+      "name": "KT&G",
+      "market": "KR",
+      "sector": "",
+      "score": 93,
+      "factors": {
+        "momentum": 0.886,
+        "value": 0.5,
+        "quality": 0.916,
+        "supply": 0.5,
+        "tech": 0.931
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 171200,
+        "high": 176320
+      },
+      "targets": {
+        "bear": 168000,
+        "base": 190400,
+        "bull": 206400
+      },
+      "stop": 161600,
+      "verified": false,
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "000660",
+      "name": "SK하이닉스",
+      "market": "KR",
+      "sector": "",
+      "score": 92,
+      "factors": {
+        "momentum": 0.858,
+        "value": 0.5,
+        "quality": 0.992,
+        "supply": 0.5,
+        "tech": 0.737
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 1136214,
+        "high": 1231871
+      },
+      "targets": {
+        "bear": 1076429,
+        "base": 1494929,
+        "bull": 1793857
+      },
+      "stop": 956857,
+      "verified": false,
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "006120",
+      "name": "SK디스커버리",
+      "market": "KR",
+      "sector": "",
+      "score": 92,
+      "factors": {
+        "momentum": 0.934,
+        "value": 0.5,
+        "quality": 0.388,
+        "supply": 0.5,
+        "tech": 0.99
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 62589,
+        "high": 65326
+      },
+      "targets": {
+        "bear": 60879,
+        "base": 72854,
+        "bull": 81407
+      },
+      "stop": 57457,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "278650",
+      "name": "HLB바이오스텝",
+      "market": "KR",
+      "sector": "",
+      "score": 91,
+      "factors": {
+        "momentum": 0.937,
+        "value": 0.5,
+        "quality": 0.221,
+        "supply": 0.5,
+        "tech": 0.737
+      },
+      "prob_up": {
+        "d5": 0.447,
+        "d20": 0.458,
+        "d60": 0.469
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 4059,
+        "high": 4829
+      },
+      "targets": {
+        "bear": 3578,
+        "base": 6945,
+        "bull": 9351
+      },
+      "stop": 2616,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 46% — 관망"
+    },
+    {
+      "ticker": "089600",
+      "name": "KT나스미디어",
       "market": "KR",
       "sector": "",
       "score": 90,
       "factors": {
-        "momentum": 0.87,
+        "momentum": 0.883,
         "value": 0.5,
-        "quality": 0.11,
+        "quality": 0.536,
         "supply": 0.5,
-        "tech": 0.899
+        "tech": 0.931
       },
       "prob_up": {
-        "d5": 0.504,
-        "d20": 0.533,
-        "d60": 0.581
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
       },
       "signal": "watch",
       "entry": {
-        "low": 14652,
-        "high": 15961
+        "low": 12192,
+        "high": 12700
       },
       "targets": {
-        "bear": 13834,
-        "base": 19560,
-        "bull": 23650
+        "bear": 11875,
+        "base": 14098,
+        "bull": 15685
       },
-      "stop": 12198,
+      "stop": 11240,
       "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 53% — 관망"
+      "note": "모멘텀 강세 · 20일 상승확률 47% — 관망"
+    },
+    {
+      "ticker": "123010",
+      "name": "MSDI",
+      "market": "KR",
+      "sector": "",
+      "score": 90,
+      "factors": {
+        "momentum": 0.904,
+        "value": 0.5,
+        "quality": 0.386,
+        "supply": 0.5,
+        "tech": 0.931
+      },
+      "prob_up": {
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 2771,
+        "high": 3098
+      },
+      "targets": {
+        "bear": 2566,
+        "base": 3997,
+        "bull": 5020
+      },
+      "stop": 2157,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 47% — 관망"
+    },
+    {
+      "ticker": "001940",
+      "name": "KISCO홀딩스",
+      "market": "KR",
+      "sector": "",
+      "score": 89,
+      "factors": {
+        "momentum": 0.876,
+        "value": 0.5,
+        "quality": 0.594,
+        "supply": 0.5,
+        "tech": 0.931
+      },
+      "prob_up": {
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 26393,
+        "high": 27524
+      },
+      "targets": {
+        "bear": 25686,
+        "base": 30636,
+        "bull": 34171
+      },
+      "stop": 24271,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 47% — 관망"
+    },
+    {
+      "ticker": "044450",
+      "name": "KSS해운",
+      "market": "KR",
+      "sector": "",
+      "score": 89,
+      "factors": {
+        "momentum": 0.909,
+        "value": 0.5,
+        "quality": 0.226,
+        "supply": 0.5,
+        "tech": 0.931
+      },
+      "prob_up": {
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 11135,
+        "high": 11367
+      },
+      "targets": {
+        "bear": 10989,
+        "base": 12007,
+        "bull": 12734
+      },
+      "stop": 10699,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 47% — 관망"
+    },
+    {
+      "ticker": "282330",
+      "name": "BGF리테일",
+      "market": "KR",
+      "sector": "",
+      "score": 89,
+      "factors": {
+        "momentum": 0.896,
+        "value": 0.5,
+        "quality": 0.437,
+        "supply": 0.5,
+        "tech": 0.931
+      },
+      "prob_up": {
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 132218,
+        "high": 138109
+      },
+      "targets": {
+        "bear": 128536,
+        "base": 154311,
+        "bull": 172721
+      },
+      "stop": 121171,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 47% — 관망"
+    },
+    {
+      "ticker": "096760",
+      "name": "JW홀딩스",
+      "market": "KR",
+      "sector": "",
+      "score": 87,
+      "factors": {
+        "momentum": 0.845,
+        "value": 0.5,
+        "quality": 0.838,
+        "supply": 0.5,
+        "tech": 0.737
+      },
+      "prob_up": {
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 3617,
+        "high": 3806
+      },
+      "targets": {
+        "bear": 3499,
+        "base": 4324,
+        "bull": 4914
+      },
+      "stop": 3264,
+      "verified": false,
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 47% — 관망"
+    },
+    {
+      "ticker": "095340",
+      "name": "ISC",
+      "market": "KR",
+      "sector": "",
+      "score": 87,
+      "factors": {
+        "momentum": 0.832,
+        "value": 0.5,
+        "quality": 0.949,
+        "supply": 0.5,
+        "tech": 0.296
+      },
+      "prob_up": {
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 120729,
+        "high": 133003
+      },
+      "targets": {
+        "bear": 113057,
+        "base": 166757,
+        "bull": 205114
+      },
+      "stop": 97714,
+      "verified": false,
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 47% — 관망"
+    },
+    {
+      "ticker": "204620",
+      "name": "글로벌텍스프리",
+      "market": "KR",
+      "sector": "",
+      "score": 87,
+      "factors": {
+        "momentum": 0.835,
+        "value": 0.5,
+        "quality": 0.967,
+        "supply": 0.5,
+        "tech": 0.931
+      },
+      "prob_up": {
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 5545,
+        "high": 5745
+      },
+      "targets": {
+        "bear": 5419,
+        "base": 6297,
+        "bull": 6924
+      },
+      "stop": 5169,
+      "verified": false,
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 47% — 관망"
+    },
+    {
+      "ticker": "001530",
+      "name": "DI동일",
+      "market": "KR",
+      "sector": "",
+      "score": 86,
+      "factors": {
+        "momentum": 0.865,
+        "value": 0.5,
+        "quality": 0.439,
+        "supply": 0.5,
+        "tech": 0.737
+      },
+      "prob_up": {
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 24136,
+        "high": 25119
+      },
+      "targets": {
+        "bear": 23521,
+        "base": 27821,
+        "bull": 30893
+      },
+      "stop": 22293,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 47% — 관망"
+    },
+    {
+      "ticker": "078930",
+      "name": "GS",
+      "market": "KR",
+      "sector": "",
+      "score": 86,
+      "factors": {
+        "momentum": 0.85,
+        "value": 0.5,
+        "quality": 0.657,
+        "supply": 0.5,
+        "tech": 0.737
+      },
+      "prob_up": {
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 79796,
+        "high": 84202
+      },
+      "targets": {
+        "bear": 77043,
+        "base": 96318,
+        "bull": 110086
+      },
+      "stop": 71536,
+      "verified": false,
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 47% — 관망"
+    },
+    {
+      "ticker": "013580",
+      "name": "계룡건설",
+      "market": "KR",
+      "sector": "",
+      "score": 86,
+      "factors": {
+        "momentum": 0.878,
+        "value": 0.5,
+        "quality": 0.218,
+        "supply": 0.5,
+        "tech": 0.931
+      },
+      "prob_up": {
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 23593,
+        "high": 24964
+      },
+      "targets": {
+        "bear": 22736,
+        "base": 28736,
+        "bull": 33021
+      },
+      "stop": 21021,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 47% — 관망"
+    },
+    {
+      "ticker": "032640",
+      "name": "LG유플러스",
+      "market": "KR",
+      "sector": "",
+      "score": 85,
+      "factors": {
+        "momentum": 0.853,
+        "value": 0.5,
+        "quality": 0.515,
+        "supply": 0.5,
+        "tech": 0.931
+      },
+      "prob_up": {
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 15591,
+        "high": 16150
+      },
+      "targets": {
+        "bear": 15241,
+        "base": 17686,
+        "bull": 19433
+      },
+      "stop": 14543,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 47% — 관망"
+    },
+    {
+      "ticker": "010950",
+      "name": "S-Oil",
+      "market": "KR",
+      "sector": "",
+      "score": 84,
+      "factors": {
+        "momentum": 0.855,
+        "value": 0.5,
+        "quality": 0.198,
+        "supply": 0.5,
+        "tech": 0.737
+      },
+      "prob_up": {
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 100900,
+        "high": 107300
+      },
+      "targets": {
+        "bear": 96900,
+        "base": 124900,
+        "bull": 144900
+      },
+      "stop": 88900,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 47% — 관망"
+    },
+    {
+      "ticker": "018670",
+      "name": "SK가스",
+      "market": "KR",
+      "sector": "",
+      "score": 84,
+      "factors": {
+        "momentum": 0.843,
+        "value": 0.5,
+        "quality": 0.434,
+        "supply": 0.5,
+        "tech": 0.931
+      },
+      "prob_up": {
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 233625,
+        "high": 244625
+      },
+      "targets": {
+        "bear": 226750,
+        "base": 274875,
+        "bull": 309250
+      },
+      "stop": 213000,
+      "verified": false,
+      "note": "모멘텀 강세 · 20일 상승확률 47% — 관망"
+    },
+    {
+      "ticker": "083450",
+      "name": "GST",
+      "market": "KR",
+      "sector": "",
+      "score": 83,
+      "factors": {
+        "momentum": 0.799,
+        "value": 0.5,
+        "quality": 0.937,
+        "supply": 0.5,
+        "tech": 0.737
+      },
+      "prob_up": {
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
+      },
+      "signal": "watch",
+      "entry": {
+        "low": 34825,
+        "high": 37825
+      },
+      "targets": {
+        "bear": 32950,
+        "base": 46075,
+        "bull": 55450
+      },
+      "stop": 29200,
+      "verified": false,
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 47% — 관망"
     },
     {
       "ticker": "011200",
       "name": "HMM",
       "market": "KR",
       "sector": "",
-      "score": 89,
+      "score": 83,
       "factors": {
-        "momentum": 0.855,
+        "momentum": 0.815,
         "value": 0.5,
-        "quality": 0.778,
+        "quality": 0.888,
         "supply": 0.5,
-        "tech": 0.899
+        "tech": 0.931
       },
       "prob_up": {
-        "d5": 0.504,
-        "d20": 0.533,
-        "d60": 0.581
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
       },
       "signal": "watch",
       "entry": {
-        "low": 21541,
-        "high": 22195
+        "low": 20095,
+        "high": 20823
       },
       "targets": {
-        "bear": 21132,
-        "base": 23995,
-        "bull": 26039
+        "bear": 19639,
+        "base": 22827,
+        "bull": 25104
       },
-      "stop": 20314,
+      "stop": 18729,
       "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 53% — 관망"
+      "note": "모멘텀 강세·수익성 우수 · 20일 상승확률 47% — 관망"
     },
     {
-      "ticker": "192820",
-      "name": "코스맥스",
+      "ticker": "034730",
+      "name": "SK",
       "market": "KR",
       "sector": "",
-      "score": 89,
+      "score": 82,
       "factors": {
-        "momentum": 0.949,
+        "momentum": 0.838,
         "value": 0.5,
-        "quality": 0.485,
+        "quality": 0.365,
         "supply": 0.5,
-        "tech": 0.638
+        "tech": 0.737
       },
       "prob_up": {
-        "d5": 0.504,
-        "d20": 0.533,
-        "d60": 0.581
+        "d5": 0.47,
+        "d20": 0.471,
+        "d60": 0.474
       },
       "signal": "watch",
       "entry": {
-        "low": 246286,
-        "high": 260229
+        "low": 454018,
+        "high": 485989
       },
       "targets": {
-        "bear": 237571,
-        "base": 298571,
-        "bull": 342143
+        "bear": 434036,
+        "base": 573911,
+        "bull": 673821
       },
-      "stop": 220143,
+      "stop": 394071,
       "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 53% — 관망"
-    },
-    {
-      "ticker": "059090",
-      "name": "미코",
-      "market": "KR",
-      "sector": "",
-      "score": 89,
-      "factors": {
-        "momentum": 0.852,
-        "value": 0.5,
-        "quality": 0.342,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.504,
-        "d20": 0.533,
-        "d60": 0.581
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 17912,
-        "high": 19861
-      },
-      "targets": {
-        "bear": 16694,
-        "base": 25219,
-        "bull": 31309
-      },
-      "stop": 14259,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 53% — 관망"
-    },
-    {
-      "ticker": "009150",
-      "name": "삼성전기",
-      "market": "KR",
-      "sector": "",
-      "score": 88,
-      "factors": {
-        "momentum": 0.944,
-        "value": 0.5,
-        "quality": 0.707,
-        "supply": 0.5,
-        "tech": 0.638
-      },
-      "prob_up": {
-        "d5": 0.504,
-        "d20": 0.533,
-        "d60": 0.581
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 839286,
-        "high": 926829
-      },
-      "targets": {
-        "bear": 784571,
-        "base": 1167571,
-        "bull": 1441143
-      },
-      "stop": 675143,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 53% — 관망"
-    },
-    {
-      "ticker": "004370",
-      "name": "농심",
-      "market": "KR",
-      "sector": "",
-      "score": 88,
-      "factors": {
-        "momentum": 0.844,
-        "value": 0.5,
-        "quality": 0.696,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.504,
-        "d20": 0.533,
-        "d60": 0.581
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 398098,
-        "high": 408341
-      },
-      "targets": {
-        "bear": 391696,
-        "base": 436509,
-        "bull": 468518
-      },
-      "stop": 378893,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 53% — 관망"
-    },
-    {
-      "ticker": "030530",
-      "name": "원익홀딩스",
-      "market": "KR",
-      "sector": "",
-      "score": 88,
-      "factors": {
-        "momentum": 0.847,
-        "value": 0.5,
-        "quality": 0.566,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.504,
-        "d20": 0.533,
-        "d60": 0.581
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 27138,
-        "high": 29798
-      },
-      "targets": {
-        "bear": 25475,
-        "base": 37112,
-        "bull": 45425
-      },
-      "stop": 22150,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 53% — 관망"
-    },
-    {
-      "ticker": "006360",
-      "name": "GS건설",
-      "market": "KR",
-      "sector": "",
-      "score": 86,
-      "factors": {
-        "momentum": 0.804,
-        "value": 0.5,
-        "quality": 0.217,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.504,
-        "d20": 0.533,
-        "d60": 0.581
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 28645,
-        "high": 30493
-      },
-      "targets": {
-        "bear": 27489,
-        "base": 35577,
-        "bull": 41354
-      },
-      "stop": 25179,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 53% — 관망"
-    },
-    {
-      "ticker": "030000",
-      "name": "제일기획",
-      "market": "KR",
-      "sector": "",
-      "score": 86,
-      "factors": {
-        "momentum": 0.824,
-        "value": 0.5,
-        "quality": 0.612,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.504,
-        "d20": 0.533,
-        "d60": 0.581
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 19337,
-        "high": 19758
-      },
-      "targets": {
-        "bear": 19074,
-        "base": 20914,
-        "bull": 22229
-      },
-      "stop": 18549,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 53% — 관망"
-    },
-    {
-      "ticker": "090430",
-      "name": "아모레퍼시픽",
-      "market": "KR",
-      "sector": "",
-      "score": 86,
-      "factors": {
-        "momentum": 0.801,
-        "value": 0.5,
-        "quality": 0.699,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.504,
-        "d20": 0.533,
-        "d60": 0.581
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 129389,
-        "high": 134526
-      },
-      "targets": {
-        "bear": 126179,
-        "base": 148654,
-        "bull": 164707
-      },
-      "stop": 119757,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 53% — 관망"
-    },
-    {
-      "ticker": "316140",
-      "name": "우리금융지주",
-      "market": "KR",
-      "sector": "",
-      "score": 85,
-      "factors": {
-        "momentum": 0.76,
-        "value": 0.5,
-        "quality": 0.026,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.504,
-        "d20": 0.533,
-        "d60": 0.581
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 31088,
-        "high": 32068
-      },
-      "targets": {
-        "bear": 30475,
-        "base": 34762,
-        "bull": 37825
-      },
-      "stop": 29250,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 53% — 관망"
-    },
-    {
-      "ticker": "003160",
-      "name": "디아이",
-      "market": "KR",
-      "sector": "",
-      "score": 85,
-      "factors": {
-        "momentum": 0.791,
-        "value": 0.5,
-        "quality": 0.551,
-        "supply": 0.5,
-        "tech": 0.899
-      },
-      "prob_up": {
-        "d5": 0.504,
-        "d20": 0.533,
-        "d60": 0.581
-      },
-      "signal": "watch",
-      "entry": {
-        "low": 23780,
-        "high": 27572
-      },
-      "targets": {
-        "bear": 21411,
-        "base": 37998,
-        "bull": 49846
-      },
-      "stop": 16671,
-      "verified": false,
-      "note": "모멘텀 강세·추세 정렬 양호 · 20일 상승확률 53% — 관망"
-    },
-    {
-      "ticker": "CNC",
-      "name": "Centene Corporation",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 100,
-      "factors": {
-        "momentum": 0.987,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 72.35,
-        "high": 75.26
-      },
-      "targets": {
-        "bear": 70.54,
-        "base": 83.25,
-        "bull": 92.32
-      },
-      "stop": 66.91,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "모멘텀 강세 · 20일 상승확률 47% — 관망"
     },
     {
       "ticker": "MRNA",
@@ -1440,282 +1408,154 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 229.95,
-        "high": 248.37
+        "low": 257.17,
+        "high": 276.1
       },
       "targets": {
-        "bear": 218.44,
-        "base": 299.01,
-        "bull": 356.56
+        "bear": 245.34,
+        "base": 328.16,
+        "bull": 387.32
       },
-      "stop": 195.42,
+      "stop": 221.67,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
-      "ticker": "BDX",
-      "name": "Becton Dickinson",
+      "ticker": "CRL",
+      "name": "Charles River Laboratories",
       "market": "US",
       "sector": "Health Care",
       "score": 99,
       "factors": {
-        "momentum": 0.97,
+        "momentum": 0.987,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 211.39,
-        "high": 214.85
+        "low": 343.15,
+        "high": 359.46
       },
       "targets": {
-        "bear": 209.23,
-        "base": 224.36,
-        "bull": 235.16
+        "bear": 332.95,
+        "base": 404.3,
+        "bull": 455.27
       },
-      "stop": 204.91,
+      "stop": 312.57,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
-    },
-    {
-      "ticker": "ACN",
-      "name": "Accenture",
-      "market": "US",
-      "sector": "Information Technology",
-      "score": 99,
-      "factors": {
-        "momentum": 0.985,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 259.26,
-        "high": 268.7
-      },
-      "targets": {
-        "bear": 253.35,
-        "base": 294.68,
-        "bull": 324.2
-      },
-      "stop": 241.54,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
-    },
-    {
-      "ticker": "MAR",
-      "name": "Marriott International",
-      "market": "US",
-      "sector": "Consumer Discretionary",
-      "score": 98,
-      "factors": {
-        "momentum": 0.96,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 411.93,
-        "high": 420.49
-      },
-      "targets": {
-        "bear": 406.58,
-        "base": 444.04,
-        "bull": 470.79
-      },
-      "stop": 395.88,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
-    },
-    {
-      "ticker": "PTC",
-      "name": "PTC Inc.",
-      "market": "US",
-      "sector": "Information Technology",
-      "score": 98,
-      "factors": {
-        "momentum": 0.962,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 194.11,
-        "high": 194.9
-      },
-      "targets": {
-        "bear": 193.61,
-        "base": 197.07,
-        "bull": 199.53
-      },
-      "stop": 192.63,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
       "ticker": "KDP",
       "name": "Keurig Dr Pepper",
       "market": "US",
       "sector": "Consumer Staples",
-      "score": 98,
+      "score": 99,
       "factors": {
-        "momentum": 0.967,
+        "momentum": 0.98,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 36.37,
-        "high": 37.2
+        "low": 36.39,
+        "high": 37.27
       },
       "targets": {
         "bear": 35.85,
-        "base": 39.49,
-        "bull": 42.09
+        "base": 39.67,
+        "bull": 42.39
       },
-      "stop": 34.81,
+      "stop": 34.76,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
-      "ticker": "ABBV",
-      "name": "AbbVie",
+      "ticker": "HUM",
+      "name": "Humana",
       "market": "US",
       "sector": "Health Care",
-      "score": 97,
+      "score": 98,
       "factors": {
-        "momentum": 0.947,
+        "momentum": 0.962,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 284.44,
-        "high": 290.52
+        "low": 415.24,
+        "high": 428.01
       },
       "targets": {
-        "bear": 280.65,
-        "base": 307.22,
-        "bull": 326.19
+        "bear": 407.25,
+        "base": 463.14,
+        "bull": 503.06
       },
-      "stop": 273.06,
+      "stop": 391.28,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
-      "ticker": "MCK",
-      "name": "McKesson",
+      "ticker": "BDX",
+      "name": "Becton Dickinson",
       "market": "US",
       "sector": "Health Care",
-      "score": 97,
+      "score": 98,
       "factors": {
-        "momentum": 0.952,
+        "momentum": 0.965,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 1057.47,
-        "high": 1080.72
+        "low": 212.87,
+        "high": 216.68
       },
       "targets": {
-        "bear": 1042.95,
-        "base": 1144.63,
-        "bull": 1217.27
+        "bear": 210.49,
+        "base": 227.14,
+        "bull": 239.03
       },
-      "stop": 1013.89,
+      "stop": 205.74,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
-    },
-    {
-      "ticker": "GILD",
-      "name": "Gilead Sciences",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 97,
-      "factors": {
-        "momentum": 0.957,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 164.84,
-        "high": 169.21
-      },
-      "targets": {
-        "bear": 162.1,
-        "base": 181.24,
-        "bull": 194.92
-      },
-      "stop": 156.63,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
       "ticker": "CBOE",
@@ -1724,30 +1564,126 @@
       "sector": "Financials",
       "score": 97,
       "factors": {
+        "momentum": 0.952,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 346.05,
+        "high": 356.82
+      },
+      "targets": {
+        "bear": 339.32,
+        "base": 386.44,
+        "bull": 420.1
+      },
+      "stop": 325.85,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "MAR",
+      "name": "Marriott International",
+      "market": "US",
+      "sector": "Consumer Discretionary",
+      "score": 97,
+      "factors": {
         "momentum": 0.95,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 346.34,
-        "high": 357.11
+        "low": 411.41,
+        "high": 420.61
       },
       "targets": {
-        "bear": 339.61,
-        "base": 386.72,
-        "bull": 420.38
+        "bear": 405.66,
+        "base": 445.9,
+        "bull": 474.64
       },
-      "stop": 326.15,
+      "stop": 394.17,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "PTC",
+      "name": "PTC Inc.",
+      "market": "US",
+      "sector": "Information Technology",
+      "score": 97,
+      "factors": {
+        "momentum": 0.957,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 195.35,
+        "high": 196.18
+      },
+      "targets": {
+        "bear": 194.84,
+        "base": 198.45,
+        "bull": 201.03
+      },
+      "stop": 193.8,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "GILD",
+      "name": "Gilead Sciences",
+      "market": "US",
+      "sector": "Health Care",
+      "score": 97,
+      "factors": {
+        "momentum": 0.955,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 166.57,
+        "high": 170.97
+      },
+      "targets": {
+        "bear": 163.82,
+        "base": 183.07,
+        "bull": 196.83
+      },
+      "stop": 158.32,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
       "ticker": "HLT",
@@ -1756,94 +1692,158 @@
       "sector": "Consumer Discretionary",
       "score": 96,
       "factors": {
-        "momentum": 0.94,
+        "momentum": 0.945,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 364.67,
-        "high": 372.62
+        "low": 368.38,
+        "high": 376.14
       },
       "targets": {
-        "bear": 359.71,
-        "base": 394.47,
-        "bull": 419.3
+        "bear": 363.53,
+        "base": 397.49,
+        "bull": 421.74
       },
-      "stop": 349.78,
+      "stop": 353.82,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
-      "ticker": "AMGN",
-      "name": "Amgen",
+      "ticker": "A",
+      "name": "Agilent Technologies",
       "market": "US",
       "sector": "Health Care",
       "score": 96,
       "factors": {
-        "momentum": 0.937,
+        "momentum": 0.94,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 453.88,
-        "high": 464.12
+        "low": 177.29,
+        "high": 181.9
       },
       "targets": {
-        "bear": 447.49,
-        "base": 492.26,
-        "bull": 524.24
+        "bear": 174.41,
+        "base": 194.57,
+        "bull": 208.97
       },
-      "stop": 434.7,
+      "stop": 168.65,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
-      "ticker": "MO",
-      "name": "Altria",
+      "ticker": "ABBV",
+      "name": "AbbVie",
       "market": "US",
-      "sector": "Consumer Staples",
+      "sector": "Health Care",
       "score": 96,
       "factors": {
-        "momentum": 0.942,
+        "momentum": 0.947,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 76.66,
-        "high": 78.13
+        "low": 289.43,
+        "high": 295.62
       },
       "targets": {
-        "bear": 75.74,
-        "base": 82.17,
-        "bull": 86.76
+        "bear": 285.57,
+        "base": 312.63,
+        "bull": 331.97
       },
-      "stop": 73.91,
+      "stop": 277.83,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "EL",
+      "name": "Estée Lauder Companies (The)",
+      "market": "US",
+      "sector": "Consumer Staples",
+      "score": 95,
+      "factors": {
+        "momentum": 0.924,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 110.69,
+        "high": 114.64
+      },
+      "targets": {
+        "bear": 108.22,
+        "base": 125.52,
+        "bull": 137.88
+      },
+      "stop": 103.27,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Apple Inc.",
+      "market": "US",
+      "sector": "Information Technology",
+      "score": 95,
+      "factors": {
+        "momentum": 0.922,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 345.98,
+        "high": 353.52
+      },
+      "targets": {
+        "bear": 341.27,
+        "base": 374.23,
+        "bull": 397.78
+      },
+      "stop": 331.86,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
       "ticker": "LLY",
@@ -1856,90 +1856,26 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 1339.16,
-        "high": 1380.07
+        "low": 1385.75,
+        "high": 1427.67
       },
       "targets": {
-        "bear": 1313.59,
-        "base": 1492.58,
-        "bull": 1620.44
+        "bear": 1359.55,
+        "base": 1542.96,
+        "bull": 1673.97
       },
-      "stop": 1262.45,
+      "stop": 1307.14,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
-    },
-    {
-      "ticker": "CAH",
-      "name": "Cardinal Health",
-      "market": "US",
-      "sector": "Health Care",
-      "score": 95,
-      "factors": {
-        "momentum": 0.929,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 264.24,
-        "high": 269.97
-      },
-      "targets": {
-        "bear": 260.66,
-        "base": 285.73,
-        "bull": 303.64
-      },
-      "stop": 253.49,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
-    },
-    {
-      "ticker": "KO",
-      "name": "Coca-Cola Company (The)",
-      "market": "US",
-      "sector": "Consumer Staples",
-      "score": 95,
-      "factors": {
-        "momentum": 0.927,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 94.82,
-        "high": 96.28
-      },
-      "targets": {
-        "bear": 93.9,
-        "base": 100.3,
-        "bull": 104.87
-      },
-      "stop": 92.07,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
       "ticker": "EBAY",
@@ -1948,130 +1884,226 @@
       "sector": "Consumer Discretionary",
       "score": 94,
       "factors": {
-        "momentum": 0.924,
+        "momentum": 0.914,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 121.43,
-        "high": 124.5
+        "low": 118.99,
+        "high": 122.16
       },
       "targets": {
-        "bear": 119.52,
-        "base": 132.93,
-        "bull": 142.51
+        "bear": 117.0,
+        "base": 130.89,
+        "bull": 140.81
       },
-      "stop": 115.69,
+      "stop": 113.03,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
-      "ticker": "MDT",
-      "name": "Medtronic",
+      "ticker": "MO",
+      "name": "Altria",
       "market": "US",
-      "sector": "Health Care",
+      "sector": "Consumer Staples",
       "score": 94,
       "factors": {
-        "momentum": 0.922,
+        "momentum": 0.917,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 103.56,
-        "high": 105.61
+        "low": 74.86,
+        "high": 76.38
       },
       "targets": {
-        "bear": 102.28,
-        "base": 111.24,
-        "bull": 117.64
+        "bear": 73.91,
+        "base": 80.57,
+        "bull": 85.32
       },
-      "stop": 99.72,
+      "stop": 72.0,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
-      "ticker": "ICE",
-      "name": "Intercontinental Exchange",
+      "ticker": "ACN",
+      "name": "Accenture",
       "market": "US",
-      "sector": "Financials",
+      "sector": "Information Technology",
+      "score": 94,
+      "factors": {
+        "momentum": 0.909,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 248.45,
+        "high": 257.92
+      },
+      "targets": {
+        "bear": 242.53,
+        "base": 283.98,
+        "bull": 313.59
+      },
+      "stop": 230.68,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "KO",
+      "name": "Coca-Cola Company (The)",
+      "market": "US",
+      "sector": "Consumer Staples",
+      "score": 93,
+      "factors": {
+        "momentum": 0.899,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 95.05,
+        "high": 96.62
+      },
+      "targets": {
+        "bear": 94.07,
+        "base": 100.94,
+        "bull": 105.85
+      },
+      "stop": 92.1,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "CAH",
+      "name": "Cardinal Health",
+      "market": "US",
+      "sector": "Health Care",
+      "score": 93,
+      "factors": {
+        "momentum": 0.897,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 270.54,
+        "high": 276.54
+      },
+      "targets": {
+        "bear": 266.8,
+        "base": 293.02,
+        "bull": 311.75
+      },
+      "stop": 259.3,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "IQV",
+      "name": "IQVIA",
+      "market": "US",
+      "sector": "Health Care",
       "score": 93,
       "factors": {
         "momentum": 0.904,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 171.69,
-        "high": 175.39
+        "low": 273.5,
+        "high": 282.05
       },
       "targets": {
-        "bear": 169.38,
-        "base": 185.54,
-        "bull": 197.09
+        "bear": 268.15,
+        "base": 305.56,
+        "bull": 332.28
       },
-      "stop": 164.77,
+      "stop": 257.47,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
-      "ticker": "AAPL",
-      "name": "Apple Inc.",
+      "ticker": "MSI",
+      "name": "Motorola Solutions",
       "market": "US",
       "sector": "Information Technology",
       "score": 92,
       "factors": {
-        "momentum": 0.899,
+        "momentum": 0.882,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 339.72,
-        "high": 346.84
+        "low": 521.58,
+        "high": 531.8
       },
       "targets": {
-        "bear": 335.27,
-        "base": 366.43,
-        "bull": 388.68
+        "bear": 515.19,
+        "base": 559.93,
+        "bull": 591.88
       },
-      "stop": 326.37,
+      "stop": 502.4,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
-      "ticker": "PFE",
-      "name": "Pfizer",
+      "ticker": "AMGN",
+      "name": "Amgen",
       "market": "US",
       "sector": "Health Care",
       "score": 92,
@@ -2080,26 +2112,58 @@
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 29.51,
-        "high": 30.1
+        "low": 458.69,
+        "high": 469.15
       },
       "targets": {
-        "bear": 29.14,
-        "base": 31.73,
-        "bull": 33.58
+        "bear": 452.15,
+        "base": 497.94,
+        "bull": 530.64
       },
-      "stop": 28.4,
+      "stop": 439.06,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "MCK",
+      "name": "McKesson",
+      "market": "US",
+      "sector": "Health Care",
+      "score": 92,
+      "factors": {
+        "momentum": 0.894,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 1045.41,
+        "high": 1067.75
+      },
+      "targets": {
+        "bear": 1031.45,
+        "base": 1129.17,
+        "bull": 1198.98
+      },
+      "stop": 1003.53,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
       "ticker": "PG",
@@ -2108,94 +2172,94 @@
       "sector": "Consumer Staples",
       "score": 91,
       "factors": {
-        "momentum": 0.877,
+        "momentum": 0.879,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 165.29,
-        "high": 168.19
+        "low": 166.35,
+        "high": 169.5
       },
       "targets": {
-        "bear": 163.48,
-        "base": 176.15,
-        "bull": 185.2
+        "bear": 164.39,
+        "base": 178.15,
+        "bull": 187.97
       },
-      "stop": 159.86,
+      "stop": 160.46,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
-      "ticker": "ELV",
-      "name": "Elevance Health",
+      "ticker": "NDAQ",
+      "name": "Nasdaq, Inc.",
       "market": "US",
-      "sector": "Health Care",
+      "sector": "Financials",
       "score": 91,
       "factors": {
-        "momentum": 0.874,
+        "momentum": 0.866,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 424.64,
-        "high": 436.41
+        "low": 107.07,
+        "high": 109.36
       },
       "targets": {
-        "bear": 417.29,
-        "base": 468.78,
-        "bull": 505.55
+        "bear": 105.64,
+        "base": 115.64,
+        "bull": 122.78
       },
-      "stop": 402.58,
+      "stop": 102.79,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
-      "ticker": "ROP",
-      "name": "Roper Technologies",
+      "ticker": "ICE",
+      "name": "Intercontinental Exchange",
       "market": "US",
-      "sector": "Information Technology",
+      "sector": "Financials",
       "score": 91,
       "factors": {
         "momentum": 0.872,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
+        "d5": 0.548,
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 482.98,
-        "high": 495.75
+        "low": 171.72,
+        "high": 175.42
       },
       "targets": {
-        "bear": 475.0,
-        "base": 530.85,
-        "bull": 570.75
+        "bear": 169.4,
+        "base": 185.6,
+        "bull": 197.16
       },
-      "stop": 459.04,
+      "stop": 164.78,
       "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
       "ticker": "MA",
@@ -2204,92 +2268,92 @@
       "sector": "Financials",
       "score": 90,
       "factors": {
-        "momentum": 0.864,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.542,
-        "d20": 0.551,
-        "d60": 0.549
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 648.32,
-        "high": 660.48
-      },
-      "targets": {
-        "bear": 640.72,
-        "base": 693.91,
-        "bull": 731.91
-      },
-      "stop": 625.52,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 55% ·백테스트 검증 — 매수 후보"
-    },
-    {
-      "ticker": "ADP",
-      "name": "Automatic Data Processing",
-      "market": "US",
-      "sector": "Industrials",
-      "score": 90,
-      "factors": {
         "momentum": 0.861,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
         "d5": 0.548,
-        "d20": 0.562,
-        "d60": 0.546
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 302.99,
-        "high": 309.63
+        "low": 647.63,
+        "high": 660.72
       },
       "targets": {
-        "bear": 298.85,
-        "base": 327.87,
-        "bull": 348.6
+        "bear": 639.44,
+        "base": 696.73,
+        "bull": 737.65
       },
-      "stop": 290.55,
+      "stop": 623.08,
       "verified": true,
       "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
-      "ticker": "EW",
-      "name": "Edwards Lifesciences",
+      "ticker": "ABNB",
+      "name": "Airbnb",
       "market": "US",
-      "sector": "Health Care",
-      "score": 89,
+      "sector": "Consumer Discretionary",
+      "score": 90,
       "factors": {
-        "momentum": 0.846,
+        "momentum": 0.864,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
         "d5": 0.548,
-        "d20": 0.562,
-        "d60": 0.546
+        "d20": 0.559,
+        "d60": 0.569
       },
       "signal": "buy",
       "entry": {
-        "low": 99.31,
-        "high": 101.73
+        "low": 186.81,
+        "high": 192.38
       },
       "targets": {
-        "bear": 97.8,
-        "base": 108.37,
-        "bull": 115.91
+        "bear": 183.33,
+        "base": 207.69,
+        "bull": 225.1
       },
-      "stop": 94.78,
+      "stop": 176.37,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "XYZ",
+      "name": "Block, Inc.",
+      "market": "US",
+      "sector": "Financials",
+      "score": 89,
+      "factors": {
+        "momentum": 0.844,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.547,
+        "d20": 0.558,
+        "d60": 0.555
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 86.81,
+        "high": 89.61
+      },
+      "targets": {
+        "bear": 85.05,
+        "base": 97.32,
+        "bull": 106.09
+      },
+      "stop": 81.55,
       "verified": true,
       "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
@@ -2300,348 +2364,92 @@
       "sector": "Financials",
       "score": 89,
       "factors": {
-        "momentum": 0.851,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.548,
-        "d20": 0.562,
-        "d60": 0.546
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 303.62,
-        "high": 309.41
-      },
-      "targets": {
-        "bear": 300.01,
-        "base": 325.32,
-        "bull": 343.4
-      },
-      "stop": 292.77,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
-    },
-    {
-      "ticker": "CTAS",
-      "name": "Cintas",
-      "market": "US",
-      "sector": "Industrials",
-      "score": 89,
-      "factors": {
-        "momentum": 0.849,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.548,
-        "d20": 0.562,
-        "d60": 0.546
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 223.45,
-        "high": 228.19
-      },
-      "targets": {
-        "bear": 220.49,
-        "base": 241.21,
-        "bull": 256.02
-      },
-      "stop": 214.57,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
-    },
-    {
-      "ticker": "NDAQ",
-      "name": "Nasdaq, Inc.",
-      "market": "US",
-      "sector": "Financials",
-      "score": 88,
-      "factors": {
-        "momentum": 0.836,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.548,
-        "d20": 0.562,
-        "d60": 0.546
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 105.45,
-        "high": 107.66
-      },
-      "targets": {
-        "bear": 104.08,
-        "base": 113.71,
-        "bull": 120.58
-      },
-      "stop": 101.33,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
-    },
-    {
-      "ticker": "MSI",
-      "name": "Motorola Solutions",
-      "market": "US",
-      "sector": "Information Technology",
-      "score": 88,
-      "factors": {
-        "momentum": 0.834,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.548,
-        "d20": 0.562,
-        "d60": 0.546
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 511.25,
-        "high": 520.47
-      },
-      "targets": {
-        "bear": 505.49,
-        "base": 545.81,
-        "bull": 574.61
-      },
-      "stop": 493.97,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
-    },
-    {
-      "ticker": "CB",
-      "name": "Chubb Limited",
-      "market": "US",
-      "sector": "Financials",
-      "score": 88,
-      "factors": {
         "momentum": 0.839,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.548,
-        "d20": 0.562,
-        "d60": 0.546
+        "d5": 0.547,
+        "d20": 0.558,
+        "d60": 0.555
       },
       "signal": "buy",
       "entry": {
-        "low": 368.18,
-        "high": 373.7
+        "low": 300.71,
+        "high": 306.81
       },
       "targets": {
-        "bear": 364.72,
-        "base": 388.9,
-        "bull": 406.17
+        "bear": 296.9,
+        "base": 323.58,
+        "bull": 342.64
       },
-      "stop": 357.81,
+      "stop": 289.27,
       "verified": true,
       "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
-      "ticker": "AJG",
-      "name": "Arthur J. Gallagher & Co.",
+      "ticker": "FAST",
+      "name": "Fastenal",
       "market": "US",
-      "sector": "Financials",
+      "sector": "Industrials",
       "score": 88,
-      "factors": {
-        "momentum": 0.844,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.548,
-        "d20": 0.562,
-        "d60": 0.546
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 283.87,
-        "high": 290.65
-      },
-      "targets": {
-        "bear": 279.64,
-        "base": 309.3,
-        "bull": 330.48
-      },
-      "stop": 271.16,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
-    },
-    {
-      "ticker": "CL",
-      "name": "Colgate-Palmolive",
-      "market": "US",
-      "sector": "Consumer Staples",
-      "score": 87,
-      "factors": {
-        "momentum": 0.831,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.548,
-        "d20": 0.562,
-        "d60": 0.546
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 97.45,
-        "high": 99.43
-      },
-      "targets": {
-        "bear": 96.21,
-        "base": 104.89,
-        "bull": 111.08
-      },
-      "stop": 93.73,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
-    },
-    {
-      "ticker": "PGR",
-      "name": "Progressive Corporation",
-      "market": "US",
-      "sector": "Financials",
-      "score": 87,
-      "factors": {
-        "momentum": 0.816,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.548,
-        "d20": 0.562,
-        "d60": 0.546
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 230.72,
-        "high": 234.66
-      },
-      "targets": {
-        "bear": 228.26,
-        "base": 245.49,
-        "bull": 257.8
-      },
-      "stop": 223.33,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
-    },
-    {
-      "ticker": "MSCI",
-      "name": "MSCI",
-      "market": "US",
-      "sector": "Financials",
-      "score": 87,
       "factors": {
         "momentum": 0.821,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.548,
-        "d20": 0.562,
-        "d60": 0.546
+        "d5": 0.547,
+        "d20": 0.558,
+        "d60": 0.555
       },
       "signal": "buy",
       "entry": {
-        "low": 646.32,
-        "high": 661.67
+        "low": 53.87,
+        "high": 54.99
       },
       "targets": {
-        "bear": 636.72,
-        "base": 703.88,
-        "bull": 751.84
+        "bear": 53.18,
+        "base": 58.05,
+        "bull": 61.54
       },
-      "stop": 617.54,
+      "stop": 51.78,
       "verified": true,
       "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
     {
-      "ticker": "BRKB",
-      "name": "Berkshire Hathaway",
+      "ticker": "EW",
+      "name": "Edwards Lifesciences",
       "market": "US",
-      "sector": "Financials",
-      "score": 86,
+      "sector": "Health Care",
+      "score": 88,
       "factors": {
-        "momentum": 0.801,
+        "momentum": 0.829,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.548,
-        "d20": 0.562,
-        "d60": 0.546
+        "d5": 0.547,
+        "d20": 0.558,
+        "d60": 0.555
       },
       "signal": "buy",
       "entry": {
-        "low": 567.59,
-        "high": 575.18
+        "low": 103.04,
+        "high": 105.71
       },
       "targets": {
-        "bear": 562.85,
-        "base": 596.04,
-        "bull": 619.75
+        "bear": 101.37,
+        "base": 113.07,
+        "bull": 121.43
       },
-      "stop": 553.36,
-      "verified": true,
-      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
-    },
-    {
-      "ticker": "AMT",
-      "name": "American Tower",
-      "market": "US",
-      "sector": "Real Estate",
-      "score": 86,
-      "factors": {
-        "momentum": 0.811,
-        "value": 0.5,
-        "quality": 0.5,
-        "supply": 0.5,
-        "tech": 0.869
-      },
-      "prob_up": {
-        "d5": 0.548,
-        "d20": 0.562,
-        "d60": 0.546
-      },
-      "signal": "buy",
-      "entry": {
-        "low": 190.84,
-        "high": 195.88
-      },
-      "targets": {
-        "bear": 187.69,
-        "base": 209.73,
-        "bull": 225.47
-      },
-      "stop": 181.4,
+      "stop": 98.02,
       "verified": true,
       "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     },
@@ -2650,30 +2458,222 @@
       "name": "Regeneron Pharmaceuticals",
       "market": "US",
       "sector": "Health Care",
-      "score": 86,
+      "score": 88,
       "factors": {
-        "momentum": 0.806,
+        "momentum": 0.834,
         "value": 0.5,
         "quality": 0.5,
         "supply": 0.5,
-        "tech": 0.869
+        "tech": 0.858
       },
       "prob_up": {
-        "d5": 0.548,
-        "d20": 0.562,
-        "d60": 0.546
+        "d5": 0.547,
+        "d20": 0.558,
+        "d60": 0.555
       },
       "signal": "buy",
       "entry": {
-        "low": 886.22,
-        "high": 912.91
+        "low": 902.85,
+        "high": 930.22
       },
       "targets": {
-        "bear": 869.53,
-        "base": 986.32,
-        "bull": 1069.73
+        "bear": 885.74,
+        "base": 1005.5,
+        "bull": 1091.04
       },
-      "stop": 836.17,
+      "stop": 851.53,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "BRKB",
+      "name": "Berkshire Hathaway",
+      "market": "US",
+      "sector": "Financials",
+      "score": 87,
+      "factors": {
+        "momentum": 0.816,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.547,
+        "d20": 0.558,
+        "d60": 0.555
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 569.88,
+        "high": 578.47
+      },
+      "targets": {
+        "bear": 564.51,
+        "base": 602.11,
+        "bull": 628.96
+      },
+      "stop": 553.76,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "ADP",
+      "name": "Automatic Data Processing",
+      "market": "US",
+      "sector": "Industrials",
+      "score": 87,
+      "factors": {
+        "momentum": 0.819,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.547,
+        "d20": 0.558,
+        "d60": 0.555
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 297.72,
+        "high": 304.66
+      },
+      "targets": {
+        "bear": 293.38,
+        "base": 323.76,
+        "bull": 345.46
+      },
+      "stop": 284.7,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "DHR",
+      "name": "Danaher Corporation",
+      "market": "US",
+      "sector": "Health Care",
+      "score": 86,
+      "factors": {
+        "momentum": 0.796,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.547,
+        "d20": 0.558,
+        "d60": 0.555
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 231.22,
+        "high": 237.46
+      },
+      "targets": {
+        "bear": 227.31,
+        "base": 254.64,
+        "bull": 274.17
+      },
+      "stop": 219.5,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "CL",
+      "name": "Colgate-Palmolive",
+      "market": "US",
+      "sector": "Consumer Staples",
+      "score": 85,
+      "factors": {
+        "momentum": 0.791,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.547,
+        "d20": 0.558,
+        "d60": 0.555
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 96.61,
+        "high": 98.74
+      },
+      "targets": {
+        "bear": 95.29,
+        "base": 104.57,
+        "bull": 111.2
+      },
+      "stop": 92.63,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "MDT",
+      "name": "Medtronic",
+      "market": "US",
+      "sector": "Health Care",
+      "score": 85,
+      "factors": {
+        "momentum": 0.781,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.547,
+        "d20": 0.558,
+        "d60": 0.555
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 101.44,
+        "high": 103.6
+      },
+      "targets": {
+        "bear": 100.09,
+        "base": 109.53,
+        "bull": 116.28
+      },
+      "stop": 97.39,
+      "verified": true,
+      "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
+    },
+    {
+      "ticker": "MDLZ",
+      "name": "Mondelez International",
+      "market": "US",
+      "sector": "Consumer Staples",
+      "score": 84,
+      "factors": {
+        "momentum": 0.758,
+        "value": 0.5,
+        "quality": 0.5,
+        "supply": 0.5,
+        "tech": 0.858
+      },
+      "prob_up": {
+        "d5": 0.547,
+        "d20": 0.558,
+        "d60": 0.555
+      },
+      "signal": "buy",
+      "entry": {
+        "low": 65.57,
+        "high": 66.96
+      },
+      "targets": {
+        "bear": 64.7,
+        "base": 70.8,
+        "bull": 75.17
+      },
+      "stop": 62.95,
       "verified": true,
       "note": "추세 정렬 양호·모멘텀 강세 · 20일 상승확률 56% ·백테스트 검증 — 매수 후보"
     }
